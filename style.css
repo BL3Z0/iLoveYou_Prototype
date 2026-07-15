@@ -1,0 +1,170 @@
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Cormorant Garamond',serif;background:#2d2117;color:#4a2e18;min-height:100vh}
+.background-overlay{position:fixed;inset:0;background:linear-gradient(rgba(25,18,10,.5),rgba(25,18,10,.5)),url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80') center/cover;z-index:-2}
+.container{display:flex;justify-content:center;padding:30px}
+.scroll{background:#f5e7bf;width:min(92vw,800px);padding:40px;border-radius:8px;box-shadow:0 20px 50px rgba(0,0,0,.45);position:relative}
+.scroll:before,.scroll:after{content:'';position:absolute;left:0;width:100%;height:12px;background:radial-gradient(circle,#5a3415 18%,transparent 19%) repeat-x;background-size:18px 12px;opacity:.18}
+.scroll:before{top:-6px}.scroll:after{bottom:-6px;transform:rotate(180deg)}
+h1{font-family:Cinzel,serif;text-align:center}.subtitle{text-align:center;font-style:italic;margin:10px 0 20px}.divider{height:2px;background:#8b6a3f;margin:20px auto;width:70%}.address{margin-bottom:30px}.letter{font-family:'Great Vibes',cursive;font-size:2rem;line-height:1.8}.signature-line,.signature-name{text-align:right}.signature-name{font-size:2.4rem}.floating-buttons{position:fixed;right:15px;bottom:15px;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.music-group{display:flex;flex-direction:column;gap:6px;background:rgba(45,33,23,.55);padding:10px 12px;border-radius:16px;align-items:stretch}
+.music-label{color:#f5e7bf;font-family:'Cormorant Garamond',serif;font-size:.95rem;text-align:center;margin-bottom:2px}
+.song-btn{padding:8px 14px;border:none;border-radius:20px;background:#6d4a2b;color:#fff;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:.95rem;white-space:nowrap;transition:.25s}
+.song-btn:hover{background:#8b6a3f}
+.floating-buttons button#downloadBtn{padding:10px 16px;border:none;border-radius:25px;background:#6d4a2b;color:#fff;cursor:pointer}
+.floating-dust{position:fixed;inset:0;pointer-events:none}.dust{position:absolute;width:3px;height:3px;background:#fff6d5;border-radius:50%;opacity:.3;animation:f 12s linear infinite}@keyframes f{from{transform:translateY(100vh)}to{transform:translateY(-20vh) translateX(30px)}}
+.gallery{
+
+margin-top:80px;
+
+text-align:center;
+
+}
+
+.gallery h2{
+
+font-family:'Cinzel',serif;
+
+margin-bottom:40px;
+
+color:#6d4520;
+
+}
+
+.memory-grid{
+
+display:flex;
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+gap:25px;
+
+}
+
+.memory-grid img,
+
+.memory-grid video{
+
+width:130px;
+
+height:130px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:5px solid white;
+
+box-shadow:0 15px 35px rgba(0,0,0,.25);
+
+transition:.4s;
+
+cursor:pointer;
+
+}
+
+.memory-grid img:hover,
+
+.memory-grid video:hover{
+
+transform:scale(1.08);
+
+box-shadow:0 20px 45px rgba(0,0,0,.4);
+
+}
+
+.memory-grid-wrapper{
+
+position:relative;
+
+}
+
+.memory-note{
+
+position:absolute;
+
+top:50%;
+
+left:50%;
+
+transform:translate(-50%,-50%) rotate(-3deg);
+
+width:min(78%,340px);
+
+background:#fdf6e3;
+
+background-image:
+
+repeating-linear-gradient(rgba(139,106,63,.06) 0px, rgba(139,106,63,.06) 1px, transparent 1px, transparent 28px);
+
+padding:28px 24px 24px;
+
+border-radius:2px;
+
+box-shadow:
+
+0 18px 40px rgba(0,0,0,.35),
+
+0 2px 0 rgba(0,0,0,.08) inset;
+
+z-index:5;
+
+clip-path:polygon(
+
+1% 3%, 8% 0%, 20% 2%, 33% 0%, 48% 2%, 62% 0%, 77% 2%, 91% 0%, 100% 4%,
+
+98% 18%, 100% 33%, 97% 49%, 100% 65%, 98% 80%, 100% 96%,
+
+89% 99%, 74% 97%, 60% 100%, 45% 98%, 30% 100%, 16% 98%, 3% 100%,
+
+1% 84%, 3% 68%, 0% 52%, 2% 36%, 0% 20%
+
+);
+
+}
+
+.memory-note:before{
+
+content:'';
+
+position:absolute;
+
+top:-14px;
+
+left:50%;
+
+transform:translateX(-50%) rotate(4deg);
+
+width:70px;
+
+height:26px;
+
+background:rgba(230,220,190,.55);
+
+border:1px solid rgba(139,106,63,.25);
+
+box-shadow:0 4px 6px rgba(0,0,0,.15);
+
+}
+
+.memory-note p{
+
+font-family:'Cormorant Garamond',serif;
+
+font-size:1.05rem;
+
+line-height:1.6;
+
+color:#4a2e18;
+
+text-align:left;
+
+}
+
+@media (max-width:600px){
+
+.memory-note{width:88%;padding:22px 18px 18px;}
+
+.memory-note p{font-size:.95rem;}
+
+}
