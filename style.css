@@ -1,10 +1,13 @@
 *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Cormorant Garamond',serif;background:#2d2117;color:#4a2e18;min-height:100vh}
 .background-overlay{position:fixed;inset:0;background:linear-gradient(rgba(25,18,10,.5),rgba(25,18,10,.5)),url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80') center/cover;z-index:-2}
 .container{display:flex;justify-content:center;padding:30px}
-.scroll{background:#f5e7bf;width:min(92vw,800px);padding:40px;border-radius:8px;box-shadow:0 20px 50px rgba(0,0,0,.45);position:relative}
+.scroll{background:#f5e7bf;width:min(80vw,800px);padding:40px;border-radius:8px;box-shadow:0 20px 50px rgba(0,0,0,.45);position:relative;z-index:1}
 .scroll:before,.scroll:after{content:'';position:absolute;left:0;width:100%;height:12px;background:radial-gradient(circle,#5a3415 18%,transparent 19%) repeat-x;background-size:18px 12px;opacity:.18}
 .scroll:before{top:-6px}.scroll:after{bottom:-6px;transform:rotate(180deg)}
-h1{font-family:Cinzel,serif;text-align:center}.subtitle{text-align:center;font-style:italic;margin:10px 0 20px}.divider{height:2px;background:#8b6a3f;margin:20px auto;width:70%}.address{margin-bottom:30px}.letter{font-family:'Great Vibes',cursive;font-size:2rem;line-height:1.8}.signature-line,.signature-name{text-align:right}.signature-name{font-size:2.4rem}.floating-buttons{position:fixed;right:15px;bottom:15px;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+h1{font-family:Cinzel,serif;text-align:center}.subtitle{text-align:center;font-style:italic;margin:10px 0 20px}.divider{height:2px;background:#8b6a3f;margin:20px auto;width:70%}.address{margin-bottom:30px}.letter{font-family:'Great Vibes',cursive;font-size:2rem;line-height:1.8}.signature-line,.signature-name{text-align:right}.signature-name{font-size:2.4rem}.floating-buttons{position:fixed;right:15px;bottom:15px;display:flex;flex-direction:column;gap:10px;align-items:flex-end;z-index:1000}
+.lyrics-ticker{width:170px;max-width:55vw;height:20px;overflow:hidden;background:rgba(45,33,23,.4);border-radius:12px;position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12px,#000 calc(100% - 12px),transparent);mask-image:linear-gradient(90deg,transparent,#000 12px,#000 calc(100% - 12px),transparent)}
+.lyrics-track{position:absolute;top:50%;left:0;transform:translateY(-50%);white-space:nowrap;font-family:Arial,Helvetica,sans-serif;font-size:.62rem;letter-spacing:.02em;color:#f5e7bf;padding-left:100%;animation:scrollLyrics 14s linear infinite}
+@keyframes scrollLyrics{from{transform:translateY(-50%) translateX(0)}to{transform:translateY(-50%) translateX(-100%)}}
 .music-group{display:flex;flex-direction:column;gap:6px;background:rgba(45,33,23,.55);padding:10px 12px;border-radius:16px;align-items:stretch}
 .music-label{color:#f5e7bf;font-family:'Cormorant Garamond',serif;font-size:.95rem;text-align:center;margin-bottom:2px}
 .song-btn{padding:8px 14px;border:none;border-radius:20px;background:#6d4a2b;color:#fff;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:.95rem;white-space:nowrap;transition:.25s}
@@ -35,9 +38,17 @@ display:flex;
 
 flex-wrap:wrap;
 
+flex-direction:row;
+
 justify-content:center;
 
-gap:25px;
+align-items:flex-start;
+
+gap:14px;
+
+max-width:480px;
+
+margin:0 auto;
 
 }
 
@@ -45,21 +56,35 @@ gap:25px;
 
 .memory-grid video{
 
-width:130px;
+flex:0 0 auto;
 
-height:130px;
+width:80px;
+
+height:80px;
 
 border-radius:50%;
 
 object-fit:cover;
 
-border:5px solid white;
+border:4px solid white;
 
 box-shadow:0 15px 35px rgba(0,0,0,.25);
 
-transition:.4s;
+transition:transform .4s, box-shadow .4s;
 
 cursor:pointer;
+
+position:relative;
+
+z-index:1;
+
+}
+
+.memory-grid img:nth-child(even),
+
+.memory-grid video:nth-child(even){
+
+margin-top:28px;
 
 }
 
@@ -70,6 +95,8 @@ cursor:pointer;
 transform:scale(1.08);
 
 box-shadow:0 20px 45px rgba(0,0,0,.4);
+
+z-index:2;
 
 }
 
@@ -89,7 +116,7 @@ left:50%;
 
 transform:translate(-50%,-50%) rotate(-3deg);
 
-width:min(78%,340px);
+width:min(40%,180px);
 
 background:#fdf6e3;
 
@@ -97,7 +124,7 @@ background-image:
 
 repeating-linear-gradient(rgba(139,106,63,.06) 0px, rgba(139,106,63,.06) 1px, transparent 1px, transparent 28px);
 
-padding:28px 24px 24px;
+padding:14px 12px 12px;
 
 border-radius:2px;
 
@@ -129,15 +156,15 @@ content:'';
 
 position:absolute;
 
-top:-14px;
+top:-8px;
 
 left:50%;
 
 transform:translateX(-50%) rotate(4deg);
 
-width:70px;
+width:38px;
 
-height:26px;
+height:14px;
 
 background:rgba(230,220,190,.55);
 
@@ -151,9 +178,9 @@ box-shadow:0 4px 6px rgba(0,0,0,.15);
 
 font-family:'Cormorant Garamond',serif;
 
-font-size:1.05rem;
+font-size:.7rem;
 
-line-height:1.6;
+line-height:1.4;
 
 color:#4a2e18;
 
@@ -163,8 +190,62 @@ text-align:left;
 
 @media (max-width:600px){
 
-.memory-note{width:88%;padding:22px 18px 18px;}
+.memory-note{width:46%;padding:10px 9px 9px;}
 
-.memory-note p{font-size:.95rem;}
+.memory-note p{font-size:.62rem;line-height:1.35;}
+
+.memory-grid{max-width:320px;gap:10px;}
+
+.memory-grid img,
+
+.memory-grid video{width:52px;height:52px;border-width:3px;}
+
+.memory-grid img:nth-child(even),
+
+.memory-grid video:nth-child(even){margin-top:20px;}
+
+}
+
+@media (max-width:768px){
+
+.container{padding:16px}
+
+.scroll{width:82vw;padding:24px 18px}
+
+h1{font-size:1.6rem}
+
+.subtitle{font-size:.95rem}
+
+.address p{font-size:.95rem}
+
+.letter{font-size:1.1rem;line-height:1.55}
+
+.signature-name{font-size:1.8rem}
+
+.signature-line{font-size:1.1rem}
+
+.gallery h2{font-size:1.3rem}
+
+}
+
+@media (max-width:420px){
+
+.scroll{width:85vw;padding:18px 14px}
+
+h1{font-size:1.35rem}
+
+.letter{font-size:1rem;line-height:1.5}
+
+.signature-name{font-size:1.5rem}
+
+.floating-buttons{right:10px;bottom:10px}
+
+.lyrics-ticker{width:130px;height:18px}
+
+.lyrics-track{font-size:.58rem}
+
+.music-group{padding:8px 10px}
+
+.song-btn{padding:7px 12px;font-size:.85rem}
 
 }
