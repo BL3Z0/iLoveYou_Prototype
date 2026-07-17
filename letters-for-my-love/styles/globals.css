@@ -8,7 +8,7 @@
   }
   
   body {
-    @apply bg-white text-gray-900 antialiased;
+    @apply bg-cream text-dark-charcoal antialiased;
   }
 }
 
@@ -22,43 +22,26 @@
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - Red theme */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100;
+  @apply bg-cream;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-rose-300 rounded-full;
+  background: #8B0000;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-rose-400;
+  background: #DC143C;
 }
 
-/* Smooth loading transitions */
-.fade-enter {
-  opacity: 0;
-}
-
-.fade-enter-active {
-  opacity: 1;
-  transition: opacity 300ms ease-in;
-}
-
-.fade-exit {
-  opacity: 1;
-}
-
-.fade-exit-active {
-  opacity: 0;
-  transition: opacity 300ms ease-in;
-}
-/* Floating hearts animation for celebration */
+/* Animations */
 @keyframes floatHeart {
   0% {
     transform: translateY(0) rotate(0deg);
@@ -67,5 +50,59 @@
   100% {
     transform: translateY(-110vh) rotate(720deg);
     opacity: 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 60px rgba(139, 0, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 100px rgba(139, 0, 0, 0.7);
+  }
+}
+
+@layer utilities {
+  .bg-cream {
+    background-color: #FFF8F0;
+  }
+  .bg-warm-white {
+    background-color: #FFFAF7;
+  }
+  .bg-deep-crimson {
+    background-color: #8B0000;
+  }
+  .bg-crimson {
+    background-color: #DC143C;
+  }
+  .bg-velvet {
+    background-color: #4A0E0E;
+  }
+  .bg-royal-red {
+    background-color: #9B1B30;
+  }
+  .bg-ruby {
+    background-color: #E0115F;
+  }
+  .text-deep-crimson {
+    color: #8B0000;
+  }
+  .text-crimson {
+    color: #DC143C;
+  }
+  .text-royal-red {
+    color: #9B1B30;
+  }
+  .text-ruby {
+    color: #E0115F;
   }
 }
