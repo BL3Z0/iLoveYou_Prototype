@@ -1,5 +1,3 @@
-// Create placeholder - Copy full code from the guide 
-// components/AudioPlayer.js
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
@@ -57,13 +55,13 @@ export default function AudioPlayer({ src }) {
   };
 
   return (
-    <div className="bg-white rounded-xl p-4 shadow-md border border-rose-100">
+    <div className="bg-cream rounded-xl p-4 shadow-md border border-soft-gold/20">
       <audio ref={audioRef} src={src} />
       
       <div className="flex items-center gap-4">
         <button
           onClick={togglePlay}
-          className="w-10 h-10 rounded-full bg-rose-400 text-white flex items-center justify-center hover:bg-rose-500 transition-colors"
+          className="w-10 h-10 rounded-full bg-gradient-to-r from-deep-rose to-burgundy text-white flex items-center justify-center hover:shadow-rose-glow transition-all duration-300 shadow-md"
         >
           {isPlaying ? '⏸' : '▶️'}
         </button>
@@ -74,17 +72,17 @@ export default function AudioPlayer({ src }) {
             onClick={handleSeek}
           >
             <div
-              className="h-full bg-gradient-to-r from-rose-300 to-rose-500 rounded-full transition-all duration-100"
+              className="h-full bg-gradient-to-r from-soft-gold via-deep-rose to-burgundy rounded-full transition-all duration-100"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <div className="flex justify-between text-xs text-gray-400 mt-1">
+          <div className="flex justify-between text-xs text-dark-charcoal/50 mt-1">
             <span>{formatTime(audioRef.current?.currentTime)}</span>
             <span>{formatTime(duration)}</span>
           </div>
         </div>
 
-        <button className="text-gray-400 hover:text-rose-400 transition-colors text-sm">
+        <button className="text-dark-charcoal/40 hover:text-deep-rose transition-colors text-sm">
           🔄
         </button>
       </div>
