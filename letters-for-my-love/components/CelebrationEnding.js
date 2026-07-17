@@ -4,7 +4,6 @@ import confetti from 'canvas-confetti';
 
 export default function CelebrationEnding({ onViewMemoryBox }) {
   const [showContent, setShowContent] = useState(false);
-  const [showConfetti, setShowConfetti] = useState(true);
   const heartsInterval = useRef(null);
 
   useEffect(() => {
@@ -28,20 +27,18 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
       confetti({
         ...defaults,
         particleCount,
+        colors: ['#DC143C', '#8B0000', '#D4AF37', '#E0115F', '#F5D6A8'],
         origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
       });
       confetti({
         ...defaults,
         particleCount,
+        colors: ['#DC143C', '#8B0000', '#D4AF37', '#E0115F', '#F5D6A8'],
         origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
       });
     }, 250);
 
-    // Show content after confetti starts
     setTimeout(() => setShowContent(true), 2000);
-
-    // Stop confetti after 8 seconds
-    setTimeout(() => setShowConfetti(false), 8000);
 
     // Create floating hearts
     const createHeart = () => {
@@ -50,8 +47,8 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
       heart.style.position = 'fixed';
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.bottom = '-20px';
-      heart.style.fontSize = Math.random() * 30 + 20 + 'px';
-      heart.style.opacity = Math.random() * 0.5 + 0.3;
+      heart.style.fontSize = Math.random() * 40 + 20 + 'px';
+      heart.style.opacity = Math.random() * 0.6 + 0.2;
       heart.style.animation = `floatHeart ${Math.random() * 6 + 4}s linear forwards`;
       heart.style.zIndex = '0';
       document.body.appendChild(heart);
@@ -66,14 +63,12 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
     return () => {
       clearInterval(interval);
       clearInterval(heartsInterval.current);
-      // Clean up hearts
       document.querySelectorAll('[style*="floatHeart"]').forEach(el => el.remove());
     };
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-rose-50 via-white to-ivory flex items-center justify-center px-4 relative overflow-hidden">
-      {/* Background hearts */}
+    <div className="min-h-screen bg-gradient-to-b from-velvet via-deep-crimson to-royal-red flex items-center justify-center px-4 relative overflow-hidden">
       <style jsx>{`
         @keyframes floatHeart {
           0% {
@@ -85,6 +80,21 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
             opacity: 0;
           }
         }
+        @keyframes shimmerText {
+          0% {
+            background-position: -200% center;
+          }
+          100% {
+            background-position: 200% center;
+          }
+        }
+        .shimmer-gold {
+          background: linear-gradient(90deg, #D4AF37, #F5D6A8, #D4AF37, #F5D6A8, #D4AF37);
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: shimmerText 3s linear infinite;
+        }
       `}</style>
 
       <motion.div
@@ -93,7 +103,7 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
         transition={{ duration: 1, delay: 1 }}
         className="max-w-2xl w-full text-center relative z-10"
       >
-        <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-rose-100">
+        <div className="bg-cream/95 backdrop-blur-lg rounded-3xl p-12 shadow-2xl border border-soft-gold/30">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -107,7 +117,7 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.8 }}
-            className="font-serif text-4xl md:text-5xl text-rose-700 mb-4"
+            className="font-serif text-4xl md:text-5xl text-deep-crimson mb-4"
           >
             Five letters.
           </motion.h1>
@@ -116,7 +126,7 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 2.1 }}
-            className="font-serif text-4xl md:text-5xl text-rose-500 mb-2"
+            className="font-serif text-4xl md:text-5xl text-crimson mb-2"
           >
             Five beautiful hearts.
           </motion.h2>
@@ -125,7 +135,7 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 2.4 }}
-            className="font-serif text-3xl md:text-4xl text-rose-600 mb-6"
+            className="font-serif text-3xl md:text-4xl text-soft-gold mb-6"
           >
             One unforgettable birthday.
           </motion.h3>
@@ -143,7 +153,7 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 3 }}
-            className="text-3xl text-rose-600 font-serif mb-2"
+            className="text-3xl font-serif text-deep-crimson mb-2"
           >
             Happy 20th Birthday.
           </motion.p>
@@ -152,7 +162,7 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 3.3 }}
-            className="text-2xl text-rose-400 font-serif italic mb-8"
+            className="text-2xl text-crimson font-serif italic mb-8"
           >
             I love you.
           </motion.p>
@@ -161,7 +171,7 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 3.6 }}
-            className="text-xl text-rose-300 font-serif mb-10"
+            className="text-xl shimmer-gold font-serif mb-10"
           >
             Forever.
           </motion.p>
@@ -173,7 +183,7 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={onViewMemoryBox}
-            className="px-8 py-4 bg-gradient-to-r from-rose-400 to-rose-500 text-white rounded-full text-lg font-medium shadow-lg hover:shadow-rose-200/50 transition-all duration-300"
+            className="px-8 py-4 bg-gradient-to-r from-deep-crimson to-ruby text-white rounded-full text-lg font-medium shadow-luxury hover:shadow-royal transition-all duration-300"
           >
             📦 Open Memory Box
           </motion.button>
