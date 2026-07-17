@@ -77,11 +77,10 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
 
   // ============================================
   // FINAL ENVELOPE - PURE ROYAL RED
-  // NO GOLD ANYWHERE!
+  // USING 100% INLINE STYLES - NO TAILWIND!
   // ============================================
   return (
     <>
-      {/* Sparkle Effect - GOLD SPARKLES ONLY */}
       <SparkleEffect isActive={showSparkles} />
 
       <motion.div
@@ -90,73 +89,139 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
         exit={{ opacity: 0, scale: 0.8 }}
         className="relative cursor-pointer"
         onClick={handleClick}
+        style={{ position: 'relative' }}
       >
-        <div className="relative w-96 h-64">
-          {/* PURE ROYAL RED Envelope Body */}
+        <div style={{ position: 'relative', width: '384px', height: '256px' }}>
+          {/* PURE ROYAL RED Envelope - INLINE STYLES ONLY */}
           <motion.div
-            className="absolute inset-0 rounded-xl shadow-2xl"
             style={{
-              background: 'linear-gradient(145deg, #1a0000, #4a0000, #6b0000, #4a0000, #1a0000)',
+              position: 'absolute',
+              inset: 0,
+              borderRadius: '12px',
+              background: '#4a0000',
               border: '3px solid #8B0000',
               boxShadow: '0 0 80px rgba(139, 0, 0, 0.8), inset 0 0 80px rgba(139, 0, 0, 0.5)',
             }}
             animate={isOpening ? { scale: 1.05 } : { scale: 1 }}
           >
-            {/* Deep red glow - NO GOLD */}
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-[#1a0000]/80 via-transparent to-[#6b0000]/20 pointer-events-none" />
-            <div className="absolute inset-[3px] rounded-xl border border-[#8B0000]/30 pointer-events-none" />
+            {/* Deep red inner glow */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              borderRadius: '12px',
+              background: 'radial-gradient(ellipse at center, #6b0000, #4a0000, #2a0000)',
+            }} />
+            
+            {/* Inner border */}
+            <div style={{
+              position: 'absolute',
+              inset: '3px',
+              borderRadius: '10px',
+              border: '1px solid rgba(139, 0, 0, 0.3)',
+            }} />
 
-            {/* Envelope Flap with Giant Rose - NO GOLD */}
+            {/* Envelope Flap with Giant Rose */}
             <motion.div
-              className="absolute inset-0"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                borderRadius: '12px',
+                overflow: 'hidden',
+              }}
               animate={isOpening ? { rotateX: 180 } : { rotateX: 0 }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
-              style={{ transformOrigin: 'top', backfaceVisibility: 'hidden' }}
+              style={{ 
+                transformOrigin: 'top', 
+                backfaceVisibility: 'hidden',
+                position: 'absolute',
+                inset: 0,
+                borderRadius: '12px',
+              }}
             >
-              <div 
-                className="absolute inset-0 rounded-xl"
-                style={{
-                  background: 'linear-gradient(180deg, #6b0000, #4a0000, #2a0000)',
-                }}
-              >
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                borderRadius: '12px',
+                background: 'linear-gradient(180deg, #6b0000, #4a0000, #2a0000)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
                 {/* GIANT ROSE */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-9xl drop-shadow-2xl" style={{ 
-                    filter: 'drop-shadow(0 0 30px rgba(139, 0, 0, 0.6))'
-                  }}>
-                    🌹
-                  </div>
+                <div style={{
+                  fontSize: '120px',
+                  filter: 'drop-shadow(0 0 30px rgba(139, 0, 0, 0.6))',
+                }}>
+                  🌹
                 </div>
               </div>
             </motion.div>
 
-            {/* Content - "My Heart" in WHITE */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <span className="text-sm tracking-[0.3em] uppercase font-light text-white/40">
+            {/* Content - "My Heart" */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              zIndex: 5,
+            }}>
+              <div style={{ textAlign: 'center' }}>
+                <span style={{
+                  fontSize: '12px',
+                  letterSpacing: '0.3em',
+                  textTransform: 'uppercase',
+                  fontWeight: '300',
+                  color: 'rgba(255,255,255,0.4)',
+                }}>
                   Letter {letterNumber} of {totalLetters}
                 </span>
-                <p className="font-serif text-4xl mt-2 text-white" style={{ 
-                  textShadow: '0 0 30px rgba(255,255,255,0.2)'
+                <p style={{
+                  fontFamily: 'Playfair Display, Georgia, serif',
+                  fontSize: '36px',
+                  marginTop: '8px',
+                  color: '#ffffff',
+                  textShadow: '0 0 30px rgba(255,255,255,0.2)',
                 }}>
                   ❤️ My Heart ❤️
                 </p>
-                <p className="text-xs mt-1 text-white/20 tracking-widest font-light">
+                <p style={{
+                  fontSize: '10px',
+                  marginTop: '4px',
+                  color: 'rgba(255,255,255,0.2)',
+                  letterSpacing: '0.2em',
+                  fontWeight: '300',
+                }}>
                   The Final Letter
                 </p>
               </div>
             </div>
 
             {/* Red pulsing glow */}
-            <div className="absolute inset-0 rounded-xl pointer-events-none animate-[pulseGlow_3s_ease-in-out_infinite]" style={{
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              borderRadius: '12px',
+              pointerEvents: 'none',
+              animation: 'pulseGlow 3s ease-in-out infinite',
               boxShadow: 'inset 0 0 80px rgba(139, 0, 0, 0.3)',
             }} />
           </motion.div>
 
-          {/* RED Wax Seal - PURE RED, NO GOLD */}
+          {/* RED Wax Seal - Bottom Right */}
           <motion.div
-            className="absolute bottom-6 right-6 w-20 h-20 rounded-full flex items-center justify-center text-4xl shadow-2xl"
             style={{
+              position: 'absolute',
+              bottom: '24px',
+              right: '24px',
+              width: '80px',
+              height: '80px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '32px',
               background: 'radial-gradient(circle at 30% 30%, #8B0000, #4a0000, #1a0000)',
               border: '3px solid #8B0000',
               boxShadow: '0 0 50px rgba(139, 0, 0, 0.8)',
@@ -168,10 +233,17 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
             🌹
           </motion.div>
 
-          {/* Click hint - WHITE text, no gold */}
+          {/* Click hint */}
           {!isOpening && (
             <motion.div
-              className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm text-white/60"
+              style={{
+                position: 'absolute',
+                bottom: '-32px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                fontSize: '14px',
+                color: 'rgba(255,255,255,0.6)',
+              }}
               animate={{ y: [0, -5, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
@@ -180,7 +252,6 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
           )}
         </div>
 
-        {/* Animations */}
         <style jsx>{`
           @keyframes pulseGlow {
             0%, 100% { 
