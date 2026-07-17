@@ -69,8 +69,8 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
     );
   }
 
-  // ============================================
-  // FINAL ENVELOPE - Royal Red with Rose
+    // ============================================
+  // FINAL ENVELOPE - Deep Royal Red with Rose
   // ============================================
   return (
     <motion.div
@@ -81,29 +81,29 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
       onClick={handleClick}
     >
       <div className="relative w-96 h-64">
-        {/* Royal Red Envelope Body */}
+        {/* Royal Red Envelope Body - DEEPER RED */}
         <motion.div
           className="absolute inset-0 rounded-xl shadow-2xl"
           style={{
-            background: 'linear-gradient(145deg, #6B0000, #8B0000, #4A0000)',
-            border: '3px solid #A52A2A',
-            boxShadow: '0 0 60px rgba(139, 0, 0, 0.5), inset 0 0 60px rgba(139, 0, 0, 0.3)',
+            background: 'linear-gradient(145deg, #3D0000, #660000, #4A0000, #2D0000)',
+            border: '3px solid #8B0000',
+            boxShadow: '0 0 80px rgba(139, 0, 0, 0.7), inset 0 0 80px rgba(139, 0, 0, 0.4), 0 0 120px rgba(139, 0, 0, 0.3)',
           }}
           animate={isOpening ? { scale: 1.05 } : { scale: 1 }}
         >
-          {/* Subtle glow overlay */}
-          <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-transparent via-[#8B0000]/20 to-[#A52A2A]/10 pointer-events-none" />
+          {/* Deep red glow overlay */}
+          <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-[#2D0000]/50 via-transparent to-[#660000]/20 pointer-events-none" />
           
-          {/* Gold border accent */}
-          <div className="absolute inset-0 rounded-xl border border-[#D4AF37]/30 pointer-events-none" />
+          {/* Thin gold border accent - very subtle */}
+          <div className="absolute inset-[3px] rounded-xl border border-[#D4AF37]/15 pointer-events-none" />
           
-          {/* Decorative gold corners */}
-          <div className="absolute top-2 left-2 text-[#D4AF37]/40 text-xl">✦</div>
-          <div className="absolute top-2 right-2 text-[#D4AF37]/40 text-xl">✦</div>
-          <div className="absolute bottom-2 left-2 text-[#D4AF37]/40 text-xl">✦</div>
-          <div className="absolute bottom-2 right-2 text-[#D4AF37]/40 text-xl">✦</div>
+          {/* Gold corners - very subtle */}
+          <div className="absolute top-3 left-3 text-[#D4AF37]/20 text-sm">✦</div>
+          <div className="absolute top-3 right-3 text-[#D4AF37]/20 text-sm">✦</div>
+          <div className="absolute bottom-3 left-3 text-[#D4AF37]/20 text-sm">✦</div>
+          <div className="absolute bottom-3 right-3 text-[#D4AF37]/20 text-sm">✦</div>
 
-          {/* Envelope Flap with Rose */}
+          {/* Envelope Flap with Rose - RED with subtle gold shimmer */}
           <motion.div
             className="absolute inset-0"
             animate={isOpening ? { rotateX: 180 } : { rotateX: 0 }}
@@ -113,71 +113,51 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
             <div 
               className="absolute inset-0 rounded-xl"
               style={{
-                background: 'linear-gradient(180deg, #8B0000, #6B0000)',
+                background: 'linear-gradient(180deg, #8B0000, #660000, #4A0000)',
               }}
             >
-              {/* Large Rose Flower on the flap */}
+              {/* Large Rose Flower on the flap - BIGGER */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-8xl opacity-90">🌹</div>
+                <div className="text-9xl opacity-95 drop-shadow-lg">🌹</div>
               </div>
-              {/* Gold shimmer across the rose */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D4AF37]/10 to-transparent bg-[length:200%_100%] animate-[shimmer_3s_ease-in-out_infinite]" />
+              {/* Very subtle gold shimmer */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D4AF37]/5 to-transparent bg-[length:200%_100%] animate-[shimmer_3s_ease-in-out_infinite]" />
             </div>
           </motion.div>
 
-          {/* Content - "My Heart" Text */}
+          {/* Content - "My Heart" Text in GOLD */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <span className="text-sm tracking-[0.3em] uppercase font-light text-[#D4AF37]">
+              <span className="text-sm tracking-[0.3em] uppercase font-light text-[#D4AF37]/60">
                 Letter {letterNumber} of {totalLetters}
               </span>
-              <p className="font-serif text-3xl mt-2" style={{ color: '#b30909' }}>
+              <p className="font-serif text-4xl mt-2" style={{ 
+                color: '#D4AF37',
+                textShadow: '0 0 30px rgba(212, 175, 55, 0.3), 0 0 60px rgba(212, 175, 55, 0.1)'
+              }}>
                 ❤️ My Heart ❤️
               </p>
-              <p className="text-xs mt-1 text-[#D4AF37]/60 tracking-widest font-light">
+              <p className="text-xs mt-1 text-[#D4AF37]/40 tracking-widest font-light">
                 The Final Letter
               </p>
             </div>
           </div>
         </motion.div>
 
-        {/* Wax Seal - Positioned to the SIDE (bottom right) */}
+        {/* Gold Wax Seal - Bottom Right */}
         <motion.div
-          className="absolute bottom-6 right-6 w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl"
+          className="absolute bottom-6 right-6 w-20 h-20 rounded-full flex items-center justify-center text-4xl shadow-2xl"
           style={{
             background: 'radial-gradient(circle at 30% 30%, #D4AF37, #B8860B, #8B6914)',
-            border: '2px solid #D4AF37',
-            boxShadow: '0 0 40px rgba(212, 175, 55, 0.5), 0 0 80px rgba(212, 175, 55, 0.2)',
+            border: '3px solid #D4AF37',
+            boxShadow: '0 0 50px rgba(212, 175, 55, 0.6), 0 0 100px rgba(212, 175, 55, 0.3), inset 0 0 30px rgba(212, 175, 55, 0.2)',
             zIndex: 10,
           }}
-          animate={isOpening ? { scale: 0, opacity: 0, x: 20, y: 20 } : { scale: 1 }}
+          animate={isOpening ? { scale: 0, opacity: 0, x: 30, y: 30 } : { scale: 1 }}
           transition={{ duration: 0.5 }}
         >
           🌹
         </motion.div>
-
-        {/* Small rose accent on top left */}
-        <div className="absolute top-4 left-4 text-2xl opacity-60">🌹</div>
-
-        {/* Floating rose petals animation (background) */}
-        {!isOpening && (
-          <>
-            <motion.div
-              className="absolute -top-4 -right-4 text-3xl opacity-40"
-              animate={{ y: [0, -10, 0], rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 4, repeat: Infinity }}
-            >
-              🌹
-            </motion.div>
-            <motion.div
-              className="absolute -bottom-4 -left-4 text-2xl opacity-30"
-              animate={{ y: [0, 10, 0], rotate: [0, -10, 10, 0] }}
-              transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-            >
-              🌹
-            </motion.div>
-          </>
-        )}
 
         {/* Click hint */}
         {!isOpening && (
@@ -201,4 +181,3 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
       `}</style>
     </motion.div>
   );
-}
