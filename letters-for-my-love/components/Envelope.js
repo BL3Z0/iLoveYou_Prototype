@@ -1,5 +1,3 @@
-// Create placeholder - Copy full code from the guide 
-// components/Envelope.js
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -24,10 +22,10 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
         <motion.div
           className={`absolute inset-0 bg-gradient-to-br ${
             isFinal 
-              ? 'from-rose-200 via-rose-300 to-rose-400' 
-              : 'from-ivory via-white to-rose-50'
-          } rounded-xl shadow-2xl border ${
-            isFinal ? 'border-rose-400' : 'border-rose-200'
+              ? 'from-soft-gold via-gold-shimmer to-soft-gold' 
+              : 'from-cream via-warm-white to-cream'
+          } rounded-xl shadow-luxury border ${
+            isFinal ? 'border-soft-gold' : 'border-deep-rose/30'
           }`}
           animate={isOpening ? { scale: 1.05 } : { scale: 1 }}
         >
@@ -40,11 +38,11 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
           >
             <div className={`absolute inset-0 bg-gradient-to-b ${
               isFinal 
-                ? 'from-rose-300 to-rose-200' 
-                : 'from-rose-100 to-ivory'
+                ? 'from-gold-shimmer to-soft-gold' 
+                : 'from-deep-rose/20 to-cream'
             } rounded-xl`}>
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-4xl">
+                <div className="text-5xl">
                   {isFinal ? '💌' : '✉️'}
                 </div>
               </div>
@@ -54,10 +52,14 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
           {/* Envelope content */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <span className="text-rose-400 text-sm tracking-widest uppercase font-light">
+              <span className={`text-sm tracking-widest uppercase font-light ${
+                isFinal ? 'text-burgundy' : 'text-deep-rose'
+              }`}>
                 Letter {letterNumber}
               </span>
-              <p className="font-serif text-2xl text-rose-600 mt-1">
+              <p className={`font-serif text-2xl mt-1 ${
+                isFinal ? 'text-burgundy' : 'text-deep-rose'
+              }`}>
                 {isFinal ? '❤️ My Heart ❤️' : 'A Love Letter'}
               </p>
               {isFinal && (
@@ -65,7 +67,7 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.5 }}
-                  className="absolute -top-8 -right-8 text-4xl"
+                  className="absolute -top-8 -right-8 text-5xl"
                 >
                   ✨
                 </motion.div>
@@ -76,11 +78,11 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
 
         {/* Seal */}
         <motion.div
-          className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full ${
+          className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full ${
             isFinal 
-              ? 'bg-gradient-to-br from-rose-400 to-rose-600 shadow-lg' 
-              : 'bg-rose-300'
-          } flex items-center justify-center text-white text-xl shadow-md`}
+              ? 'bg-gradient-to-br from-soft-gold to-gold-shimmer shadow-gold' 
+              : 'bg-gradient-to-br from-deep-rose to-burgundy'
+          } flex items-center justify-center text-white text-2xl shadow-lg`}
           animate={isOpening ? { scale: 0, opacity: 0 } : { scale: 1 }}
           transition={{ duration: 0.4 }}
         >
@@ -90,7 +92,9 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
         {/* Click hint */}
         {!isOpening && (
           <motion.div
-            className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-rose-300 text-sm"
+            className={`absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm ${
+              isFinal ? 'text-soft-gold' : 'text-deep-rose/50'
+            }`}
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
