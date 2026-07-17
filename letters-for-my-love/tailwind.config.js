@@ -7,25 +7,30 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ivory: '#FFFFF0',
-        rose: {
-          50: '#FFF1F2',
-          100: '#FFE4E6',
-          200: '#FECDD3',
-          300: '#FDA4AF',
-          400: '#FB7185',
-          500: '#F43F5E',
-          600: '#E11D48',
-          700: '#BE123C',
-        },
+        cream: '#FFF8F0',
+        'warm-white': '#FFFAF7',
+        'deep-rose': '#C9184A',
+        burgundy: '#800F2F',
+        'soft-gold': '#D4AF37',
+        blush: '#FF8FA3',
+        'dark-charcoal': '#2D1B1B',
+        'mauve': '#6B3E59',
+        'gold-shimmer': '#F5D6A8',
       },
       fontFamily: {
         serif: ['Playfair Display', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
-        'gradient-rose': 'linear-gradient(135deg, #FFF1F2 0%, #FFFFFF 50%, #FFFFF0 100%)',
+        'gradient-rose-gold': 'linear-gradient(135deg, #800F2F 0%, #C9184A 50%, #D4AF37 100%)',
+        'gradient-warm': 'linear-gradient(135deg, #FFF8F0 0%, #FFFAF7 50%, #FFF0E6 100%)',
+        'gradient-luxury': 'linear-gradient(135deg, #2D1B1B 0%, #800F2F 50%, #D4AF37 100%)',
       },
+      boxShadow: {
+        'luxury': '0 8px 32px rgba(192, 24, 74, 0.15)',
+        'gold': '0 8px 32px rgba(212, 175, 55, 0.2)',
+        'rose-glow': '0 8px 32px rgba(192, 24, 74, 0.25)',
+      }
     },
   },
   plugins: [],
