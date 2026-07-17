@@ -1,5 +1,3 @@
-// Create placeholder - Copy full code from the guide 
-// components/PhotoGallery.js
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -25,7 +23,7 @@ export default function PhotoGallery({ photos }) {
               key={index}
               className={`relative ${
                 index === 0 ? 'col-span-2' : ''
-              } aspect-square cursor-pointer overflow-hidden rounded-lg`}
+              } aspect-square cursor-pointer overflow-hidden rounded-lg shadow-md hover:shadow-luxury transition-shadow`}
               onClick={() => {
                 setCurrentIndex(index);
                 setIsLightboxOpen(true);
@@ -41,7 +39,7 @@ export default function PhotoGallery({ photos }) {
           ))}
         </div>
         {photos.length > 4 && (
-          <div className="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm">
+          <div className="absolute bottom-2 right-2 bg-dark-charcoal/70 text-cream text-xs px-3 py-1 rounded-full backdrop-blur-sm border border-soft-gold/20">
             +{photos.length - 4} more
           </div>
         )}
@@ -53,7 +51,7 @@ export default function PhotoGallery({ photos }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-dark-charcoal/95 flex items-center justify-center p-4"
             onClick={() => setIsLightboxOpen(false)}
           >
             <motion.div
@@ -76,13 +74,13 @@ export default function PhotoGallery({ photos }) {
                 <>
                   <button
                     onClick={prevPhoto}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm transition-colors"
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-cream/20 hover:bg-cream/30 text-cream w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm transition-colors border border-soft-gold/20"
                   >
                     ‹
                   </button>
                   <button
                     onClick={nextPhoto}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm transition-colors"
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-cream/20 hover:bg-cream/30 text-cream w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm transition-colors border border-soft-gold/20"
                   >
                     ›
                   </button>
@@ -94,7 +92,7 @@ export default function PhotoGallery({ photos }) {
                   <div
                     key={index}
                     className={`w-2 h-2 rounded-full transition-colors ${
-                      index === currentIndex ? 'bg-white' : 'bg-white/30'
+                      index === currentIndex ? 'bg-soft-gold' : 'bg-cream/30'
                     }`}
                   />
                 ))}
