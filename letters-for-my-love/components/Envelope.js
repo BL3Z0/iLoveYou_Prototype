@@ -1,12 +1,18 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import SparkleEffect from './SparkleEffect';
 
 export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }) {
   const [isOpening, setIsOpening] = useState(false);
+  const [showSparkles, setShowSparkles] = useState(false);
 
   const handleClick = () => {
     setIsOpening(true);
-    setTimeout(onOpen, 2000);
+    setShowSparkles(true);
+    setTimeout(() => {
+      setShowSparkles(false);
+      onOpen();
+    }, 2000);
   };
 
   // Regular envelope design
@@ -69,115 +75,133 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
     );
   }
 
-    // ============================================
-  // FINAL ENVELOPE - Deep Royal Red with Rose
+  // ============================================
+  // FINAL ENVELOPE - PURE ROYAL RED
+  // NO GOLD LINEN! JUST PURE RED!
   // ============================================
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.8 }}
-      className="relative cursor-pointer"
-      onClick={handleClick}
-    >
-      <div className="relative w-96 h-64">
-        {/* Royal Red Envelope Body - DEEPER RED */}
-        <motion.div
-          className="absolute inset-0 rounded-xl shadow-2xl"
-          style={{
-            background: 'linear-gradient(145deg, #3D0000, #660000, #4A0000, #2D0000)',
-            border: '3px solid #8B0000',
-            boxShadow: '0 0 80px rgba(139, 0, 0, 0.7), inset 0 0 80px rgba(139, 0, 0, 0.4), 0 0 120px rgba(139, 0, 0, 0.3)',
-          }}
-          animate={isOpening ? { scale: 1.05 } : { scale: 1 }}
-        >
-          {/* Deep red glow overlay */}
-          <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-[#2D0000]/50 via-transparent to-[#660000]/20 pointer-events-none" />
-          
-          {/* Thin gold border accent - very subtle */}
-          <div className="absolute inset-[3px] rounded-xl border border-[#D4AF37]/15 pointer-events-none" />
-          
-          {/* Gold corners - very subtle */}
-          <div className="absolute top-3 left-3 text-[#D4AF37]/20 text-sm">✦</div>
-          <div className="absolute top-3 right-3 text-[#D4AF37]/20 text-sm">✦</div>
-          <div className="absolute bottom-3 left-3 text-[#D4AF37]/20 text-sm">✦</div>
-          <div className="absolute bottom-3 right-3 text-[#D4AF37]/20 text-sm">✦</div>
+    <>
+      {/* Sparkle Effect */}
+      <SparkleEffect isActive={showSparkles} />
 
-          {/* Envelope Flap with Rose - RED with subtle gold shimmer */}
+      <motion.div
+        initial={{ opacity: 0, y: 50, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.8 }}
+        className="relative cursor-pointer"
+        onClick={handleClick}
+      >
+        <div className="relative w-96 h-64">
+          {/* PURE ROYAL RED Envelope Body - NO GOLD */}
           <motion.div
-            className="absolute inset-0"
-            animate={isOpening ? { rotateX: 180 } : { rotateX: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-            style={{ transformOrigin: 'top', backfaceVisibility: 'hidden' }}
+            className="absolute inset-0 rounded-xl shadow-2xl"
+            style={{
+              background: 'linear-gradient(145deg, #1a0000, #4a0000, #6b0000, #4a0000, #1a0000)',
+              border: '3px solid #8B0000',
+              boxShadow: '0 0 80px rgba(139, 0, 0, 0.8), inset 0 0 80px rgba(139, 0, 0, 0.5), 0 0 150px rgba(139, 0, 0, 0.3)',
+            }}
+            animate={isOpening ? { scale: 1.05 } : { scale: 1 }}
           >
-            <div 
-              className="absolute inset-0 rounded-xl"
-              style={{
-                background: 'linear-gradient(180deg, #8B0000, #660000, #4A0000)',
-              }}
+            {/* Deep red glow - NO GOLD */}
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-[#1a0000]/80 via-transparent to-[#6b0000]/20 pointer-events-none" />
+            
+            {/* Subtle inner glow - RED ONLY */}
+            <div className="absolute inset-[3px] rounded-xl border border-[#8B0000]/30 pointer-events-none" />
+
+            {/* Envelope Flap with Giant Rose - NO GOLD */}
+            <motion.div
+              className="absolute inset-0"
+              animate={isOpening ? { rotateX: 180 } : { rotateX: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              style={{ transformOrigin: 'top', backfaceVisibility: 'hidden' }}
             >
-              {/* Large Rose Flower on the flap - BIGGER */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-9xl opacity-95 drop-shadow-lg">🌹</div>
+              <div 
+                className="absolute inset-0 rounded-xl"
+                style={{
+                  background: 'linear-gradient(180deg, #6b0000, #4a0000, #2a0000)',
+                }}
+              >
+                {/* GIANT ROSE Flower - The main feature */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-9xl drop-shadow-2xl" style={{ 
+                    filter: 'drop-shadow(0 0 30px rgba(139, 0, 0, 0.6))'
+                  }}>
+                    🌹
+                  </div>
+                </div>
+                {/* PURE RED shimmer - NO GOLD */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#8B0000]/10 to-transparent bg-[length:200%_100%] animate-[redShimmer_3s_ease-in-out_infinite]" />
               </div>
-              {/* Very subtle gold shimmer */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D4AF37]/5 to-transparent bg-[length:200%_100%] animate-[shimmer_3s_ease-in-out_infinite]" />
+            </motion.div>
+
+            {/* Content - "My Heart" in PURE WHITE/GOLD TEXT */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center">
+                <span className="text-sm tracking-[0.3em] uppercase font-light text-[#D4AF37]/50">
+                  Letter {letterNumber} of {totalLetters}
+                </span>
+                <p className="font-serif text-4xl mt-2" style={{ 
+                  color: '#fff',
+                  textShadow: '0 0 30px rgba(255,255,255,0.2), 0 0 60px rgba(255,255,255,0.1)'
+                }}>
+                  ❤️ My Heart ❤️
+                </p>
+                <p className="text-xs mt-1 text-[#D4AF37]/30 tracking-widest font-light">
+                  The Final Letter
+                </p>
+              </div>
             </div>
+
+            {/* Red pulsing glow animation */}
+            <div className="absolute inset-0 rounded-xl pointer-events-none animate-[pulseGlow_3s_ease-in-out_infinite]" style={{
+              boxShadow: 'inset 0 0 80px rgba(139, 0, 0, 0.3)',
+            }} />
           </motion.div>
 
-          {/* Content - "My Heart" Text in GOLD */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center">
-              <span className="text-sm tracking-[0.3em] uppercase font-light text-[#D4AF37]/60">
-                Letter {letterNumber} of {totalLetters}
-              </span>
-              <p className="font-serif text-4xl mt-2" style={{ 
-                color: '#D4AF37',
-                textShadow: '0 0 30px rgba(212, 175, 55, 0.3), 0 0 60px rgba(212, 175, 55, 0.1)'
-              }}>
-                ❤️ My Heart ❤️
-              </p>
-              <p className="text-xs mt-1 text-[#D4AF37]/40 tracking-widest font-light">
-                The Final Letter
-              </p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Gold Wax Seal - Bottom Right */}
-        <motion.div
-          className="absolute bottom-6 right-6 w-20 h-20 rounded-full flex items-center justify-center text-4xl shadow-2xl"
-          style={{
-            background: 'radial-gradient(circle at 30% 30%, #D4AF37, #B8860B, #8B6914)',
-            border: '3px solid #D4AF37',
-            boxShadow: '0 0 50px rgba(212, 175, 55, 0.6), 0 0 100px rgba(212, 175, 55, 0.3), inset 0 0 30px rgba(212, 175, 55, 0.2)',
-            zIndex: 10,
-          }}
-          animate={isOpening ? { scale: 0, opacity: 0, x: 30, y: 30 } : { scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          🌹
-        </motion.div>
-
-        {/* Click hint */}
-        {!isOpening && (
+          {/* RED Wax Seal - Bottom Right (PURE RED, no gold) */}
           <motion.div
-            className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm"
-            style={{ color: '#D4AF37' }}
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
+            className="absolute bottom-6 right-6 w-20 h-20 rounded-full flex items-center justify-center text-4xl shadow-2xl"
+            style={{
+              background: 'radial-gradient(circle at 30% 30%, #8B0000, #4a0000, #1a0000)',
+              border: '3px solid #8B0000',
+              boxShadow: '0 0 50px rgba(139, 0, 0, 0.8), 0 0 100px rgba(139, 0, 0, 0.4)',
+              zIndex: 10,
+            }}
+            animate={isOpening ? { scale: 0, opacity: 0, x: 30, y: 30 } : { scale: 1 }}
+            transition={{ duration: 0.5 }}
           >
-            Click to open your heart ❤️
+            🌹
           </motion.div>
-        )}
-      </div>
 
-      {/* Keyframes for shimmer */}
-      <style jsx>{`
-        @keyframes shimmer {
-          0% { background-position: -200% center; }
-          100% { background-position: 200% center; }
-        }
-      `}</style>
-    </motion.div>
+          {/* Click hint - subtle gold text only */}
+          {!isOpening && (
+            <motion.div
+              className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm"
+              style={{ color: '#D4AF37' }}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              ✦ Click to open your heart ✦
+            </motion.div>
+          )}
+        </div>
+
+        {/* Animations */}
+        <style jsx>{`
+          @keyframes redShimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+          }
+          @keyframes pulseGlow {
+            0%, 100% { 
+              box-shadow: inset 0 0 80px rgba(139, 0, 0, 0.3);
+            }
+            50% { 
+              box-shadow: inset 0 0 120px rgba(139, 0, 0, 0.6);
+            }
+          }
+        `}</style>
+      </motion.div>
+    </>
   );
+}
