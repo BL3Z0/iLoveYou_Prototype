@@ -131,7 +131,7 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
               <span className="text-sm tracking-[0.3em] uppercase font-light text-[#D4AF37]">
                 Letter {letterNumber} of {totalLetters}
               </span>
-              <p className="font-serif text-3xl mt-2" style={{ color: '#D4AF37' }}>
+              <p className="font-serif text-3xl mt-2" style={{ color: '#b30909' }}>
                 ❤️ My Heart ❤️
               </p>
               <p className="text-xs mt-1 text-[#D4AF37]/60 tracking-widest font-light">
