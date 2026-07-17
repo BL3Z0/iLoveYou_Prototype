@@ -79,18 +79,12 @@ export default function LetterPage({ letter, letterNumber, totalLetters, onConti
           )}
         </div>
 
-        {/* Continue button */}
-        <div className="px-8 py-6 bg-gradient-to-r from-deep-rose/5 via-cream to-deep-rose/5 border-t border-soft-gold/20 text-center">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onContinue}
-            className="px-8 py-3 bg-gradient-to-r from-deep-rose to-burgundy text-white rounded-full font-medium shadow-luxury hover:shadow-rose-glow transition-all duration-300"
-          >
-            {letterNumber === totalLetters ? '💫 Continue to the Finale' : 'Continue →'}
-          </motion.button>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
+        {/* Continue button - Optimized */}
+<div className="px-8 py-6 bg-gradient-to-r from-deep-rose/5 via-cream to-deep-rose/5 border-t border-soft-gold/20 text-center">
+  <button
+    onClick={onContinue}
+    className="px-8 py-3 bg-gradient-to-r from-deep-rose to-burgundy text-white rounded-full font-medium shadow-luxury hover:shadow-rose-glow transition-all duration-200 hover:scale-105 active:scale-95"
+  >
+    {letterNumber === totalLetters ? '💫 Continue to the Finale' : 'Continue →'}
+  </button>
+</div>
