@@ -19,7 +19,6 @@ export default function LoadingScreen() {
     return () => clearInterval(interval);
   }, []);
 
-  // Generate random positions only on the client side
   const getRandomPosition = () => {
     if (typeof window === 'undefined') return { x: 0, y: 0 };
     return {
@@ -29,10 +28,10 @@ export default function LoadingScreen() {
   };
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-b from-rose-50 via-white to-ivory flex flex-col items-center justify-center z-50">
+    <div className="fixed inset-0 bg-gradient-to-b from-cream via-warm-white to-cream flex flex-col items-center justify-center z-50">
       <div className="relative">
         <motion.div
-          className="text-6xl mb-8"
+          className="text-7xl mb-8"
           animate={{
             scale: [1, 1.2, 1],
             rotate: [0, 10, -10, 0]
@@ -46,7 +45,7 @@ export default function LoadingScreen() {
           ❤️
         </motion.div>
         <motion.div
-          className="absolute -top-8 -right-8 text-4xl"
+          className="absolute -top-8 -right-8 text-5xl"
           animate={{
             y: [0, -20, 0],
             opacity: [0, 1, 0]
@@ -61,40 +60,40 @@ export default function LoadingScreen() {
         </motion.div>
       </div>
 
-      <h2 className="font-serif text-2xl text-rose-700 mb-4">
+      <h2 className="font-serif text-3xl text-burgundy mb-4 tracking-wide">
         Preparing your birthday surprise...
       </h2>
 
-      <div className="w-64 h-1 bg-gray-200 rounded-full overflow-hidden">
+      <div className="w-64 h-1.5 bg-gray-200 rounded-full overflow-hidden shadow-inner">
         <motion.div
-          className="h-full bg-gradient-to-r from-rose-300 to-rose-500 rounded-full"
+          className="h-full bg-gradient-to-r from-soft-gold via-deep-rose to-burgundy rounded-full"
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.5 }}
         />
       </div>
       
-      <p className="text-sm text-gray-400 mt-3 font-light">
+      <p className="text-sm text-deep-rose mt-3 font-light">
         {progress}%
       </p>
 
-      {isMounted && [...Array(15)].map((_, i) => {
+      {isMounted && [...Array(20)].map((_, i) => {
         const pos = getRandomPosition();
         return (
           <motion.div
             key={i}
-            className="absolute text-rose-200 opacity-30"
+            className="absolute text-deep-rose opacity-20"
             initial={{
               x: pos.x,
               y: pos.y,
               scale: Math.random() * 0.5 + 0.5
             }}
             animate={{
-              y: [null, -100, -200],
-              opacity: [0.3, 0.6, 0]
+              y: [null, -150, -250],
+              opacity: [0.2, 0.5, 0]
             }}
             transition={{
-              duration: Math.random() * 5 + 3,
+              duration: Math.random() * 6 + 4,
               repeat: Infinity,
               ease: "easeOut",
               delay: Math.random() * 3
