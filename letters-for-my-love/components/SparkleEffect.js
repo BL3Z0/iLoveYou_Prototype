@@ -10,8 +10,8 @@ export default function SparkleEffect({ isActive }) {
     const generateSparkle = () => {
       return {
         id: Math.random(),
-        x: Math.random() * 100, // percentage of container width
-        y: -10, // start from top
+        x: Math.random() * 100,
+        y: -10,
         size: Math.random() * 12 + 6,
         duration: Math.random() * 3 + 2,
         delay: Math.random() * 0.5,
@@ -19,15 +19,12 @@ export default function SparkleEffect({ isActive }) {
       };
     };
 
-    // Initial sparkles
     const initialSparkles = Array.from({ length: 40 }, generateSparkle);
     setSparkles(initialSparkles);
 
-    // Continuously add new sparkles
     const interval = setInterval(() => {
       setSparkles(prev => {
         const newSparkles = [...prev, generateSparkle()];
-        // Keep only last 80 sparkles to prevent memory issues
         if (newSparkles.length > 80) {
           return newSparkles.slice(-80);
         }
