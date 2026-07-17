@@ -49,7 +49,6 @@ export default function LetterJourney({ onLetterComplete, lettersCompleted }) {
 
   const handleBackFromMemoryBox = () => {
     setShowMemoryBox(false);
-    // Could go back to home or stay in memory box
   };
 
   if (showMemoryBox) {
@@ -61,19 +60,20 @@ export default function LetterJourney({ onLetterComplete, lettersCompleted }) {
   }
 
   const currentLetter = lettersData[currentLetterIndex];
+  const isFinalLetter = currentLetterIndex === totalLetters - 1;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-ivory via-white to-rose-50 flex items-center justify-center px-4 py-16">
-      {/* Progress */}
+    <div className="min-h-screen bg-gradient-to-b from-cream via-warm-white to-cream flex items-center justify-center px-4 py-16">
+      {/* Progress - REMOVED GOLD! Now PURE RED */}
       <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md px-4">
-        <div className="bg-white/80 backdrop-blur-lg rounded-full px-6 py-3 shadow-lg border border-rose-100">
-          <div className="flex justify-between items-center text-sm text-gray-500 mb-1">
+        <div className="bg-white/80 backdrop-blur-lg rounded-full px-6 py-3 shadow-lg border border-deep-rose/20">
+          <div className="flex justify-between items-center text-sm text-dark-charcoal/60 mb-1">
             <span>Letter {Math.min(lettersCompleted + 1, totalLetters)} of {totalLetters}</span>
             <span>{Math.round((lettersCompleted / totalLetters) * 100)}%</span>
           </div>
           <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
             <motion.div
-              className="h-full bg-gradient-to-r from-rose-300 to-rose-500 rounded-full"
+              className="h-full bg-gradient-to-r from-deep-rose to-burgundy rounded-full"
               initial={{ width: 0 }}
               animate={{ width: `${(lettersCompleted / totalLetters) * 100}%` }}
               transition={{ duration: 0.5 }}
@@ -89,7 +89,7 @@ export default function LetterJourney({ onLetterComplete, lettersCompleted }) {
             letterNumber={currentLetterIndex + 1}
             totalLetters={totalLetters}
             onOpen={handleEnvelopeOpen}
-            isFinal={currentLetterIndex === totalLetters - 1}
+            isFinal={isFinalLetter}
           />
         )}
 
