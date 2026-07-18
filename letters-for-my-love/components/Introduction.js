@@ -5,12 +5,12 @@ export default function Introduction({ onContinue }) {
   return (
     <GlassFrame>
       <div className="text-center mb-8">
-        <span className="text-purple-300 text-sm tracking-[0.3em] uppercase font-light">Introduction</span>
-        <h2 className="font-serif text-4xl text-white mt-2">A Gift from the Heart</h2>
+        <span className="text-rose-pink text-sm tracking-[0.3em] uppercase font-light">Introduction</span>
+        <h2 className="font-cinematic text-4xl text-white mt-2">A Gift from the Heart</h2>
         <div className="flex justify-center items-center gap-3 mt-3">
-          <div className="h-px w-12 bg-gradient-to-r from-transparent to-purple-400/50"></div>
-          <span className="text-purple-300">✦</span>
-          <div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-400/50"></div>
+          <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-pink"></div>
+          <span className="text-rose-pink">✦</span>
+          <div className="h-px w-12 bg-gradient-to-l from-transparent to-rose-pink"></div>
         </div>
       </div>
 
@@ -26,7 +26,7 @@ export default function Introduction({ onContinue }) {
           Each letter you're about to read comes from a different heart. Each one shares a unique
           perspective on who you are and why you're so special.
         </p>
-        <p className="text-purple-300 font-serif text-xl italic">
+        <p className="text-rose-pink font-cursive text-xl italic">
           This is my gift to you—a collection of love, carefully wrapped in words.
         </p>
       </div>
@@ -36,11 +36,11 @@ export default function Introduction({ onContinue }) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={onContinue}
-          className="px-10 py-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-full font-medium shadow-lg hover:shadow-purple-500/30 transition-all duration-300"
+          className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medium shadow-lg hover:shadow-rose-glow transition-all duration-300"
         >
-          Continue →
+          Begin Your Journey 📜
         </motion.button>
       </div>
     </GlassFrame>
   );
-}
+    }
