@@ -28,7 +28,7 @@ export default function LoadingScreen() {
   };
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-b from-cream via-warm-white to-rose-cream flex flex-col items-center justify-center z-50">
+    <div className="fixed inset-0 bg-gradient-to-b from-cream via-warm-white to-lavender flex flex-col items-center justify-center z-50">
       <div className="relative">
         <motion.div
           className="text-7xl mb-8"
@@ -42,7 +42,7 @@ export default function LoadingScreen() {
             ease: "easeInOut"
           }}
         >
-          ❤️
+          💜
         </motion.div>
         <motion.div
           className="absolute -top-8 -right-8 text-5xl"
@@ -60,20 +60,20 @@ export default function LoadingScreen() {
         </motion.div>
       </div>
 
-      <h2 className="font-serif text-3xl text-deep-crimson mb-4 tracking-wide">
+      <h2 className="font-serif text-3xl text-deep-purple mb-4 tracking-wide">
         Preparing your birthday surprise...
       </h2>
 
       <div className="w-64 h-1.5 bg-gray-200 rounded-full overflow-hidden shadow-inner">
         <motion.div
-          className="h-full bg-gradient-to-r from-crimson via-ruby to-deep-crimson rounded-full"
+          className="h-full bg-gradient-to-r from-royal-purple via-amethyst to-deep-purple rounded-full"
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.5 }}
         />
       </div>
       
-      <p className="text-sm text-deep-crimson mt-3 font-light">
+      <p className="text-sm text-royal-purple mt-3 font-light">
         {progress}%
       </p>
 
@@ -82,7 +82,7 @@ export default function LoadingScreen() {
         return (
           <motion.div
             key={i}
-            className="absolute text-crimson opacity-20"
+            className="absolute text-royal-purple opacity-20"
             initial={{
               x: pos.x,
               y: pos.y,
@@ -99,7 +99,7 @@ export default function LoadingScreen() {
               delay: Math.random() * 3
             }}
           >
-            ❤️
+            💜
           </motion.div>
         );
       })}
