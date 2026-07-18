@@ -5,7 +5,6 @@ import WelcomePage from '../components/WelcomePage';
 import Introduction from '../components/Introduction';
 import LetterJourney from '../components/LetterJourney';
 import MemoryBox from '../components/MemoryBox';
-import StarryBackground from '../components/StarryBackground';
 import { AnimatePresence } from 'framer-motion';
 
 export default function Home() {
@@ -49,8 +48,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Starry Background */}
-      <StarryBackground />
+      {/* Background Image - Replace URL with your image */}
+      <div 
+        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=80")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        {/* Dark overlay for better readability */}
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
+      </div>
 
       {/* Main Content */}
       <div className="relative min-h-screen flex items-center justify-center px-4 py-8">
