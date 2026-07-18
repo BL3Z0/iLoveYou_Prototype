@@ -11,19 +11,22 @@ export default function LetterPage({ letter, letterNumber, totalLetters, onConti
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.6 }}
-      className="max-w-2xl w-full"
+      className="w-full"
     >
-      <div className="bg-cream/95 backdrop-blur-sm rounded-3xl shadow-luxury overflow-hidden border border-royal-purple/20">
+      <div className="backdrop-blur-xl bg-white/10 rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
+        {/* Glass shimmer overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5 pointer-events-none" />
+        
         {/* Letter header */}
-        <div className="bg-gradient-to-r from-royal-purple/10 via-cream to-royal-purple/5 px-8 py-6 border-b border-royal-purple/20">
+        <div className="bg-white/5 px-8 py-6 border-b border-white/10">
           <div className="flex justify-between items-center text-sm">
-            <span className="text-royal-purple font-light tracking-wide">
+            <span className="text-purple-300 font-light tracking-wide">
               Letter {letterNumber} of {totalLetters}
             </span>
-            <span className="text-deep-purple font-serif">From: {letter.from}</span>
+            <span className="text-white/70 font-serif">From: {letter.from}</span>
           </div>
           {letter.relationship && (
-            <p className="text-xs text-dark-charcoal/50 mt-1 font-light tracking-wider">
+            <p className="text-xs text-white/40 mt-1 font-light tracking-wider">
               {letter.relationship}
             </p>
           )}
@@ -34,7 +37,7 @@ export default function LetterPage({ letter, letterNumber, totalLetters, onConti
           {/* Sender photo */}
           {letter.senderPhoto && (
             <div className="mb-6 flex justify-center">
-              <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-soft-gold/40 shadow-luxury">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-purple-400/40 shadow-xl">
                 <Image
                   src={letter.senderPhoto}
                   alt={letter.from}
@@ -46,7 +49,7 @@ export default function LetterPage({ letter, letterNumber, totalLetters, onConti
           )}
 
           {/* Letter text */}
-          <div className="prose prose-purple max-w-none font-light leading-relaxed text-dark-charcoal/80">
+          <div className="text-white/80 font-light leading-relaxed">
             {letter.content.split('\n').map((paragraph, index) => (
               <p key={index} className="mb-4">
                 {paragraph}
@@ -57,7 +60,7 @@ export default function LetterPage({ letter, letterNumber, totalLetters, onConti
           {/* Photos */}
           {letter.photos && letter.photos.length > 0 && (
             <div className="mt-8">
-              <h4 className="text-sm text-royal-purple font-medium mb-3 tracking-wide">📷 Memories</h4>
+              <h4 className="text-sm text-purple-300 font-medium mb-3 tracking-wide">📷 Memories</h4>
               <PhotoGallery photos={letter.photos} />
             </div>
           )}
@@ -65,7 +68,7 @@ export default function LetterPage({ letter, letterNumber, totalLetters, onConti
           {/* Voice message */}
           {letter.voiceMessage && (
             <div className="mt-8">
-              <h4 className="text-sm text-royal-purple font-medium mb-3 tracking-wide">🎙️ Listen to Their Voice</h4>
+              <h4 className="text-sm text-purple-300 font-medium mb-3 tracking-wide">🎙️ Listen to Their Voice</h4>
               <AudioPlayer src={letter.voiceMessage} />
             </div>
           )}
@@ -73,19 +76,19 @@ export default function LetterPage({ letter, letterNumber, totalLetters, onConti
           {/* Video message */}
           {letter.videoMessage && (
             <div className="mt-8">
-              <h4 className="text-sm text-royal-purple font-medium mb-3 tracking-wide">🎥 Watch Birthday Message</h4>
+              <h4 className="text-sm text-purple-300 font-medium mb-3 tracking-wide">🎥 Watch Birthday Message</h4>
               <VideoPlayer src={letter.videoMessage} />
             </div>
           )}
         </div>
 
         {/* Continue button */}
-        <div className="px-8 py-6 bg-gradient-to-r from-royal-purple/5 via-cream to-royal-purple/5 border-t border-royal-purple/20 text-center">
+        <div className="px-8 py-6 bg-white/5 border-t border-white/10 text-center">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={onContinue}
-            className="px-8 py-3 bg-gradient-to-r from-deep-purple to-amethyst text-white rounded-full font-medium shadow-luxury hover:shadow-purple-glow transition-all duration-300"
+            className="px-8 py-3 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-full font-medium shadow-lg hover:shadow-purple-500/30 transition-all duration-300"
           >
             {letterNumber === totalLetters ? '💫 Continue to the Finale' : 'Continue →'}
           </motion.button>
