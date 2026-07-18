@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import GlassFrame from './GlassFrame';
 
 export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) {
   const [showQuestion, setShowQuestion] = useState(true);
@@ -12,7 +11,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   const [isMobile, setIsMobile] = useState(false);
   const [floatingHearts, setFloatingHearts] = useState([]);
 
-  // Check if mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -22,17 +20,18 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Generate floating hearts
+  // Generate floating hearts - MORE HEARTS!
   useEffect(() => {
     const hearts = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 50; i++) {
       hearts.push({
         id: i,
         x: Math.random() * 100,
         delay: Math.random() * 5,
-        duration: Math.random() * 8 + 6,
-        size: Math.random() * 30 + 20,
-        opacity: Math.random() * 0.4 + 0.2,
+        duration: Math.random() * 10 + 6,
+        size: Math.random() * 40 + 20,
+        opacity: Math.random() * 0.5 + 0.2,
+        rotation: Math.random() * 360,
       });
     }
     setFloatingHearts(hearts);
@@ -40,8 +39,8 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
 
   const handleNoHover = () => {
     if (!isMobile) {
-      const newX = (Math.random() - 0.5) * 200;
-      const newY = (Math.random() - 0.5) * 200;
+      const newX = (Math.random() - 0.5) * 250;
+      const newY = (Math.random() - 0.5) * 250;
       setNoButtonPosition({ x: newX, y: newY });
       setYesButtonSize(prev => prev + 0.2);
       setYesClicks(prev => prev + 1);
@@ -67,7 +66,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     onBegin();
   };
 
-  // Floating Hearts Animation Component
+  // Floating Hearts Component - MORE HEARTS!
   const FloatingHearts = () => (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {floatingHearts.map((heart) => (
@@ -79,12 +78,13 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
             y: '110vh',
             scale: 0,
             opacity: heart.opacity,
+            rotate: heart.rotation,
           }}
           animate={{
             y: '-10vh',
-            scale: [0, 1, 0.8, 0.6],
-            opacity: [heart.opacity, heart.opacity, heart.opacity * 0.5, 0],
-            rotate: [0, 360],
+            scale: [0, 1.2, 1, 0.8, 0.6],
+            opacity: [heart.opacity, heart.opacity, heart.opacity * 0.7, heart.opacity * 0.3, 0],
+            rotate: [heart.rotation, heart.rotation + 180, heart.rotation + 360],
           }}
           transition={{
             duration: heart.duration,
@@ -94,6 +94,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           }}
           style={{
             fontSize: `${heart.size}px`,
+            textShadow: '0 0 20px rgba(255,0,0,0.3)',
           }}
         >
           ❤️
@@ -105,7 +106,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   // Question Screen
   if (showQuestion) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 relative overflow-hidden">
+      <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
         <FloatingHearts />
 
         <motion.div
@@ -117,15 +118,15 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           {/* Cartoon Character */}
           <motion.div
             animate={{
-              y: [0, -20, 0],
-              rotate: [0, 5, -5, 0],
+              y: [0, -25, 0],
+              rotate: [0, 8, -8, 0],
             }}
             transition={{
               duration: 3,
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="text-8xl mb-6"
+            className="text-9xl mb-6"
           >
             🥰
           </motion.div>
@@ -135,7 +136,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           </h1>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative">
-            {/* Yes Button */}
+            {/* Yes Button - Grows bigger */}
             <motion.button
               onClick={handleYesClick}
               className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl hover:shadow-rose-glow transition-all duration-300"
@@ -178,7 +179,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   // Gift Reveal Screen
   if (showGiftReveal) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 relative overflow-hidden">
+      <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
         <FloatingHearts />
         
         <motion.div
@@ -206,7 +207,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-8xl mt-8"
+            className="text-9xl mt-8"
           >
             💐
           </motion.div>
@@ -218,7 +219,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   // Music Prompt Screen
   if (showMusicPrompt) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 relative overflow-hidden">
+      <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
         <FloatingHearts />
 
         <motion.div
@@ -255,4 +256,4 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   }
 
   return null;
-}
+    }
