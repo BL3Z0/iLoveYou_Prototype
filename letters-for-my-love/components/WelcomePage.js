@@ -1,18 +1,44 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
-import AudioPlayer from './AudioPlayer';
+import { useState, useEffect, useRef } from 'react';
 import GlassFrame from './GlassFrame';
 
 export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) {
   const [showMusicPrompt, setShowMusicPrompt] = useState(true);
+  const audioRef = useRef(null);
 
   const handleChoice = (choice) => {
     onMusicChoice(choice);
     setShowMusicPrompt(false);
+    
+    // If user chose music, play it
+    if (choice && audioRef.current) {
+      audioRef.current.volume = 0.5;
+      audioRef.current.play().catch(err => {
+        console.log('Audio play failed:', err);
+      });
+    }
   };
+
+  // Play music when isMusicEnabled becomes true
+  useEffect(() => {
+    if (isMusicEnabled && audioRef.current) {
+      audioRef.current.volume = 0.5;
+      audioRef.current.play().catch(err => {
+        console.log('Audio play failed:', err);
+      });
+    }
+  }, [isMusicEnabled]);
 
   return (
     <div className="w-full text-center">
+      {/* Hidden Audio Player - plays in background */}
+      <audio 
+        ref={audioRef}
+        src="/audio/Pretty_Girl.mp3"
+        loop
+        preload="auto"
+      />
+
       <GlassFrame>
         {showMusicPrompt ? (
           <motion.div
@@ -84,12 +110,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
                 Begin Your Journey ✨
               </motion.button>
             </motion.div>
-
-            {isMusicEnabled && (
-              <div className="fixed bottom-6 right-6 z-40">
-                <AudioPlayer src="public/audio/Pretty_Girl.mp3" />
-              </div>
-            )}
           </>
         )}
       </GlassFrame>
