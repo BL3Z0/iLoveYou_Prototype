@@ -1,46 +1,54 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
-  theme: {
-    extend: {
-      colors: {
-        // Royal Purple Theme
-        'royal-purple': '#6C2BD9',
-        'deep-purple': '#3B1A6B',
-        'dark-purple': '#1A0A33',
-        'light-purple': '#B49BDF',
-        'lavender': '#E8D9F5',
-        'amethyst': '#9B5DE5',
-        'plum': '#5A189A',
-        
-        // Gold accents
-        'soft-gold': '#D4AF37',
-        'gold-shimmer': '#F5D6A8',
-        
-        // Neutrals
-        cream: '#FFF8F0',
-        'warm-white': '#FFFAF7',
-        'dark-charcoal': '#2D1B1B',
-      },
-      fontFamily: {
-        serif: ['Playfair Display', 'Georgia', 'serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-      },
-      backgroundImage: {
-        'gradient-purple': 'linear-gradient(135deg, #3B1A6B 0%, #6C2BD9 50%, #9B5DE5 100%)',
-        'gradient-warm': 'linear-gradient(135deg, #FFF8F0 0%, #FFFAF7 50%, #E8D9F5 100%)',
-        'gradient-royal': 'linear-gradient(135deg, #1A0A33 0%, #3B1A6B 50%, #6C2BD9 100%)',
-      },
-      boxShadow: {
-        'luxury': '0 8px 32px rgba(108, 43, 217, 0.15)',
-        'purple-glow': '0 8px 32px rgba(108, 43, 217, 0.25)',
-        'royal': '0 8px 48px rgba(108, 43, 217, 0.4)',
-        'gold': '0 8px 32px rgba(212, 175, 55, 0.2)',
-      }
-    },
-  },
-  plugins: [],
+import { motion } from 'framer-motion';
+
+export default function Introduction({ onContinue }) {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-cream via-warm-white to-lavender flex items-center justify-center px-4 py-16">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="max-w-2xl w-full"
+      >
+        <div className="bg-cream/80 backdrop-blur-sm rounded-3xl p-10 shadow-luxury border border-royal-purple/20">
+          <div className="text-center mb-8">
+            <span className="text-soft-gold text-sm tracking-[0.3em] uppercase font-light">Introduction</span>
+            <h2 className="font-serif text-4xl text-deep-purple mt-2">A Gift from the Heart</h2>
+            <div className="flex justify-center items-center gap-3 mt-3">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-soft-gold"></div>
+              <span className="text-soft-gold">✦</span>
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-soft-gold"></div>
+            </div>
+          </div>
+
+          <div className="space-y-5 text-dark-charcoal/70 font-light leading-relaxed">
+            <p className="text-lg">
+              My love, I created this for you because you deserve to know just how much you're loved.
+            </p>
+            <p>
+              I reached out to the people who matter most in your life—the ones who have watched you grow,
+              laughed with you, cried with you, and cheered you on.
+            </p>
+            <p>
+              Each letter you're about to read comes from a different heart. Each one shares a unique
+              perspective on who you are and why you're so special.
+            </p>
+            <p className="text-royal-purple font-serif text-xl italic">
+              This is my gift to you—a collection of love, carefully wrapped in words.
+            </p>
+          </div>
+
+          <div className="mt-10 text-center">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={onContinue}
+              className="px-10 py-4 bg-gradient-to-r from-deep-purple to-amethyst text-white rounded-full font-medium shadow-luxury hover:shadow-purple-glow transition-all duration-300"
+            >
+              Continue →
+            </motion.button>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
 }
