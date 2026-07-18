@@ -13,12 +13,12 @@ export default function LetterPage({ letter, letterNumber, totalLetters, onConti
       transition={{ duration: 0.6 }}
       className="w-full"
     >
-      <div className="backdrop-blur-xl bg-white/10 rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
+      <div className="backdrop-blur-xl bg-white/10 rounded-3xl border border-white/20 shadow-2xl overflow-hidden relative">
         {/* Glass shimmer overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5 pointer-events-none" />
         
         {/* Letter header */}
-        <div className="bg-white/5 px-8 py-6 border-b border-white/10">
+        <div className="relative bg-white/5 px-8 py-6 border-b border-white/10">
           <div className="flex justify-between items-center text-sm">
             <span className="text-purple-300 font-light tracking-wide">
               Letter {letterNumber} of {totalLetters}
@@ -33,7 +33,7 @@ export default function LetterPage({ letter, letterNumber, totalLetters, onConti
         </div>
 
         {/* Letter content */}
-        <div className="p-8">
+        <div className="relative p-8">
           {/* Sender photo */}
           {letter.senderPhoto && (
             <div className="mb-6 flex justify-center">
@@ -82,8 +82,8 @@ export default function LetterPage({ letter, letterNumber, totalLetters, onConti
           )}
         </div>
 
-        {/* Continue button - Optimized for performance */}
-        <div className="px-8 py-6 bg-white/5 border-t border-white/10 text-center">
+        {/* Continue button */}
+        <div className="relative px-8 py-6 bg-white/5 border-t border-white/10 text-center">
           <button
             onClick={onContinue}
             className="px-8 py-3 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-full font-medium shadow-lg hover:shadow-purple-500/30 transition-all duration-200 hover:scale-105 active:scale-95"
