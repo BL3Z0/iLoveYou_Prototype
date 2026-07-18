@@ -29,7 +29,7 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
       >
         <div className="relative w-80 h-56">
           <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-cream via-warm-white to-cream rounded-xl shadow-luxury border border-crimson/30"
+            className="absolute inset-0 bg-gradient-to-br from-cream via-warm-white to-cream rounded-xl shadow-luxury border border-royal-purple/30"
             animate={isOpening ? { scale: 1.05 } : { scale: 1 }}
           >
             <motion.div
@@ -38,7 +38,7 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
               transition={{ duration: 0.8, ease: "easeInOut" }}
               style={{ transformOrigin: 'top', backfaceVisibility: 'hidden' }}
             >
-              <div className="absolute inset-0 bg-gradient-to-b from-crimson/20 to-cream rounded-xl">
+              <div className="absolute inset-0 bg-gradient-to-b from-royal-purple/20 to-cream rounded-xl">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-5xl">✉️</div>
                 </div>
@@ -47,16 +47,16 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
 
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
-                <span className="text-sm tracking-[0.2em] uppercase font-light text-deep-crimson">
+                <span className="text-sm tracking-[0.2em] uppercase font-light text-royal-purple">
                   Letter {letterNumber}
                 </span>
-                <p className="font-serif text-2xl text-deep-crimson mt-1">A Love Letter</p>
+                <p className="font-serif text-2xl text-royal-purple mt-1">A Love Letter</p>
               </div>
             </div>
           </motion.div>
 
           <motion.div
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-gradient-to-br from-crimson to-deep-crimson flex items-center justify-center text-white text-2xl shadow-lg"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-gradient-to-br from-royal-purple to-deep-purple flex items-center justify-center text-white text-2xl shadow-lg"
             animate={isOpening ? { scale: 0, opacity: 0 } : { scale: 1 }}
             transition={{ duration: 0.4 }}
           >
@@ -65,7 +65,7 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
 
           {!isOpening && (
             <motion.div
-              className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm text-crimson/50"
+              className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm text-royal-purple/50"
               animate={{ y: [0, -5, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
@@ -78,7 +78,7 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
   }
 
   // ============================================
-  // FINAL ENVELOPE - MAJESTIC ROYAL RED
+  // FINAL ENVELOPE - MAJESTIC ROYAL PURPLE + GOLD
   // ============================================
   return (
     <>
@@ -92,21 +92,21 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
         onClick={handleClick}
       >
         <div className="relative w-96 h-64">
-          {/* Royal Red Envelope Body */}
+          {/* Royal Purple Envelope Body */}
           <motion.div
             className="absolute inset-0 rounded-xl shadow-2xl"
             style={{
-              background: 'linear-gradient(145deg, #4A0E0E, #8B0000, #9B1B30, #8B0000, #4A0E0E)',
-              border: '3px solid #DC143C',
-              boxShadow: '0 0 80px rgba(139, 0, 0, 0.8), inset 0 0 80px rgba(139, 0, 0, 0.5), 0 0 150px rgba(139, 0, 0, 0.3)',
+              background: 'linear-gradient(145deg, #1A0A33, #3B1A6B, #6C2BD9, #3B1A6B, #1A0A33)',
+              border: '3px solid #9B5DE5',
+              boxShadow: '0 0 80px rgba(108, 43, 217, 0.8), inset 0 0 80px rgba(108, 43, 217, 0.5), 0 0 150px rgba(108, 43, 217, 0.3)',
             }}
             animate={isOpening ? { scale: 1.05 } : { scale: 1 }}
           >
-            {/* Majestic red glow */}
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-[#4A0E0E]/80 via-transparent to-[#9B1B30]/20 pointer-events-none" />
-            <div className="absolute inset-[3px] rounded-xl border border-[#DC143C]/30 pointer-events-none" />
+            {/* Majestic purple glow */}
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-[#1A0A33]/80 via-transparent to-[#6C2BD9]/20 pointer-events-none" />
+            <div className="absolute inset-[3px] rounded-xl border border-[#9B5DE5]/30 pointer-events-none" />
             
-            {/* Gold corner accents - majestic */}
+            {/* Gold corner accents */}
             <div className="absolute top-3 left-3 text-soft-gold/30 text-sm">✦</div>
             <div className="absolute top-3 right-3 text-soft-gold/30 text-sm">✦</div>
             <div className="absolute bottom-3 left-3 text-soft-gold/30 text-sm">✦</div>
@@ -122,13 +122,13 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
               <div 
                 className="absolute inset-0 rounded-xl"
                 style={{
-                  background: 'linear-gradient(180deg, #9B1B30, #8B0000, #4A0E0E)',
+                  background: 'linear-gradient(180deg, #6C2BD9, #3B1A6B, #1A0A33)',
                 }}
               >
                 {/* GIANT ROSE */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-9xl drop-shadow-2xl" style={{ 
-                    filter: 'drop-shadow(0 0 40px rgba(220, 20, 60, 0.6))'
+                    filter: 'drop-shadow(0 0 40px rgba(108, 43, 217, 0.6))'
                   }}>
                     🌹
                   </div>
@@ -158,11 +158,11 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
 
             {/* Pulsing royal glow */}
             <div className="absolute inset-0 rounded-xl pointer-events-none animate-[pulseGlow_3s_ease-in-out_infinite]" style={{
-              boxShadow: 'inset 0 0 80px rgba(139, 0, 0, 0.3)',
+              boxShadow: 'inset 0 0 80px rgba(108, 43, 217, 0.3)',
             }} />
           </motion.div>
 
-          {/* GOLD Wax Seal - Bottom Right (majestic) */}
+          {/* GOLD Wax Seal - Bottom Right */}
           <motion.div
             className="absolute bottom-6 right-6 w-20 h-20 rounded-full flex items-center justify-center text-4xl shadow-2xl"
             style={{
@@ -198,10 +198,10 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
           }
           @keyframes pulseGlow {
             0%, 100% { 
-              box-shadow: inset 0 0 80px rgba(139, 0, 0, 0.3);
+              box-shadow: inset 0 0 80px rgba(108, 43, 217, 0.3);
             }
             50% { 
-              box-shadow: inset 0 0 120px rgba(139, 0, 0, 0.6);
+              box-shadow: inset 0 0 120px rgba(108, 43, 217, 0.6);
             }
           }
         `}</style>
