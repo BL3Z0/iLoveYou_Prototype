@@ -112,7 +112,7 @@ export default function LetterJourney({ onLetterComplete, lettersCompleted }) {
                 totalLetters={totalLetters}
                 onOpen={handleEnvelopeOpen}
                 isFinal={isFinalLetter}
-                senderInitial={currentLetter.from.charAt(0)} // Pass first letter of sender's name
+                senderInitial={currentLetter.from ? currentLetter.from.charAt(0) : '❤'}
               />
             </div>
           )}
