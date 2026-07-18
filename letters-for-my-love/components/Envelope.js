@@ -2,16 +2,12 @@ import { motion } from 'framer-motion';
 import { useState, useCallback } from 'react';
 import SparkleEffect from './SparkleEffect';
 
-export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }) {
+export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal, senderInitial }) {
   const [isOpening, setIsOpening] = useState(false);
   const [showSparkles, setShowSparkles] = useState(false);
 
-  // Get sender initial from lettersData
-  const getSenderInitial = () => {
-    // This will be passed from parent or we can use letterNumber
-    const initials = ['S', 'M', 'M', 'E', 'B']; // Sarah, Michael, Mom, Emma, Boyfriend
-    return initials[letterNumber - 1] || '❤';
-  };
+  // Use the passed senderInitial or fallback
+  const initial = senderInitial || '❤';
 
   const handleClick = useCallback(() => {
     requestAnimationFrame(() => {
@@ -30,8 +26,6 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
   // REGULAR ENVELOPE - Real Envelope Design
   // ============================================
   if (!isFinal) {
-    const senderInitial = getSenderInitial();
-    
     return (
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -98,7 +92,7 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
             <div className="absolute top-4 right-4 w-12 h-14 bg-white/80 rounded-sm shadow-md border border-gray-300 flex items-center justify-center">
               <div className="w-10 h-12 border-2 border-dashed border-royal-purple/30 rounded-sm flex items-center justify-center">
                 <span className="font-serif text-xl font-bold text-royal-purple">
-                  {senderInitial}
+                  {initial}
                 </span>
               </div>
               {/* Stamp perforations */}
