@@ -11,7 +11,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-cream via-warm-white to-rose-cream flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-b from-cream via-warm-white to-lavender flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -22,10 +22,10 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-warm-white/90 backdrop-blur-lg rounded-3xl p-8 shadow-luxury border border-crimson/20"
+            className="bg-warm-white/90 backdrop-blur-lg rounded-3xl p-8 shadow-luxury border border-royal-purple/20"
           >
             <div className="text-6xl mb-4">🎵</div>
-            <h3 className="font-serif text-3xl text-deep-crimson mb-3">
+            <h3 className="font-serif text-3xl text-deep-purple mb-3">
               This experience is best enjoyed with sound.
             </h3>
             <p className="text-dark-charcoal/60 mb-6 font-light">
@@ -34,7 +34,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => handleChoice(true)}
-                className="px-8 py-3 bg-gradient-to-r from-deep-crimson to-ruby text-white rounded-full font-medium shadow-luxury hover:shadow-red-glow transition-all duration-300 transform hover:scale-105"
+                className="px-8 py-3 bg-gradient-to-r from-royal-purple to-deep-purple text-white rounded-full font-medium shadow-luxury hover:shadow-purple-glow transition-all duration-300 transform hover:scale-105"
               >
                 🎵 Play with Music
               </button>
@@ -53,10 +53,10 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <div className="text-8xl mb-6">💝</div>
-              <h1 className="font-serif text-5xl md:text-7xl text-deep-crimson mb-4">
+              <div className="text-8xl mb-6">💜</div>
+              <h1 className="font-serif text-5xl md:text-7xl text-deep-purple mb-4">
                 Happy 20th Birthday,
-                <span className="block text-crimson mt-2">[Her Name]</span>
+                <span className="block text-royal-purple mt-2">[Her Name]</span>
               </h1>
               
               <div className="flex justify-center items-center gap-4 mb-8">
@@ -71,7 +71,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
               <p className="text-2xl text-dark-charcoal/70 font-light mb-2">
                 Five hearts.
               </p>
-              <p className="text-2xl text-crimson font-light mb-8">
+              <p className="text-2xl text-royal-purple font-light mb-8">
                 One unforgettable birthday.
               </p>
 
@@ -83,7 +83,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={onBegin}
-                className="px-10 py-4 bg-gradient-to-r from-deep-crimson to-ruby text-white rounded-full text-lg font-medium shadow-luxury hover:shadow-red-glow transition-all duration-300"
+                className="px-10 py-4 bg-gradient-to-r from-deep-purple to-amethyst text-white rounded-full text-lg font-medium shadow-luxury hover:shadow-purple-glow transition-all duration-300"
               >
                 Begin Your Journey ✨
               </motion.button>
