@@ -12,6 +12,7 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState('welcome');
   const [lettersCompleted, setLettersCompleted] = useState(0);
   const [isMusicEnabled, setIsMusicEnabled] = useState(false);
+  const [isNightMode, setIsNightMode] = useState(false);
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -47,6 +48,10 @@ export default function Home() {
     setLettersCompleted(prev => prev + 1);
   };
 
+  const toggleDayNight = () => {
+    setIsNightMode(!isNightMode);
+  };
+
   if (isLoading) {
     return <LoadingScreen />;
   }
@@ -67,17 +72,42 @@ export default function Home() {
         preload="auto"
       />
 
-      {/* Background Image */}
+      {/* Background Image - Changes based on Day/Night mode */}
       <div 
-        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
+        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat transition-all duration-1000"
         style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=80")',
+          backgroundImage: isNightMode 
+            ? 'url("https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80")' // Night/Misty Mountain
+            : 'url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=80")', // Day Nature
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
-        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
+        {/* Darker overlay for night mode */}
+        <div className={`absolute inset-0 transition-all duration-1000 ${
+          isNightMode ? 'bg-black/50 backdrop-blur-sm' : 'bg-black/30 backdrop-blur-sm'
+        }`} />
       </div>
+
+      {/* Day/Night Toggle Button - Shows after welcome page */}
+      {currentPage !== 'welcome' && (
+        <button
+          onClick={toggleDayNight}
+          className="fixed top-6 right-6 z-50 px-4 py-2 rounded-full bg-white/10 backdrop-blur-lg border border-white/20 text-white hover:bg-white/20 transition-all duration-300 flex items-center gap-2 shadow-lg"
+        >
+          {isNightMode ? (
+            <>
+              <span className="text-lg">🌙</span>
+              <span className="text-sm">Night</span>
+            </>
+          ) : (
+            <>
+              <span className="text-lg">☀️</span>
+              <span className="text-sm">Day</span>
+            </>
+          )}
+        </button>
+      )}
 
       {/* Main Content */}
       <div className="relative min-h-screen flex items-center justify-center px-4 py-8">
