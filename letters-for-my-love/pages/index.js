@@ -112,36 +112,4 @@ export default function Home() {
       </div>
     </>
   );
-    }        <AnimatePresence mode="wait">
-          {currentPage === 'welcome' && (
-            <div className="w-full max-w-4xl">
-              <WelcomePage 
-                key="welcome"
-                onMusicChoice={handleMusicChoice}
-                onBegin={handleBeginJourney}
-                isMusicEnabled={isMusicEnabled}
-              />
-            </div>
-          )}
-          {currentPage === 'introduction' && (
-            <div className="w-full max-w-4xl">
-              <Introduction 
-                key="introduction"
-                onContinue={handleContinueToLetters}
-              />
-            </div>
-          )}
-          {currentPage === 'letters' && (
-            <div className="w-full max-w-4xl">
-              <LetterJourney 
-                key="letters"
-                onLetterComplete={handleLetterComplete}
-                lettersCompleted={lettersCompleted}
-              />
-            </div>
-          )}
-        </AnimatePresence>
-      </div>
-    </>
-  );
-}
+    }
