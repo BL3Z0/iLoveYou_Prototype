@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) {
@@ -20,16 +20,16 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Generate floating hearts - MORE HEARTS!
+  // Generate floating hearts - 60 hearts for FULL effect
   useEffect(() => {
     const hearts = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 60; i++) {
       hearts.push({
         id: i,
         x: Math.random() * 100,
         delay: Math.random() * 5,
         duration: Math.random() * 10 + 6,
-        size: Math.random() * 40 + 20,
+        size: Math.random() * 45 + 15,
         opacity: Math.random() * 0.5 + 0.2,
         rotation: Math.random() * 360,
       });
@@ -66,7 +66,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     onBegin();
   };
 
-  // Floating Hearts Component - MORE HEARTS!
+  // Floating Hearts Component
   const FloatingHearts = () => (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {floatingHearts.map((heart) => (
@@ -94,7 +94,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           }}
           style={{
             fontSize: `${heart.size}px`,
-            textShadow: '0 0 20px rgba(255,0,0,0.3)',
+            textShadow: '0 0 30px rgba(255,0,0,0.4), 0 0 60px rgba(255,0,0,0.2)',
           }}
         >
           ❤️
@@ -103,7 +103,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     </div>
   );
 
-  // Question Screen
+  // Question Screen - FIRST PAGE
   if (showQuestion) {
     return (
       <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
@@ -131,12 +131,20 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
             🥰
           </motion.div>
 
-          <h1 className="font-cursive text-4xl md:text-6xl text-white mb-8 drop-shadow-2xl">
-            Do you want to see your gift?
+          <h1 className="font-cursive text-5xl md:text-7xl text-white mb-4 drop-shadow-2xl">
+            Happy Birthday Surprise! 🎉
           </h1>
 
+          <p className="font-medieval text-xl text-white/80 mb-8">
+            I have something special for you...
+          </p>
+
+          <h2 className="font-cursive text-3xl md:text-5xl text-rose-pink mb-8 drop-shadow-2xl">
+            Do you want to see your gift?
+          </h2>
+
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative">
-            {/* Yes Button - Grows bigger */}
+            {/* Yes Button */}
             <motion.button
               onClick={handleYesClick}
               className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl hover:shadow-rose-glow transition-all duration-300"
@@ -148,7 +156,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
               Yes Please 💕
             </motion.button>
 
-            {/* No Button - Moves on hover for desktop */}
+            {/* No Button */}
             <motion.button
               onClick={isMobile ? handleYesClick : undefined}
               onMouseEnter={!isMobile ? handleNoHover : undefined}
@@ -256,4 +264,4 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   }
 
   return null;
-    }
+                     }
