@@ -22,7 +22,7 @@
   }
 }
 
-/* Custom scrollbar - Red theme */
+/* Custom scrollbar - Purple theme */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -33,12 +33,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #8B0000;
+  background: #6C2BD9;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #DC143C;
+  background: #9B5DE5;
 }
 
 /* Animations */
@@ -64,10 +64,10 @@
 
 @keyframes pulseGlow {
   0%, 100% {
-    box-shadow: 0 0 60px rgba(139, 0, 0, 0.4);
+    box-shadow: 0 0 60px rgba(108, 43, 217, 0.4);
   }
   50% {
-    box-shadow: 0 0 100px rgba(139, 0, 0, 0.7);
+    box-shadow: 0 0 100px rgba(108, 43, 217, 0.7);
   }
 }
 
@@ -78,31 +78,34 @@
   .bg-warm-white {
     background-color: #FFFAF7;
   }
-  .bg-deep-crimson {
-    background-color: #8B0000;
+  .bg-royal-purple {
+    background-color: #6C2BD9;
   }
-  .bg-crimson {
-    background-color: #DC143C;
+  .bg-deep-purple {
+    background-color: #3B1A6B;
   }
-  .bg-velvet {
-    background-color: #4A0E0E;
+  .bg-dark-purple {
+    background-color: #1A0A33;
   }
-  .bg-royal-red {
-    background-color: #9B1B30;
+  .bg-light-purple {
+    background-color: #B49BDF;
   }
-  .bg-ruby {
-    background-color: #E0115F;
+  .bg-lavender {
+    background-color: #E8D9F5;
   }
-  .text-deep-crimson {
-    color: #8B0000;
+  .bg-amethyst {
+    background-color: #9B5DE5;
   }
-  .text-crimson {
-    color: #DC143C;
+  .text-royal-purple {
+    color: #6C2BD9;
   }
-  .text-royal-red {
-    color: #9B1B30;
+  .text-deep-purple {
+    color: #3B1A6B;
   }
-  .text-ruby {
-    color: #E0115F;
+  .text-light-purple {
+    color: #B49BDF;
+  }
+  .text-amethyst {
+    color: #9B5DE5;
   }
 }
