@@ -19,7 +19,6 @@ Happy 20th birthday, my dear friend. Here's to many more years of laughter, tear
 All my love,
 Sarah ❤️`,
     photos: ["/photos/memory1.jpg", "/photos/memory2.jpg"],
-    voiceMessage: "/audio/sarah-voice.mp3",
     transitionType: "memory",
     transitionData: {
       title: "Our Favorite Memories",
@@ -47,7 +46,6 @@ Keep being you. Keep shining. Keep loving with your whole heart.
 Your big brother always,
 Michael 💙`,
     photos: ["/photos/childhood1.jpg", "/photos/childhood2.jpg"],
-    voiceMessage: "/audio/michael-voice.mp3",
     transitionType: "quote",
     transitionData: {
       quote: "Family isn't just blood—it's the people who love you unconditionally.",
@@ -74,7 +72,6 @@ I love you more than words can say. You are my greatest achievement, my pride, a
 With all my love,
 Mom ❤️`,
     photos: ["/photos/mom1.jpg", "/photos/mom2.jpg", "/photos/mom3.jpg"],
-    voiceMessage: "/audio/mom-voice.mp3",
     transitionType: "memory",
     transitionData: {
       title: "A Mother's Love",
@@ -102,7 +99,6 @@ I love you more than all the stars in the sky.
 Your sister forever,
 Emma ✨`,
     photos: ["/photos/sister1.jpg", "/photos/sister2.jpg"],
-    voiceMessage: "/audio/emma-voice.mp3",
     transitionType: "quote",
     transitionData: {
       quote: "Sisters by chance, best friends by choice.",
@@ -135,8 +131,8 @@ Happy 20th birthday, my love. Here's to forever.
 Forever yours,
 [Your Name] ❤️❤️❤️`,
     photos: ["/photos/couple1.jpg", "/photos/couple2.jpg", "/photos/couple3.jpg"],
-    voiceMessage: "/audio/boyfriend-voice.mp3",
-    videoMessage: "/videos/boyfriend-video.mp4",
+    voiceMessage: "/audio/boyfriend-voice.mp3",  // ONLY Letter 5 has audio
+    videoMessage: "/videos/boyfriend-video.mp4", // ONLY Letter 5 has video
     transitionType: "memory",
     transitionData: {
       title: "Our Beautiful Journey",
