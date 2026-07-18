@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import LoadingScreen from '../components/LoadingScreen';
 import WelcomePage from '../components/WelcomePage';
@@ -12,6 +12,7 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState('welcome');
   const [lettersCompleted, setLettersCompleted] = useState(0);
   const [isMusicEnabled, setIsMusicEnabled] = useState(false);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -19,6 +20,16 @@ export default function Home() {
     }, 3000);
     return () => clearTimeout(timer);
   }, []);
+
+  // Handle music playback when enabled
+  useEffect(() => {
+    if (isMusicEnabled && audioRef.current) {
+      audioRef.current.volume = 0.5;
+      audioRef.current.play().catch(err => {
+        console.log('Audio play failed:', err);
+      });
+    }
+  }, [isMusicEnabled]);
 
   const handleMusicChoice = (choice) => {
     setIsMusicEnabled(choice);
@@ -48,7 +59,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Background Image - Replace URL with your image */}
+      {/* Background Music - Persistent across all pages */}
+      <audio 
+        ref={audioRef}
+        src="/audio/Pretty_Girl.mp3"
+        loop
+        preload="auto"
+      />
+
+      {/* Background Image */}
       <div 
         className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
         style={{
@@ -57,7 +76,6 @@ export default function Home() {
           backgroundPosition: 'center',
         }}
       >
-        {/* Dark overlay for better readability */}
         <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
       </div>
 
