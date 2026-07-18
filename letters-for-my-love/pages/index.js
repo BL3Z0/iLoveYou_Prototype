@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import LoadingScreen from '../components/LoadingScreen';
 import WelcomePage from '../components/WelcomePage';
-import Introduction from '../components/Introduction';
 import LetterJourney from '../components/LetterJourney';
 import MemoryBox from '../components/MemoryBox';
 import { AnimatePresence } from 'framer-motion';
@@ -35,10 +34,6 @@ export default function Home() {
   };
 
   const handleBeginJourney = () => {
-    setCurrentPage('introduction');
-  };
-
-  const handleContinueToLetters = () => {
     setCurrentPage('letters');
   };
 
@@ -66,7 +61,7 @@ export default function Home() {
         preload="auto"
       />
 
-      {/* Main Content - NO LANDSCAPE BACKGROUND */}
+      {/* Main Content */}
       <div className="relative min-h-screen flex items-center justify-center px-4 py-8">
         <AnimatePresence mode="wait">
           {currentPage === 'welcome' && (
@@ -76,14 +71,6 @@ export default function Home() {
                 onMusicChoice={handleMusicChoice}
                 onBegin={handleBeginJourney}
                 isMusicEnabled={isMusicEnabled}
-              />
-            </div>
-          )}
-          {currentPage === 'introduction' && (
-            <div className="w-full max-w-4xl">
-              <Introduction 
-                key="introduction"
-                onContinue={handleContinueToLetters}
               />
             </div>
           )}
