@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { lettersData } from '../data/letters';
 import AudioPlayer from './AudioPlayer';
 import VideoPlayer from './VideoPlayer';
-import GlassFrame from './GlassFrame';
 
 export default function MemoryBox({ onBack }) {
   const [selectedLetter, setSelectedLetter] = useState(null);
@@ -27,8 +26,8 @@ export default function MemoryBox({ onBack }) {
   }));
 
   return (
-    <div className="w-full max-w-6xl mx-auto py-8 px-4">
-      <GlassFrame>
+    <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red overflow-y-auto py-8 px-4">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -38,12 +37,12 @@ export default function MemoryBox({ onBack }) {
           <div className="flex justify-between items-center mb-4">
             <button
               onClick={onBack}
-              className="text-purple-300 hover:text-white transition-colors"
+              className="text-rose-pink hover:text-white transition-colors font-medieval text-lg"
             >
               ← Back
             </button>
-            <h1 className="font-serif text-3xl md:text-4xl text-white">
-              💜 Memory Box
+            <h1 className="font-cursive text-3xl md:text-4xl text-white">
+              💝 Memory Box
             </h1>
             <div className="w-16"></div>
           </div>
@@ -60,7 +59,7 @@ export default function MemoryBox({ onBack }) {
               onClick={() => setActiveTab(tab)}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 activeTab === tab
-                  ? 'bg-gradient-to-r from-purple-500 to-purple-700 text-white shadow-lg'
+                  ? 'bg-gradient-to-r from-rose-pink to-shiny-red text-white shadow-lg'
                   : 'bg-white/10 text-white/60 hover:bg-white/20 backdrop-blur-sm'
               }`}
             >
@@ -88,13 +87,13 @@ export default function MemoryBox({ onBack }) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden hover:border-purple-400/30 transition-all cursor-pointer hover:shadow-lg hover:shadow-purple-500/10"
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden hover:border-rose-pink/50 transition-all cursor-pointer hover:shadow-xl hover:shadow-rose-pink/10"
                   onClick={() => setSelectedLetter(letter)}
                 >
                   <div className="p-6">
                     <div className="flex items-center gap-4 mb-4">
                       {letter.senderPhoto && (
-                        <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-purple-400/30">
+                        <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-rose-pink/30">
                           <Image
                             src={letter.senderPhoto}
                             alt={letter.from}
@@ -105,7 +104,7 @@ export default function MemoryBox({ onBack }) {
                       )}
                       <div>
                         <h3 className="font-medium text-white">{letter.from}</h3>
-                        <p className="text-sm text-purple-300/60">{letter.relationship}</p>
+                        <p className="text-sm text-rose-pink/60">{letter.relationship}</p>
                       </div>
                     </div>
                     
@@ -113,7 +112,7 @@ export default function MemoryBox({ onBack }) {
                       {letter.content.substring(0, 150)}...
                     </p>
                     
-                    <div className="flex gap-2 mt-4 text-xs text-purple-300">
+                    <div className="flex gap-2 mt-4 text-xs text-rose-pink">
                       {letter.voiceMessage && <span>🎙️</span>}
                       {letter.videoMessage && <span>🎥</span>}
                       {letter.photos && letter.photos.length > 0 && <span>📷 {letter.photos.length}</span>}
@@ -138,7 +137,7 @@ export default function MemoryBox({ onBack }) {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.05 }}
-                  className="relative aspect-square rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow cursor-pointer group border border-white/10 hover:border-purple-400/30"
+                  className="relative aspect-square rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow cursor-pointer group border border-white/10 hover:border-rose-pink/30"
                 >
                   <Image
                     src={photo}
@@ -168,15 +167,15 @@ export default function MemoryBox({ onBack }) {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10"
+                  className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/10"
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-300">
+                    <div className="w-10 h-10 rounded-full bg-rose-pink/20 flex items-center justify-center text-rose-pink">
                       🎙️
                     </div>
                     <div>
                       <h4 className="font-medium text-white">{audio.from}</h4>
-                      <p className="text-sm text-purple-300/60">{audio.relationship}</p>
+                      <p className="text-sm text-rose-pink/60">{audio.relationship}</p>
                     </div>
                   </div>
                   <AudioPlayer src={audio.src} />
@@ -199,15 +198,15 @@ export default function MemoryBox({ onBack }) {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10"
+                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10"
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-300">
+                    <div className="w-10 h-10 rounded-full bg-rose-pink/20 flex items-center justify-center text-rose-pink">
                       🎥
                     </div>
                     <div>
                       <h4 className="font-medium text-white">{video.from}</h4>
-                      <p className="text-sm text-purple-300/60">{video.relationship}</p>
+                      <p className="text-sm text-rose-pink/60">{video.relationship}</p>
                     </div>
                   </div>
                   <VideoPlayer src={video.src} />
@@ -216,13 +215,13 @@ export default function MemoryBox({ onBack }) {
             </motion.div>
           )}
         </AnimatePresence>
-      </GlassFrame>
+      </div>
 
       {/* Letter Detail Modal */}
       <AnimatePresence>
         {selectedLetter && (
           <div
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
             onClick={() => setSelectedLetter(null)}
           >
             <motion.div
@@ -241,8 +240,8 @@ export default function MemoryBox({ onBack }) {
                 </button>
                 
                 <div className="mb-6">
-                  <h2 className="font-serif text-2xl text-white">From: {selectedLetter.from}</h2>
-                  <p className="text-purple-300/60 text-sm">{selectedLetter.relationship}</p>
+                  <h2 className="font-cursive text-2xl text-white">From: {selectedLetter.from}</h2>
+                  <p className="text-rose-pink/60 text-sm">{selectedLetter.relationship}</p>
                 </div>
                 
                 <div className="text-white/80 font-light leading-relaxed">
@@ -253,7 +252,7 @@ export default function MemoryBox({ onBack }) {
 
                 {selectedLetter.photos && selectedLetter.photos.length > 0 && (
                   <div className="mt-6">
-                    <h4 className="text-sm text-purple-300 font-medium mb-3">📷 Photos</h4>
+                    <h4 className="text-sm text-rose-pink font-medium mb-3">📷 Photos</h4>
                     <div className="grid grid-cols-3 gap-2">
                       {selectedLetter.photos.map((photo, i) => (
                         <div key={i} className="relative aspect-square rounded-lg overflow-hidden border border-white/10">
@@ -266,14 +265,14 @@ export default function MemoryBox({ onBack }) {
 
                 {selectedLetter.voiceMessage && (
                   <div className="mt-6">
-                    <h4 className="text-sm text-purple-300 font-medium mb-3">🎙️ Voice Message</h4>
+                    <h4 className="text-sm text-rose-pink font-medium mb-3">🎙️ Voice Message</h4>
                     <AudioPlayer src={selectedLetter.voiceMessage} />
                   </div>
                 )}
 
                 {selectedLetter.videoMessage && (
                   <div className="mt-6">
-                    <h4 className="text-sm text-purple-300 font-medium mb-3">🎥 Video Message</h4>
+                    <h4 className="text-sm text-rose-pink font-medium mb-3">🎥 Video Message</h4>
                     <VideoPlayer src={selectedLetter.videoMessage} />
                   </div>
                 )}
@@ -284,4 +283,4 @@ export default function MemoryBox({ onBack }) {
       </AnimatePresence>
     </div>
   );
-}
+                }
