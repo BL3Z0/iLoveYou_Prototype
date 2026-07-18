@@ -35,7 +35,6 @@ export default function LetterJourney({ onLetterComplete, lettersCompleted }) {
   const handleEnvelopeOpen = () => {
     setShowEnvelope(false);
     setShowLetter(true);
-    // Small delay to ensure DOM is ready
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 200);
@@ -51,11 +50,9 @@ export default function LetterJourney({ onLetterComplete, lettersCompleted }) {
         setShowTransition(false);
         setCurrentLetterIndex(prev => prev + 1);
         setShowEnvelope(true);
-        // Scroll to top when new envelope appears
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 3000);
     } else {
-      // All letters complete - show celebration
       setTimeout(() => {
         setShowCelebration(true);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -86,7 +83,7 @@ export default function LetterJourney({ onLetterComplete, lettersCompleted }) {
   const isFinalLetter = currentLetterIndex === totalLetters - 1;
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-transparent flex items-start justify-center px-4 py-16">
+    <div ref={containerRef} className="min-h-screen bg-transparent flex items-center justify-center px-4 py-16">
       {/* Progress - Glass style */}
       <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md px-4">
         <div className="backdrop-blur-xl bg-white/10 rounded-full px-6 py-3 shadow-lg border border-white/10">
