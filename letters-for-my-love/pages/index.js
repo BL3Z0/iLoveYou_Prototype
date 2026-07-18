@@ -1,4 +1,3 @@
-// pages/index.js
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import LoadingScreen from '../components/LoadingScreen';
@@ -6,6 +5,7 @@ import WelcomePage from '../components/WelcomePage';
 import Introduction from '../components/Introduction';
 import LetterJourney from '../components/LetterJourney';
 import MemoryBox from '../components/MemoryBox';
+import StarryBackground from '../components/StarryBackground';
 import { AnimatePresence } from 'framer-motion';
 
 export default function Home() {
@@ -15,7 +15,6 @@ export default function Home() {
   const [isMusicEnabled, setIsMusicEnabled] = useState(false);
 
   useEffect(() => {
-    // Simulate loading
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3000);
@@ -48,35 +47,43 @@ export default function Home() {
         <title>Letters for My Love - Happy 20th Birthday</title>
         <meta name="description" content="A special birthday experience for someone extraordinary" />
         <link rel="icon" href="/favicon.ico" />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
       </Head>
 
-      <AnimatePresence mode="wait">
-        {currentPage === 'welcome' && (
-          <WelcomePage 
-            key="welcome"
-            onMusicChoice={handleMusicChoice}
-            onBegin={handleBeginJourney}
-            isMusicEnabled={isMusicEnabled}
-          />
-        )}
-        {currentPage === 'introduction' && (
-          <Introduction 
-            key="introduction"
-            onContinue={handleContinueToLetters}
-          />
-        )}
-        {currentPage === 'letters' && (
-          <LetterJourney 
-            key="letters"
-            onLetterComplete={handleLetterComplete}
-            lettersCompleted={lettersCompleted}
-          />
-        )}
-        {currentPage === 'memorybox' && (
-          <MemoryBox key="memorybox" />
-        )}
-      </AnimatePresence>
+      {/* Starry Background */}
+      <StarryBackground />
+
+      {/* Main Content */}
+      <div className="relative min-h-screen flex items-center justify-center px-4 py-8">
+        <AnimatePresence mode="wait">
+          {currentPage === 'welcome' && (
+            <div className="w-full max-w-4xl">
+              <WelcomePage 
+                key="welcome"
+                onMusicChoice={handleMusicChoice}
+                onBegin={handleBeginJourney}
+                isMusicEnabled={isMusicEnabled}
+              />
+            </div>
+          )}
+          {currentPage === 'introduction' && (
+            <div className="w-full max-w-4xl">
+              <Introduction 
+                key="introduction"
+                onContinue={handleContinueToLetters}
+              />
+            </div>
+          )}
+          {currentPage === 'letters' && (
+            <div className="w-full max-w-4xl">
+              <LetterJourney 
+                key="letters"
+                onLetterComplete={handleLetterComplete}
+                lettersCompleted={lettersCompleted}
+              />
+            </div>
+          )}
+        </AnimatePresence>
+      </div>
     </>
   );
 }
