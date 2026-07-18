@@ -3,10 +3,8 @@ import { useEffect, useState } from 'react';
 
 export default function LoadingScreen() {
   const [progress, setProgress] = useState(0);
-  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
@@ -19,19 +17,36 @@ export default function LoadingScreen() {
     return () => clearInterval(interval);
   }, []);
 
-  const getRandomPosition = () => {
-    if (typeof window === 'undefined') return { x: 0, y: 0 };
-    return {
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight
-    };
-  };
-
   return (
-    <div className="fixed inset-0 bg-gradient-to-b from-cream via-warm-white to-lavender flex flex-col items-center justify-center z-50">
-      <div className="relative">
+    <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex flex-col items-center justify-center z-50 overflow-hidden">
+      {/* Floating hearts background */}
+      {[...Array(30)].map((_, i) => (
         <motion.div
-          className="text-7xl mb-8"
+          key={i}
+          className="absolute text-shiny-red/30"
+          initial={{
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            scale: Math.random() * 0.5 + 0.5
+          }}
+          animate={{
+            y: [null, -100, -200],
+            opacity: [0.3, 0.6, 0]
+          }}
+          transition={{
+            duration: Math.random() * 5 + 3,
+            repeat: Infinity,
+            ease: "easeOut",
+            delay: Math.random() * 3
+          }}
+        >
+          ❤️
+        </motion.div>
+      ))}
+
+      <div className="relative z-10 text-center">
+        <motion.div
+          className="text-8xl mb-8"
           animate={{
             scale: [1, 1.2, 1],
             rotate: [0, 10, -10, 0]
@@ -42,67 +57,30 @@ export default function LoadingScreen() {
             ease: "easeInOut"
           }}
         >
-          💜
+          💝
         </motion.div>
-        <motion.div
-          className="absolute -top-8 -right-8 text-5xl"
-          animate={{
-            y: [0, -20, 0],
-            opacity: [0, 1, 0]
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          ✨
-        </motion.div>
-      </div>
 
-      <h2 className="font-serif text-3xl text-deep-purple mb-4 tracking-wide">
-        Preparing your birthday surprise...
-      </h2>
+        <h2 className="font-cursive text-3xl text-white mb-6">
+          Preparing your birthday surprise...
+        </h2>
 
-      <div className="w-64 h-1.5 bg-gray-200 rounded-full overflow-hidden shadow-inner">
-        <motion.div
-          className="h-full bg-gradient-to-r from-royal-purple via-amethyst to-deep-purple rounded-full"
-          initial={{ width: 0 }}
-          animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.5 }}
-        />
-      </div>
-      
-      <p className="text-sm text-royal-purple mt-3 font-light">
-        {progress}%
-      </p>
-
-      {isMounted && [...Array(20)].map((_, i) => {
-        const pos = getRandomPosition();
-        return (
+        {/* Loading Bar - NOW VISIBLE! */}
+        <div className="w-72 h-3 bg-white/20 rounded-full overflow-hidden shadow-inner border border-white/10">
           <motion.div
-            key={i}
-            className="absolute text-royal-purple opacity-20"
-            initial={{
-              x: pos.x,
-              y: pos.y,
-              scale: Math.random() * 0.5 + 0.5
+            className="h-full bg-gradient-to-r from-rose-pink via-shiny-red to-rose-pink rounded-full shadow-lg"
+            initial={{ width: 0 }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.5 }}
+            style={{
+              boxShadow: '0 0 20px rgba(236, 85, 152, 0.5), 0 0 40px rgba(204, 0, 0, 0.3)',
             }}
-            animate={{
-              y: [null, -150, -250],
-              opacity: [0.2, 0.5, 0]
-            }}
-            transition={{
-              duration: Math.random() * 6 + 4,
-              repeat: Infinity,
-              ease: "easeOut",
-              delay: Math.random() * 3
-            }}
-          >
-            💜
-          </motion.div>
-        );
-      })}
+          />
+        </div>
+        
+        <p className="text-white/60 text-sm mt-3 font-light">
+          {progress}%
+        </p>
+      </div>
     </div>
   );
-}
+      }
