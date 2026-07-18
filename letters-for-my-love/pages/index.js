@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 import LoadingScreen from '../components/LoadingScreen';
-import WelcomePage from '../components/WelcomePage';
-import LetterJourney from '../components/LetterJourney';
-import MemoryBox from '../components/MemoryBox';
 import { AnimatePresence } from 'framer-motion';
+
+// Dynamically import components that use browser features
+const WelcomePage = dynamic(() => import('../components/WelcomePage'), { ssr: false });
+const LetterJourney = dynamic(() => import('../components/LetterJourney'), { ssr: false });
+const MemoryBox = dynamic(() => import('../components/MemoryBox'), { ssr: false });
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
