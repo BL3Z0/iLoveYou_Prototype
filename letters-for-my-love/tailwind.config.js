@@ -7,40 +7,34 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Main theme - Deep Crimson Red
-        'deep-crimson': '#8B0000',
-        'crimson': '#DC143C',
-        'dark-crimson': '#5C0000',
-        'royal-red': '#9B1B30',
-        'ruby': '#E0115F',
-        'velvet': '#4A0E0E',
-        
-        // Warm backgrounds
+        'rose-pink': '#EC5598',
+        'deep-red': '#8B0000',
+        'shiny-red': '#CC0000',
+        'warm-red': '#B22222',
+        'dark-red': '#4A0000',
+        'parchment': '#F5E6C8',
+        'aged-paper': '#E8D5B5',
+        'burnt-edge': '#8B7355',
         cream: '#FFF8F0',
-        'warm-white': '#FFFAF7',
-        'rose-cream': '#FFF5F0',
-        
-        // Gold accents
         'soft-gold': '#D4AF37',
         'gold-shimmer': '#F5D6A8',
-        
-        // Neutrals
         'dark-charcoal': '#2D1B1B',
-        'mauve': '#6B3E59',
       },
       fontFamily: {
-        serif: ['Playfair Display', 'Georgia', 'serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        medieval: ['MedievalSharp', 'cursive'],
+        cursive: ['Great Vibes', 'cursive'],
+        cinematic: ['Cinzel Decorative', 'serif'],
+        oldlondon: ['Old London', 'serif'],
+        playfair: ['Playfair Display', 'serif'],
       },
       backgroundImage: {
-        'gradient-red': 'linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #E0115F 100%)',
-        'gradient-warm': 'linear-gradient(135deg, #FFF8F0 0%, #FFFAF7 50%, #FFF5F0 100%)',
-        'gradient-royal': 'linear-gradient(135deg, #4A0E0E 0%, #8B0000 50%, #9B1B30 100%)',
+        'gradient-rose': 'linear-gradient(135deg, #EC5598 0%, #C41E6B 50%, #8B0A3A 100%)',
+        'gradient-red': 'linear-gradient(135deg, #4A0000 0%, #8B0000 50%, #CC0000 100%)',
+        'gradient-parchment': 'linear-gradient(135deg, #F5E6C8 0%, #E8D5B5 50%, #D4C4A8 100%)',
       },
       boxShadow: {
-        'luxury': '0 8px 32px rgba(139, 0, 0, 0.15)',
-        'red-glow': '0 8px 32px rgba(220, 20, 60, 0.25)',
-        'royal': '0 8px 48px rgba(139, 0, 0, 0.4)',
+        'medieval': '0 8px 32px rgba(139, 0, 0, 0.3), 0 0 60px rgba(139, 0, 0, 0.1)',
+        'rose-glow': '0 8px 32px rgba(236, 85, 152, 0.3)',
       }
     },
   },
