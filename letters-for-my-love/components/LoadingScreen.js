@@ -1,10 +1,13 @@
+'use client';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 export default function LoadingScreen() {
   const [progress, setProgress] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
@@ -17,32 +20,42 @@ export default function LoadingScreen() {
     return () => clearInterval(interval);
   }, []);
 
+  const getRandomPosition = () => {
+    if (typeof window === 'undefined') return { x: 0, y: 0 };
+    return {
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+    };
+  };
+
   return (
     <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex flex-col items-center justify-center z-50 overflow-hidden">
-      {/* Floating hearts background */}
-      {[...Array(30)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute text-shiny-red/30"
-          initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            scale: Math.random() * 0.5 + 0.5
-          }}
-          animate={{
-            y: [null, -100, -200],
-            opacity: [0.3, 0.6, 0]
-          }}
-          transition={{
-            duration: Math.random() * 5 + 3,
-            repeat: Infinity,
-            ease: "easeOut",
-            delay: Math.random() * 3
-          }}
-        >
-          ❤️
-        </motion.div>
-      ))}
+      {isMounted && [...Array(30)].map((_, i) => {
+        const pos = getRandomPosition();
+        return (
+          <motion.div
+            key={i}
+            className="absolute text-shiny-red/30"
+            initial={{
+              x: pos.x,
+              y: pos.y,
+              scale: Math.random() * 0.5 + 0.5
+            }}
+            animate={{
+              y: [null, -100, -200],
+              opacity: [0.3, 0.6, 0]
+            }}
+            transition={{
+              duration: Math.random() * 5 + 3,
+              repeat: Infinity,
+              ease: "easeOut",
+              delay: Math.random() * 3
+            }}
+          >
+            ❤️
+          </motion.div>
+        );
+      })}
 
       <div className="relative z-10 text-center">
         <motion.div
@@ -64,7 +77,6 @@ export default function LoadingScreen() {
           Preparing your birthday surprise...
         </h2>
 
-        {/* Loading Bar - NOW VISIBLE! */}
         <div className="w-72 h-3 bg-white/20 rounded-full overflow-hidden shadow-inner border border-white/10">
           <motion.div
             className="h-full bg-gradient-to-r from-rose-pink via-shiny-red to-rose-pink rounded-full shadow-lg"
@@ -83,4 +95,4 @@ export default function LoadingScreen() {
       </div>
     </div>
   );
-      }
+                  }
