@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import SparkleEffect from './SparkleEffect';
 
 export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }) {
   const [isOpening, setIsOpening] = useState(false);
   const [showSparkles, setShowSparkles] = useState(false);
 
-  const handleClick = () => {
+  // Use useCallback to prevent re-renders
+  const handleClick = useCallback(() => {
     // Use requestAnimationFrame for smoother performance
     requestAnimationFrame(() => {
       setIsOpening(true);
@@ -14,35 +15,35 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
         setShowSparkles(true);
       }
       
-      // Use setTimeout with shorter delay for better responsiveness
+      // Faster response time
       setTimeout(() => {
         setShowSparkles(false);
         onOpen();
-      }, 1500); // Reduced from 2000ms to 1500ms
+      }, 1200); // Reduced from 1500ms
     });
-  };
+  }, [isFinal, onOpen]);
 
   // Regular envelope design
   if (!isFinal) {
     return (
       <motion.div
-        initial={{ opacity: 0, y: 50, scale: 0.9 }}
+        initial={{ opacity: 0, y: 30, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.8 }}
-        transition={{ duration: 0.5 }} // Reduced from 0.8
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.4 }}
         className="relative cursor-pointer"
         onClick={handleClick}
       >
         <div className="relative w-80 h-56">
           <motion.div
             className="absolute inset-0 bg-gradient-to-br from-cream via-warm-white to-cream rounded-xl shadow-luxury border border-royal-purple/30"
-            animate={isOpening ? { scale: 1.05 } : { scale: 1 }}
-            transition={{ duration: 0.3 }} // Faster transition
+            animate={isOpening ? { scale: 1.03 } : { scale: 1 }}
+            transition={{ duration: 0.2 }}
           >
             <motion.div
               className="absolute inset-0"
               animate={isOpening ? { rotateX: 180 } : { rotateX: 0 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }} // Reduced from 0.8
+              transition={{ duration: 0.4, ease: "easeInOut" }}
               style={{ transformOrigin: 'top', backfaceVisibility: 'hidden' }}
             >
               <div className="absolute inset-0 bg-gradient-to-b from-royal-purple/20 to-cream rounded-xl">
@@ -65,19 +66,15 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
           <motion.div
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-gradient-to-br from-royal-purple to-deep-purple flex items-center justify-center text-white text-2xl shadow-lg"
             animate={isOpening ? { scale: 0, opacity: 0 } : { scale: 1 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2 }}
           >
             ✦
           </motion.div>
 
           {!isOpening && (
-            <motion.div
-              className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm text-royal-purple/50"
-              animate={{ y: [0, -5, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
+            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm text-royal-purple/50 animate-bounce">
               click to open ✨
-            </motion.div>
+            </div>
           )}
         </div>
       </motion.div>
@@ -85,18 +82,17 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
   }
 
   // ============================================
-  // FINAL ENVELOPE - MAJESTIC ROYAL PURPLE + GOLD
-  // OPTIMIZED FOR PERFORMANCE
+  // FINAL ENVELOPE - OPTIMIZED
   // ============================================
   return (
     <>
       <SparkleEffect isActive={showSparkles} />
 
       <motion.div
-        initial={{ opacity: 0, y: 50, scale: 0.9 }}
+        initial={{ opacity: 0, y: 30, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.8 }}
-        transition={{ duration: 0.5 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.4 }}
         className="relative cursor-pointer"
         onClick={handleClick}
       >
@@ -109,14 +105,13 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
               border: '3px solid #9B5DE5',
               boxShadow: '0 0 60px rgba(108, 43, 217, 0.6), inset 0 0 60px rgba(108, 43, 217, 0.4)',
             }}
-            animate={isOpening ? { scale: 1.05 } : { scale: 1 }}
-            transition={{ duration: 0.3 }}
+            animate={isOpening ? { scale: 1.03 } : { scale: 1 }}
+            transition={{ duration: 0.2 }}
           >
-            {/* Simplified glow - no heavy gradients */}
             <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-[#1A0A33]/60 via-transparent to-[#6C2BD9]/10 pointer-events-none" />
             <div className="absolute inset-[3px] rounded-xl border border-[#9B5DE5]/20 pointer-events-none" />
             
-            {/* Gold corner accents - simplified */}
+            {/* Simplified gold corners */}
             <div className="absolute top-3 left-3 text-soft-gold/20 text-sm">✦</div>
             <div className="absolute top-3 right-3 text-soft-gold/20 text-sm">✦</div>
             <div className="absolute bottom-3 left-3 text-soft-gold/20 text-sm">✦</div>
@@ -126,7 +121,7 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
             <motion.div
               className="absolute inset-0"
               animate={isOpening ? { rotateX: 180 } : { rotateX: 0 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
               style={{ transformOrigin: 'top', backfaceVisibility: 'hidden' }}
             >
               <div 
@@ -135,7 +130,6 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
                   background: 'linear-gradient(180deg, #6C2BD9, #3B1A6B, #1A0A33)',
                 }}
               >
-                {/* GIANT ROSE */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-9xl drop-shadow-2xl" style={{ 
                     filter: 'drop-shadow(0 0 30px rgba(108, 43, 217, 0.4))'
@@ -143,8 +137,6 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
                     🌹
                   </div>
                 </div>
-                {/* Simplified shimmer - removed heavy animation */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-soft-gold/5 to-transparent" />
               </div>
             </motion.div>
 
@@ -177,21 +169,16 @@ export default function Envelope({ letterNumber, totalLetters, onOpen, isFinal }
               zIndex: 10,
             }}
             animate={isOpening ? { scale: 0, opacity: 0 } : { scale: 1 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2 }}
           >
             🌹
           </motion.div>
 
-          {/* Click hint - Gold */}
+          {/* Click hint */}
           {!isOpening && (
-            <motion.div
-              className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm"
-              style={{ color: '#D4AF37' }}
-              animate={{ y: [0, -5, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
+            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm text-soft-gold animate-bounce">
               ✦ Click to open your heart ✦
-            </motion.div>
+            </div>
           )}
         </div>
       </motion.div>
