@@ -87,7 +87,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
 
             {isMusicEnabled && (
               <div className="fixed bottom-6 right-6 z-40">
-                <AudioPlayer src="/background-music.mp3" />
+                <AudioPlayer src="/Pretty_Girl.mp3" />
               </div>
             )}
           </>
