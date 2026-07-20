@@ -90,7 +90,7 @@ Remember when we were kids and we'd stay up late, whispering secrets under the c
 
 You're not just my sister—you're my built-in best friend, my confidant, and the person who knows me better than anyone else. You've seen me at my worst and loved me anyway. You've celebrated my best moments like they were your own.
 
-You taught me how to be brave, how to stand up for myself, and how to love without holding back. You showed me that being strong doesn't mean never being weak—it means being vulnerable and still choosing to move forward.
+You taught me how to be brave, how to stand up for yourself, and how to love without holding back. You showed me that being strong doesn't mean never being weak—it means being vulnerable and still choosing to move forward.
 
 At 20, you're just getting started, and I can't wait to see where life takes you. Just promise me one thing: never forget how amazing you are.
 
@@ -131,8 +131,8 @@ Happy 20th birthday, my love. Here's to forever.
 Forever yours,
 [Your Name] ❤️❤️❤️`,
     photos: ["/photos/couple1.jpg", "/photos/couple2.jpg", "/photos/couple3.jpg"],
-    voiceMessage: "/audio/boyfriend-voice.mp3",  // ONLY Letter 5 has audio
-    videoMessage: "/videos/boyfriend-video.mp4", // ONLY Letter 5 has video
+    voiceMessage: "/audio/boyfriend-voice.mp3",
+    videoMessage: "/videos/boyfriend-video.mp4",
     transitionType: "memory",
     transitionData: {
       title: "Our Beautiful Journey",
