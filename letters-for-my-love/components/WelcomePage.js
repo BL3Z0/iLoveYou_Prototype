@@ -10,7 +10,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   const [yesButtonSize, setYesButtonSize] = useState(1);
   const [yesClicks, setYesClicks] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [floatingHearts, setFloatingHearts] = useState([]);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -22,34 +21,18 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
       };
       checkMobile();
       window.addEventListener('resize', checkMobile);
-      
-      const hearts = [];
-      for (let i = 0; i < 15; i++) {
-        hearts.push({
-          id: i,
-          x: Math.random() * 100,
-          delay: Math.random() * 5,
-          duration: Math.random() * 10 + 6,
-          size: Math.random() * 35 + 15,
-          opacity: Math.random() * 0.4 + 0.1,
-          rotation: Math.random() * 360,
-        });
-      }
-      setFloatingHearts(hearts);
-      
       return () => window.removeEventListener('resize', checkMobile);
     }
   }, []);
 
-  const handleNoClick = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  // SIMPLE - Direct function for No button
+  const handleNoClick = () => {
     if (isMobile) {
       setShowCryingQuby(true);
     }
-  }, [isMobile]);
+  };
 
-  const handleNoHover = useCallback(() => {
+  const handleNoHover = () => {
     if (!isMobile && !showCryingQuby) {
       const newX = (Math.random() - 0.5) * 200;
       const newY = (Math.random() - 0.5) * 200;
@@ -57,82 +40,33 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
       setYesButtonSize(prev => prev + 0.15);
       setYesClicks(prev => prev + 1);
     }
-  }, [isMobile, showCryingQuby]);
+  };
 
-  // SIMPLIFIED - No heavy animations
-  const handleYesClick = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
+  const handleYesClick = () => {
     setShowQuestion(false);
     setShowGiftReveal(true);
-    
     setTimeout(() => {
       setShowGiftReveal(false);
       setShowMusicPrompt(true);
     }, 2000);
-  }, []);
+  };
 
-  const handleGoBackAndAccept = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleGoBackAndAccept = () => {
     setShowCryingQuby(false);
     setYesButtonSize(prev => prev + 0.5);
-  }, []);
+  };
 
-  const handleMusicChoice = useCallback((choice) => {
+  const handleMusicChoice = (choice) => {
     onMusicChoice(choice);
     setShowMusicPrompt(false);
     onBegin();
-  }, [onMusicChoice, onBegin]);
-
-  // SIMPLIFIED - No motion animations for hearts
-  const FloatingHearts = () => (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {floatingHearts.map((heart) => (
-        <div
-          key={heart.id}
-          className="absolute text-shiny-red"
-          style={{
-            left: `${heart.x}%`,
-            fontSize: `${heart.size}px`,
-            opacity: heart.opacity,
-            animation: `floatHeart ${heart.duration}s linear ${heart.delay}s infinite`,
-          }}
-        >
-          ❤️
-        </div>
-      ))}
-      <style jsx>{`
-        @keyframes floatHeart {
-          0% {
-            transform: translateY(100vh) rotate(0deg) scale(0);
-            opacity: 0;
-          }
-          10% {
-            opacity: 0.5;
-            transform: translateY(80vh) rotate(45deg) scale(0.5);
-          }
-          50% {
-            opacity: 0.8;
-            transform: translateY(40vh) rotate(180deg) scale(1);
-          }
-          100% {
-            transform: translateY(-10vh) rotate(360deg) scale(0.3);
-            opacity: 0;
-          }
-        }
-      `}</style>
-    </div>
-  );
+  };
 
   // Question Screen
   if (showQuestion) {
     return (
       <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
-        <FloatingHearts />
-
-        <div className="relative z-10 text-center max-w-2xl">
+        <div className="relative z-10 text-center max-w-2xl w-full">
           <div className="mb-6">
             <img 
               src="/images/milk-and-mocha-bears.gif" 
@@ -142,40 +76,42 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
             />
           </div>
 
-          <h1 className="font-cursive text-5xl md:text-7xl text-white mb-4 drop-shadow-2xl">
+          <h1 className="font-cursive text-4xl md:text-7xl text-white mb-4 drop-shadow-2xl">
             Happy Birthday Surprise! 🎉
           </h1>
 
-          <p className="font-medieval text-xl text-white/80 mb-8">
+          <p className="font-medieval text-lg md:text-xl text-white/80 mb-6 md:mb-8">
             I have something special for you...
           </p>
 
-          <h2 className="font-cursive text-3xl md:text-5xl text-rose-pink mb-8 drop-shadow-2xl">
+          <h2 className="font-cursive text-2xl md:text-5xl text-rose-pink mb-6 md:mb-8 drop-shadow-2xl">
             Do you want to see your gift?
           </h2>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative">
-            {/* YES BUTTON - SIMPLIFIED, NO ANIMATIONS */}
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center relative">
+            {/* YES BUTTON */}
             <button
               onClick={handleYesClick}
-              className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl"
+              className="px-8 md:px-10 py-3 md:py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-lg md:text-xl shadow-2xl active:scale-95 transition-transform duration-150"
               style={{
                 transform: `scale(${yesButtonSize})`,
-                transition: 'transform 0.15s ease',
               }}
             >
               Yes Please 💕
             </button>
 
-            {/* NO BUTTON - SIMPLIFIED */}
+            {/* NO BUTTON - WORKS ON MOBILE */}
             <button
               onClick={handleNoClick}
               onMouseEnter={!isMobile ? handleNoHover : undefined}
-              className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white/70 rounded-full font-medieval text-xl border border-white/20"
+              onTouchStart={isMobile ? handleNoClick : undefined}
+              className="px-8 md:px-10 py-3 md:py-4 bg-white/10 backdrop-blur-sm text-white/70 rounded-full font-medieval text-lg md:text-xl border border-white/20 active:bg-white/30 transition-all duration-150"
               style={{
                 transform: !isMobile ? `translate(${noButtonPosition.x}px, ${noButtonPosition.y}px)` : 'none',
-                transition: 'transform 0.12s ease',
                 touchAction: 'manipulation',
+                cursor: 'pointer',
+                minHeight: '44px',
+                minWidth: '44px',
               }}
             >
               No Thanks 😅
@@ -196,30 +132,28 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   if (showCryingQuby) {
     return (
       <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
-        <FloatingHearts />
-
         <div className="relative z-10 text-center max-w-2xl w-full">
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20">
+          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-6 md:p-8 shadow-2xl border border-white/20">
             <div className="mb-6">
               <img 
                 src="/images/crying-quby.gif" 
                 alt="Crying Quby"
-                className="w-48 h-48 md:w-56 md:h-56 object-contain mx-auto"
+                className="w-40 h-40 md:w-56 md:h-56 object-contain mx-auto"
                 loading="eager"
               />
             </div>
 
-            <h2 className="font-cursive text-3xl text-white mb-4">
+            <h2 className="font-cursive text-2xl md:text-3xl text-white mb-4">
               😢 Aww, don't say no!
             </h2>
             
-            <p className="text-white/70 text-lg mb-8 font-light">
+            <p className="text-white/70 text-base md:text-lg mb-6 md:mb-8 font-light">
               Quby is sad... Please accept the gift! 💝
             </p>
 
             <button
               onClick={handleGoBackAndAccept}
-              className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl"
+              className="px-8 md:px-10 py-3 md:py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-lg md:text-xl shadow-2xl active:scale-95 transition-transform duration-150"
             >
               Go Back & Accept 💕
             </button>
@@ -237,16 +171,11 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   if (showGiftReveal) {
     return (
       <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
-        <FloatingHearts />
-        
         <div className="relative z-10 text-center">
-          <h1 className="font-cinematic text-5xl md:text-7xl text-white drop-shadow-2xl">
+          <h1 className="font-cinematic text-4xl md:text-7xl text-white drop-shadow-2xl">
             MADE JUST FOR YOU
           </h1>
-          
-          <div className="text-9xl mt-8">
-            💐
-          </div>
+          <div className="text-7xl md:text-9xl mt-6 md:mt-8">💐</div>
         </div>
       </div>
     );
@@ -256,27 +185,25 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   if (showMusicPrompt) {
     return (
       <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
-        <FloatingHearts />
-
         <div className="relative z-10 max-w-2xl w-full text-center">
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20">
-            <div className="text-6xl mb-4">🎵</div>
-            <h3 className="font-cursive text-3xl text-white mb-3">
+          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-6 md:p-8 shadow-2xl border border-white/20">
+            <div className="text-5xl md:text-6xl mb-4">🎵</div>
+            <h3 className="font-cursive text-2xl md:text-3xl text-white mb-3">
               This experience is best enjoyed with sound.
             </h3>
-            <p className="text-white/60 mb-6 font-light">
+            <p className="text-white/60 mb-6 font-light text-sm md:text-base">
               Choose how you'd like to continue
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => handleMusicChoice(true)}
-                className="px-8 py-3 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medium shadow-lg"
+                className="px-6 md:px-8 py-3 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medium shadow-lg active:scale-95 transition-transform duration-150"
               >
                 🎵 Play with Music
               </button>
               <button
                 onClick={() => handleMusicChoice(false)}
-                className="px-8 py-3 bg-white/10 text-white rounded-full font-medium hover:bg-white/20 backdrop-blur-sm"
+                className="px-6 md:px-8 py-3 bg-white/10 text-white rounded-full font-medium hover:bg-white/20 backdrop-blur-sm active:bg-white/30 transition-all duration-150"
               >
                 Continue without Music
               </button>
