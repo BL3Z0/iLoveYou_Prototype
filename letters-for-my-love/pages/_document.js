@@ -9,6 +9,15 @@ export default function Document() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Great+Vibes&family=Cinzel+Decorative:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+        
+        {/* Preload critical images */}
+        <link rel="preload" as="image" href="/images/paper-texture.jpg" />
+        <link rel="preload" as="image" href="/images/profile.jpg" />
+        <link rel="preload" as="image" href="/images/quby-dance.gif" />
+        
+        {/* Preconnect to CDN for faster loading */}
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://media.tenor.com" />
       </Head>
       <body>
         <Main />
