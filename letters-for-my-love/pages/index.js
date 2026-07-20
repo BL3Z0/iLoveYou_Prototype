@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import LoadingScreen from '../components/LoadingScreen';
+import PasswordScreen from '../components/PasswordScreen';
 import { AnimatePresence } from 'framer-motion';
 
 // Dynamically import components that use browser features
@@ -11,6 +12,7 @@ const MemoryBox = dynamic(() => import('../components/MemoryBox'), { ssr: false 
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isLocked, setIsLocked] = useState(true);
   const [currentPage, setCurrentPage] = useState('welcome');
   const [lettersCompleted, setLettersCompleted] = useState(0);
   const [isMusicEnabled, setIsMusicEnabled] = useState(false);
@@ -44,8 +46,16 @@ export default function Home() {
     setLettersCompleted(prev => prev + 1);
   };
 
+  const handlePasswordSuccess = () => {
+    setIsLocked(false);
+  };
+
   if (isLoading) {
     return <LoadingScreen />;
+  }
+
+  if (isLocked) {
+    return <PasswordScreen onSuccess={handlePasswordSuccess} />;
   }
 
   return (
@@ -59,7 +69,7 @@ export default function Home() {
       {/* Background Music */}
       <audio 
         ref={audioRef}
-        src="/audio/Shine_Bright_Like_A_Diamond.mp3"
+        src="/audio/Pretty_Girl.mp3"
         loop
         preload="auto"
       />
@@ -90,4 +100,4 @@ export default function Home() {
       </div>
     </>
   );
-    }
+}
