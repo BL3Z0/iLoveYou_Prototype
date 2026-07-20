@@ -49,7 +49,6 @@ export default function Home() {
 
   const handlePasswordSuccess = () => {
     setIsRipping(true);
-    // Wait for rip animation to complete before showing welcome page
     setTimeout(() => {
       setIsLocked(false);
       setIsRipping(false);
@@ -68,30 +67,31 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Background Music - No loop, stops when page closes */}
+      {/* Background Music - No loop */}
       <audio 
         ref={audioRef}
         src="/audio/Shine_Bright_Like_A_Diamond.mp3"
         preload="auto"
       />
 
-      {/* Background Image - Full screen with overlay */}
-      <div 
-        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: 'url("/images/bg.png")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        {/* Dark overlay for readability - adjust opacity as needed */}
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+      {/* Solid Red Background with gradient and shadows */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red">
+        {/* Subtle shadow overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
+        
+        {/* Subtle vignette effect */}
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/30" />
+        
+        {/* Subtle texture overlay - optional */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: 'radial-gradient(circle at 20% 30%, white 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
+        }} />
       </div>
 
       {/* Main Content */}
       <div className="relative min-h-screen flex items-center justify-center px-4 py-8">
         <AnimatePresence mode="wait">
-          {/* Password Screen with Rip Effect */}
           {isLocked && (
             <div className="w-full max-w-4xl relative">
               <PasswordScreen 
@@ -102,7 +102,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* Welcome Page - Appears after rip */}
           {!isLocked && currentPage === 'welcome' && (
             <div className="w-full max-w-4xl">
               <WelcomePage 
@@ -114,7 +113,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* Letters Journey */}
           {currentPage === 'letters' && (
             <div className="w-full max-w-4xl">
               <LetterJourney 
