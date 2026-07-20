@@ -1,3 +1,4 @@
+'use client';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
@@ -12,15 +13,16 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   const [floatingHearts, setFloatingHearts] = useState([]);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      return () => window.removeEventListener('resize', checkMobile);
+    }
   }, []);
 
-  // Generate floating hearts - 60 hearts for FULL effect
   useEffect(() => {
     const hearts = [];
     for (let i = 0; i < 60; i++) {
@@ -66,7 +68,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     onBegin();
   };
 
-  // Floating Hearts Component
   const FloatingHearts = () => (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {floatingHearts.map((heart) => (
@@ -103,7 +104,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     </div>
   );
 
-  // Question Screen - FIRST PAGE
   if (showQuestion) {
     return (
       <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
@@ -115,7 +115,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           transition={{ duration: 0.8 }}
           className="relative z-10 text-center max-w-2xl"
         >
-          {/* Cartoon Character */}
           <motion.div
             animate={{
               y: [0, -25, 0],
@@ -144,31 +143,22 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           </h2>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative">
-            {/* Yes Button */}
             <motion.button
               onClick={handleYesClick}
               className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl hover:shadow-rose-glow transition-all duration-300"
-              animate={{
-                scale: yesButtonSize,
-              }}
+              animate={{ scale: yesButtonSize }}
               transition={{ duration: 0.3 }}
             >
               Yes Please 💕
             </motion.button>
 
-            {/* No Button */}
             <motion.button
               onClick={isMobile ? handleYesClick : undefined}
               onMouseEnter={!isMobile ? handleNoHover : undefined}
               className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white/70 rounded-full font-medieval text-xl border border-white/20 hover:bg-white/20 transition-all duration-300"
-              animate={!isMobile ? {
-                x: noButtonPosition.x,
-                y: noButtonPosition.y,
-              } : {}}
+              animate={!isMobile ? { x: noButtonPosition.x, y: noButtonPosition.y } : {}}
               transition={{ duration: 0.2 }}
-              style={{
-                cursor: isMobile ? 'pointer' : 'default',
-              }}
+              style={{ cursor: isMobile ? 'pointer' : 'default' }}
             >
               No Thanks 😅
             </motion.button>
@@ -184,7 +174,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     );
   }
 
-  // Gift Reveal Screen
   if (showGiftReveal) {
     return (
       <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
@@ -224,7 +213,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     );
   }
 
-  // Music Prompt Screen
   if (showMusicPrompt) {
     return (
       <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
@@ -264,4 +252,4 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   }
 
   return null;
-                     }
+}
