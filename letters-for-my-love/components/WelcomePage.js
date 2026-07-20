@@ -50,16 +50,18 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   };
 
   const handleYesClick = () => {
-    if (!isMobile) {
-      setYesButtonSize(prev => prev + 0.2);
-      setYesClicks(prev => prev + 1);
-    }
-    setShowQuestion(false);
-    setShowGiftReveal(true);
-    setTimeout(() => {
-      setShowGiftReveal(false);
-      setShowMusicPrompt(true);
-    }, 3000);
+    requestAnimationFrame(() => {
+      if (!isMobile) {
+        setYesButtonSize(prev => prev + 0.2);
+        setYesClicks(prev => prev + 1);
+      }
+      setShowQuestion(false);
+      setShowGiftReveal(true);
+      setTimeout(() => {
+        setShowGiftReveal(false);
+        setShowMusicPrompt(true);
+      }, 3000);
+    });
   };
 
   const handleMusicChoice = (choice) => {
@@ -116,7 +118,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           transition={{ duration: 0.8 }}
           className="relative z-10 text-center max-w-2xl"
         >
-          {/* QUBY DANCING GIF - REPLACE URL OR PATH */}
+          {/* QUBY DANCING GIF */}
           <motion.div
             animate={{
               y: [0, -10, 0],
@@ -130,7 +132,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
             className="mb-6"
           >
             <img 
-              src="/images/milk-and-mocha-bears.gif" 
+              src="/images/quby-dance.gif" 
               alt="Quby Dancing"
               className="w-40 h-40 md:w-48 md:h-48 object-contain mx-auto"
             />
@@ -149,21 +151,25 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           </h2>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative">
-            <motion.button
+            {/* Yes Button - Optimized */}
+            <button
               onClick={handleYesClick}
-              className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl hover:shadow-rose-glow transition-all duration-300"
-              animate={{ scale: yesButtonSize }}
-              transition={{ duration: 0.3 }}
+              className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl hover:shadow-rose-glow transition-all duration-200 hover:scale-105 active:scale-95"
+              style={{
+                transform: `scale(${yesButtonSize})`,
+                transition: 'transform 0.2s ease',
+              }}
             >
               Yes Please 💕
-            </motion.button>
+            </button>
 
+            {/* No Button */}
             <motion.button
               onClick={isMobile ? handleYesClick : undefined}
               onMouseEnter={!isMobile ? handleNoHover : undefined}
-              className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white/70 rounded-full font-medieval text-xl border border-white/20 hover:bg-white/20 transition-all duration-300"
+              className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white/70 rounded-full font-medieval text-xl border border-white/20 hover:bg-white/20 transition-all duration-200"
               animate={!isMobile ? { x: noButtonPosition.x, y: noButtonPosition.y } : {}}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.15 }}
               style={{ cursor: isMobile ? 'pointer' : 'default' }}
             >
               No Thanks 😅
@@ -242,13 +248,13 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => handleMusicChoice(true)}
-                className="px-8 py-3 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medium shadow-lg hover:shadow-rose-glow transition-all duration-300 transform hover:scale-105"
+                className="px-8 py-3 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medium shadow-lg hover:shadow-rose-glow transition-all duration-200 transform hover:scale-105 active:scale-95"
               >
                 🎵 Play with Music
               </button>
               <button
                 onClick={() => handleMusicChoice(false)}
-                className="px-8 py-3 bg-white/10 text-white rounded-full font-medium hover:bg-white/20 transition-all duration-300 backdrop-blur-sm"
+                className="px-8 py-3 bg-white/10 text-white rounded-full font-medium hover:bg-white/20 transition-all duration-200 backdrop-blur-sm"
               >
                 Continue without Music
               </button>
