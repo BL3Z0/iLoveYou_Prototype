@@ -68,15 +68,28 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Background Music */}
+      {/* Background Music - No loop, stops when page closes */}
       <audio 
         ref={audioRef}
         src="/audio/Shine_Bright_Like_A_Diamond.mp3"
         preload="auto"
       />
 
+      {/* Background Image - Full screen with overlay */}
+      <div 
+        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url("/images/bg.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        {/* Dark overlay for readability - adjust opacity as needed */}
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+      </div>
+
       {/* Main Content */}
-      <div className="relative min-h-screen flex items-center justify-center px-4 py-8 overflow-hidden">
+      <div className="relative min-h-screen flex items-center justify-center px-4 py-8">
         <AnimatePresence mode="wait">
           {/* Password Screen with Rip Effect */}
           {isLocked && (
@@ -101,6 +114,7 @@ export default function Home() {
             </div>
           )}
 
+          {/* Letters Journey */}
           {currentPage === 'letters' && (
             <div className="w-full max-w-4xl">
               <LetterJourney 
