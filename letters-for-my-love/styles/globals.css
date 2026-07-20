@@ -72,3 +72,40 @@
     box-shadow: 0 0 100px rgba(204, 0, 0, 0.7);
   }
 }
+/* Prevent layout shift during loading */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Smooth loading */
+img, video, iframe {
+  content-visibility: auto;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  /* Prevent zoom on input */
+  input, button, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Optimize animations for mobile */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Lazy loading images */
+img {
+  loading: lazy;
+  decoding: async;
+}
