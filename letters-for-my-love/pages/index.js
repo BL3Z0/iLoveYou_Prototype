@@ -5,6 +5,10 @@ import LoadingScreen from '../components/LoadingScreen';
 import { AnimatePresence } from 'framer-motion';
 
 // Dynamically import ALL components with ssr: false
+const MusicPrompt = dynamic(() => import('../components/MusicPrompt'), { 
+  ssr: false,
+  loading: () => <div className="text-white text-center py-20">Loading...</div>
+});
 const PasswordScreen = dynamic(() => import('../components/PasswordScreen'), { 
   ssr: false,
   loading: () => <div className="text-white text-center py-20">Loading...</div>
@@ -18,15 +22,15 @@ const LetterJourney = dynamic(() => import('../components/LetterJourney'), {
   loading: () => <div className="text-white text-center py-20">Loading...</div>
 });
 
-// Force server-side rendering, not static
-export async function getServerSideProps() {
+export const getServerSideProps = async () => {
   return {
     props: {},
   };
-}
+};
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const [showMusicPrompt, setShowMusicPrompt] = useState(true);
   const [isLocked, setIsLocked] = useState(true);
   const [currentPage, setCurrentPage] = useState('welcome');
   const [lettersCompleted, setLettersCompleted] = useState(0);
@@ -53,6 +57,7 @@ export default function Home() {
 
   const handleMusicChoice = (choice) => {
     setIsMusicEnabled(choice);
+    setShowMusicPrompt(false);
   };
 
   const handleBeginJourney = () => {
@@ -71,7 +76,6 @@ export default function Home() {
     return <LoadingScreen />;
   }
 
-  // Only render client-side content after mount
   if (!isClient) {
     return (
       <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center">
@@ -111,7 +115,18 @@ export default function Home() {
       {/* Main Content */}
       <div className="relative min-h-screen flex items-center justify-center px-4 py-8">
         <AnimatePresence mode="wait">
-          {isLocked && (
+          {/* MUSIC PROMPT - NOW FIRST (after loading) */}
+          {showMusicPrompt && (
+            <div className="w-full max-w-4xl">
+              <MusicPrompt 
+                key="music"
+                onMusicChoice={handleMusicChoice}
+              />
+            </div>
+          )}
+
+          {/* PASSWORD SCREEN - SECOND */}
+          {!showMusicPrompt && isLocked && (
             <div className="w-full max-w-4xl relative">
               <PasswordScreen 
                 key="password"
@@ -120,7 +135,8 @@ export default function Home() {
             </div>
           )}
 
-          {!isLocked && currentPage === 'welcome' && (
+          {/* WELCOME PAGE - THIRD */}
+          {!showMusicPrompt && !isLocked && currentPage === 'welcome' && (
             <div className="w-full max-w-4xl">
               <WelcomePage 
                 key="welcome"
@@ -131,6 +147,7 @@ export default function Home() {
             </div>
           )}
 
+          {/* LETTERS JOURNEY - FOURTH */}
           {currentPage === 'letters' && (
             <div className="w-full max-w-4xl">
               <LetterJourney 
