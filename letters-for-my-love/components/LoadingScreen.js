@@ -4,28 +4,8 @@ import { useEffect, useState } from 'react';
 
 export default function LoadingScreen() {
   const [progress, setProgress] = useState(0);
-  const [isMounted, setIsMounted] = useState(false);
-  const [hearts, setHearts] = useState([]);
 
   useEffect(() => {
-    setIsMounted(true);
-    
-    // Generate hearts only on client side
-    if (typeof window !== 'undefined') {
-      const newHearts = [];
-      for (let i = 0; i < 15; i++) {
-        newHearts.push({
-          id: i,
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight,
-          scale: Math.random() * 0.5 + 0.3,
-          duration: Math.random() * 5 + 3,
-          delay: Math.random() * 3,
-        });
-      }
-      setHearts(newHearts);
-    }
-
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
@@ -40,25 +20,25 @@ export default function LoadingScreen() {
 
   return (
     <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex flex-col items-center justify-center z-50 overflow-hidden">
-      {/* Floating hearts - Only render on client */}
-      {isMounted && hearts.map((heart) => (
+      {/* Static hearts - No window references, use fixed positions */}
+      {[...Array(12)].map((_, i) => (
         <motion.div
-          key={heart.id}
-          className="absolute text-shiny-red/30"
+          key={i}
+          className="absolute text-shiny-red/20"
           initial={{
-            x: heart.x,
-            y: heart.y,
-            scale: heart.scale,
+            x: `${(i * 8) % 100}%`,
+            y: `${(i * 13) % 100}%`,
+            scale: 0.5 + (i % 5) * 0.1,
           }}
           animate={{
-            y: [null, -100, -200],
-            opacity: [0.3, 0.6, 0]
+            y: [null, '-10vh', '-20vh'],
+            opacity: [0.15, 0.3, 0]
           }}
           transition={{
-            duration: heart.duration,
+            duration: 4 + (i % 3),
             repeat: Infinity,
             ease: "easeOut",
-            delay: heart.delay
+            delay: (i * 0.3) % 2,
           }}
         >
           ❤️
@@ -78,7 +58,7 @@ export default function LoadingScreen() {
             ease: "easeInOut"
           }}
         >
-          🎁
+          💝
         </motion.div>
 
         <h2 className="font-cursive text-3xl text-white mb-6">
