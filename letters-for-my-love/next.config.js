@@ -6,26 +6,23 @@ const nextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
+  // Disable static generation for all pages
   output: 'standalone',
   swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  // Reduce bundle size
+  // Disable static optimization
+  staticPageGenerationTimeout: 120,
+  // Disable automatic static optimization
+  generateBuildId: async () => {
+    return 'build-' + Date.now();
+  },
+  // Ensure all pages are server-side rendered
+  pageExtensions: ['jsx', 'js'],
+  // Avoid static generation
   experimental: {
     optimizeCss: true,
-  },
-  // Better performance
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        net: false,
-        tls: false,
-      };
-    }
-    return config;
   },
 }
 
