@@ -1,20 +1,16 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 
-export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) {
+export default function WelcomePage({ onBegin }) {
   const [showQuestion, setShowQuestion] = useState(true);
   const [showGiftReveal, setShowGiftReveal] = useState(false);
-  const [showMusicPrompt, setShowMusicPrompt] = useState(false);
   const [showCryingQuby, setShowCryingQuby] = useState(false);
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
   const [yesButtonSize, setYesButtonSize] = useState(1);
   const [yesClicks, setYesClicks] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
-    
     if (typeof window !== 'undefined') {
       const checkMobile = () => {
         setIsMobile(window.innerWidth < 768);
@@ -25,7 +21,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     }
   }, []);
 
-  // SIMPLE - Direct function for No button
   const handleNoClick = () => {
     if (isMobile) {
       setShowCryingQuby(true);
@@ -47,19 +42,13 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     setShowGiftReveal(true);
     setTimeout(() => {
       setShowGiftReveal(false);
-      setShowMusicPrompt(true);
+      onBegin();
     }, 2000);
   };
 
   const handleGoBackAndAccept = () => {
     setShowCryingQuby(false);
     setYesButtonSize(prev => prev + 0.5);
-  };
-
-  const handleMusicChoice = (choice) => {
-    onMusicChoice(choice);
-    setShowMusicPrompt(false);
-    onBegin();
   };
 
   // Question Screen
@@ -100,7 +89,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
               Yes Please 💕
             </button>
 
-            {/* NO BUTTON - WORKS ON MOBILE */}
+            {/* NO BUTTON */}
             <button
               onClick={handleNoClick}
               onMouseEnter={!isMobile ? handleNoHover : undefined}
@@ -176,39 +165,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
             MADE JUST FOR YOU
           </h1>
           <div className="text-7xl md:text-9xl mt-6 md:mt-8">💐</div>
-        </div>
-      </div>
-    );
-  }
-
-  // Music Prompt Screen
-  if (showMusicPrompt) {
-    return (
-      <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
-        <div className="relative z-10 max-w-2xl w-full text-center">
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-6 md:p-8 shadow-2xl border border-white/20">
-            <div className="text-5xl md:text-6xl mb-4">🎵</div>
-            <h3 className="font-cursive text-2xl md:text-3xl text-white mb-3">
-              This experience is best enjoyed with sound.
-            </h3>
-            <p className="text-white/60 mb-6 font-light text-sm md:text-base">
-              Choose how you'd like to continue
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={() => handleMusicChoice(true)}
-                className="px-6 md:px-8 py-3 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medium shadow-lg active:scale-95 transition-transform duration-150"
-              >
-                🎵 Play with Music
-              </button>
-              <button
-                onClick={() => handleMusicChoice(false)}
-                className="px-6 md:px-8 py-3 bg-white/10 text-white rounded-full font-medium hover:bg-white/20 backdrop-blur-sm active:bg-white/30 transition-all duration-150"
-              >
-                Continue without Music
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     );
