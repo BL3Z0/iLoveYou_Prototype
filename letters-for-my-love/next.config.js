@@ -4,19 +4,12 @@ const nextConfig = {
   images: {
     domains: ['localhost'],
     unoptimized: true,
-    formats: ['image/webp'],
   },
   trailingSlash: true,
   output: 'standalone',
-  // Reduce bundle size
   swcMinify: true,
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
-  // Optimize images
-  experimental: {
-    optimizeCss: true,
-  },
+  // Disable static optimization for pages with client-side only content
+  staticPageGenerationTimeout: 120,
 }
 
 module.exports = nextConfig
