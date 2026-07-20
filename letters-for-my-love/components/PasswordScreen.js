@@ -95,12 +95,10 @@ export default function PasswordScreen({ onSuccess }) {
               transition: 'box-shadow 1.5s ease-in-out'
             }}
           >
-            <Image
-              src="/images/profile.jpg"
-              alt="Profile"
-              fill
-              className="object-cover"
-            />
+            {/* Placeholder image - Replace with your image */}
+            <div className="w-full h-full bg-gradient-to-br from-rose-pink/30 to-shiny-red/30 flex items-center justify-center text-7xl">
+              🥰
+            </div>
             {/* Uncomment below and comment above to use actual image */}
             {/* <Image
               src="/images/profile.jpg"
