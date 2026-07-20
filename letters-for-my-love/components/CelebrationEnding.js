@@ -1,3 +1,4 @@
+'use client';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import confetti from 'canvas-confetti';
@@ -7,7 +8,6 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
   const heartsInterval = useRef(null);
 
   useEffect(() => {
-    // Confetti with RED & GOLD only
     const duration = 5 * 1000;
     const animationEnd = Date.now() + duration;
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
@@ -40,7 +40,6 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
 
     setTimeout(() => setShowContent(true), 2000);
 
-    // Floating RED hearts
     const createHeart = () => {
       const heart = document.createElement('div');
       heart.innerHTML = '❤️';
@@ -193,4 +192,4 @@ export default function CelebrationEnding({ onViewMemoryBox }) {
       </motion.div>
     </div>
   );
-        }
+}
