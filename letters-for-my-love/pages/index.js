@@ -17,6 +17,10 @@ const WelcomePage = dynamic(() => import('../components/WelcomePage'), {
   ssr: false,
   loading: () => <div className="text-white text-center py-20">Loading...</div>
 });
+const SpecialMemories = dynamic(() => import('../components/SpecialMemories'), { 
+  ssr: false,
+  loading: () => <div className="text-white text-center py-20">Loading...</div>
+});
 const LetterJourney = dynamic(() => import('../components/LetterJourney'), { 
   ssr: false,
   loading: () => <div className="text-white text-center py-20">Loading...</div>
@@ -33,6 +37,7 @@ export default function Home() {
   const [showMusicPrompt, setShowMusicPrompt] = useState(true);
   const [isLocked, setIsLocked] = useState(true);
   const [currentPage, setCurrentPage] = useState('welcome');
+  const [showSpecialMemories, setShowSpecialMemories] = useState(false);
   const [lettersCompleted, setLettersCompleted] = useState(0);
   const [isMusicEnabled, setIsMusicEnabled] = useState(false);
   const [isClient, setIsClient] = useState(false);
@@ -72,13 +77,22 @@ export default function Home() {
     setIsLocked(false);
   };
 
+  const handleWelcomeYes = () => {
+    setShowSpecialMemories(true);
+  };
+
+  const handleMemoriesContinue = () => {
+    setShowSpecialMemories(false);
+    setCurrentPage('letters');
+  };
+
   if (isLoading) {
     return <LoadingScreen />;
   }
 
   if (!isClient) {
     return (
-      <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center">
+      <div className="fixed inset-0 bg-gradient-to-b from-[#1a0000] via-[#4a0000] to-[#8B0000] flex items-center justify-center">
         <div className="text-white text-center">
           <div className="text-6xl mb-4">💝</div>
           <p className="font-cursive text-xl">Loading...</p>
@@ -102,20 +116,21 @@ export default function Home() {
         preload="auto"
       />
 
-      {/* Solid Red Background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/30" />
-        <div className="absolute inset-0 opacity-5" style={{
+      {/* Deep Red Background with more shadow depth */}
+      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-[#1a0000] via-[#4a0000] to-[#8B0000]">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/40" />
+        <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: 'radial-gradient(circle at 20% 30%, white 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
+          backgroundSize: '30px 30px',
         }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" />
       </div>
 
       {/* Main Content */}
       <div className="relative min-h-screen flex items-center justify-center px-4 py-8">
         <AnimatePresence mode="wait">
-          {/* MUSIC PROMPT - NOW FIRST (after loading) */}
+          {/* MUSIC PROMPT */}
           {showMusicPrompt && (
             <div className="w-full max-w-4xl">
               <MusicPrompt 
@@ -125,7 +140,7 @@ export default function Home() {
             </div>
           )}
 
-          {/* PASSWORD SCREEN - SECOND */}
+          {/* PASSWORD SCREEN */}
           {!showMusicPrompt && isLocked && (
             <div className="w-full max-w-4xl relative">
               <PasswordScreen 
@@ -135,18 +150,28 @@ export default function Home() {
             </div>
           )}
 
-          {/* WELCOME PAGE - THIRD */}
-          {!showMusicPrompt && !isLocked && currentPage === 'welcome' && (
+          {/* WELCOME PAGE */}
+          {!showMusicPrompt && !isLocked && currentPage === 'welcome' && !showSpecialMemories && (
             <div className="w-full max-w-4xl">
               <WelcomePage 
                 key="welcome"
-                onBegin={handleBeginJourney}
+                onBegin={handleWelcomeYes}
               />
             </div>
           )}
 
-          {/* LETTERS JOURNEY - FOURTH */}
-          {currentPage === 'letters' && (
+          {/* SPECIAL MEMORIES PAGE */}
+          {showSpecialMemories && (
+            <div className="w-full max-w-4xl">
+              <SpecialMemories 
+                key="memories"
+                onContinue={handleMemoriesContinue}
+              />
+            </div>
+          )}
+
+          {/* LETTERS JOURNEY */}
+          {currentPage === 'letters' && !showSpecialMemories && (
             <div className="w-full max-w-4xl">
               <LetterJourney 
                 key="letters"
