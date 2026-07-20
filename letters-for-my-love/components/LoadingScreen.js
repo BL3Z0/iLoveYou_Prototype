@@ -20,11 +20,11 @@ export default function LoadingScreen() {
 
   return (
     <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex flex-col items-center justify-center z-50 overflow-hidden">
-      {/* Static hearts - No window references, use fixed positions */}
+      {/* Decorative hearts background */}
       {[...Array(12)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute text-shiny-red/20"
+          className="absolute text-shiny-red/10"
           initial={{
             x: `${(i * 8) % 100}%`,
             y: `${(i * 13) % 100}%`,
@@ -32,7 +32,7 @@ export default function LoadingScreen() {
           }}
           animate={{
             y: [null, '-10vh', '-20vh'],
-            opacity: [0.15, 0.3, 0]
+            opacity: [0.1, 0.2, 0]
           }}
           transition={{
             duration: 4 + (i % 3),
@@ -46,19 +46,79 @@ export default function LoadingScreen() {
       ))}
 
       <div className="relative z-10 text-center">
+        {/* Dancing Gift Box Animation */}
         <motion.div
           className="text-8xl mb-8"
           animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 10, -10, 0]
+            scale: [1, 1.1, 1],
+            rotate: [0, -5, 5, -5, 0],
+            y: [0, -10, 0, -5, 0],
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          🎁
+        </motion.div>
+
+        {/* Sparkles around the gift box */}
+        <motion.div
+          className="absolute -top-4 -right-4 text-2xl"
+          animate={{
+            scale: [0, 1, 0],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            delay: 0.5,
+          }}
+        >
+          ✨
+        </motion.div>
+        <motion.div
+          className="absolute -bottom-2 -left-4 text-2xl"
+          animate={{
+            scale: [0, 1, 0],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            delay: 0.8,
+          }}
+        >
+          ✨
+        </motion.div>
+        <motion.div
+          className="absolute top-1/2 -right-8 text-xl"
+          animate={{
+            scale: [0, 1, 0],
+            opacity: [0, 1, 0],
           }}
           transition={{
             duration: 2,
             repeat: Infinity,
-            ease: "easeInOut"
+            delay: 1.1,
           }}
         >
-          💝
+          ✨
+        </motion.div>
+        <motion.div
+          className="absolute top-1/2 -left-8 text-xl"
+          animate={{
+            scale: [0, 1, 0],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 2.2,
+            repeat: Infinity,
+            delay: 0.3,
+          }}
+        >
+          ✨
         </motion.div>
 
         <h2 className="font-cursive text-3xl text-white mb-6">
