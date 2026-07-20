@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function MedievalLetter({ letter, letterNumber, totalLetters, onContinue, isFinal }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +18,9 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
       className="w-full max-w-3xl mx-auto"
     >
       {!isOpen ? (
+        // ============================================
+        // ENVELOPE - Medieval Style
+        // ============================================
         <motion.div
           className="relative cursor-pointer mx-auto"
           style={{ width: '340px', height: '240px' }}
@@ -62,7 +66,7 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
               <p className="font-cursive text-sm text-rose-pink">A Love Letter</p>
             </div>
 
-            {/* Sparkles */}
+            {/* Sparkle overlay */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
               {[...Array(12)].map((_, i) => (
                 <motion.div
@@ -97,6 +101,9 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
           </div>
         </motion.div>
       ) : (
+        // ============================================
+        // LETTER PAPER - YOUR CUSTOM PAPER IMAGE
+        // ============================================
         <motion.div
           initial={{ opacity: 0, y: 50, rotateX: 10 }}
           animate={{ opacity: 1, y: 0, rotateX: 0 }}
@@ -110,16 +117,19 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
             boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 0 60px rgba(139, 115, 85, 0.2)',
           }}
         >
+          {/* Burnt edges overlay */}
           <div className="absolute inset-0 pointer-events-none" style={{
             background: 'radial-gradient(ellipse at 50% 50%, transparent 60%, rgba(139, 115, 85, 0.15) 80%, rgba(139, 115, 85, 0.3) 100%)',
           }} />
           
+          {/* Aged paper texture overlay */}
           <div className="absolute inset-0 pointer-events-none opacity-10" style={{
             backgroundImage: 'radial-gradient(circle at 20% 30%, #8B7355 1px, transparent 1px)',
             backgroundSize: '20px 20px',
           }} />
 
           <div className="relative p-8 md:p-12">
+            {/* Decorative header */}
             <div className="text-center mb-6">
               <div className="flex justify-center items-center gap-4">
                 <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-pink" />
@@ -131,11 +141,13 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
               </p>
             </div>
 
+            {/* Sender info */}
             <div className="text-center mb-6">
               <p className="font-cursive text-2xl text-rose-pink">From: {letter.from}</p>
               <p className="font-medieval text-xs text-dark-charcoal/40">{letter.relationship}</p>
             </div>
 
+            {/* Letter content */}
             <div className="font-playfair text-dark-charcoal/80 leading-relaxed space-y-4 max-h-[400px] overflow-y-auto">
               {letter.content.split('\n').map((paragraph, index) => (
                 <p key={index} className="text-sm md:text-base first:indent-8">
@@ -144,6 +156,7 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
               ))}
             </div>
 
+            {/* Photos (if any) */}
             {letter.photos && letter.photos.length > 0 && (
               <div className="mt-6">
                 <h4 className="font-medieval text-xs text-rose-pink mb-2">📜 Memories</h4>
@@ -157,6 +170,7 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
               </div>
             )}
 
+            {/* Voice message - ONLY for Letter 5 */}
             {letter.voiceMessage && letterNumber === 5 && (
               <div className="mt-6 p-4 bg-white/30 rounded-lg border border-rose-pink/20">
                 <h4 className="font-medieval text-xs text-rose-pink mb-2">🎙️ Listen to Their Voice</h4>
@@ -167,6 +181,7 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
               </div>
             )}
 
+            {/* Video message - ONLY for Letter 5 */}
             {letter.videoMessage && letterNumber === 5 && (
               <div className="mt-6 p-4 bg-white/30 rounded-lg border border-rose-pink/20">
                 <h4 className="font-medieval text-xs text-rose-pink mb-2">🎥 Watch Birthday Message</h4>
@@ -177,6 +192,7 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
               </div>
             )}
 
+            {/* Continue button */}
             <div className="mt-8 text-center">
               <button
                 onClick={onContinue}
