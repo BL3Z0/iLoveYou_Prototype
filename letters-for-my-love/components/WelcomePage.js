@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) {
@@ -13,6 +13,8 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   const [isMobile, setIsMobile] = useState(false);
   const [floatingHearts, setFloatingHearts] = useState([]);
   const [isClient, setIsClient] = useState(false);
+  const giftRevealTimerRef = useRef(null);
+  const musicPromptTimerRef = useRef(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -38,20 +40,25 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
       }
       setFloatingHearts(hearts);
       
-      return () => window.removeEventListener('resize', checkMobile);
+      return () => {
+        window.removeEventListener('resize', checkMobile);
+        // Cleanup timers
+        if (giftRevealTimerRef.current) clearTimeout(giftRevealTimerRef.current);
+        if (musicPromptTimerRef.current) clearTimeout(musicPromptTimerRef.current);
+      };
     }
   }, []);
 
-  // Immediate response for No button on mobile
-  const handleNoClick = (e) => {
+  // Optimized handlers with useCallback
+  const handleNoClick = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
     if (isMobile) {
       setShowCryingQuby(true);
     }
-  };
+  }, [isMobile]);
 
-  const handleNoHover = () => {
+  const handleNoHover = useCallback(() => {
     if (!isMobile && !showCryingQuby) {
       const newX = (Math.random() - 0.5) * 250;
       const newY = (Math.random() - 0.5) * 250;
@@ -59,40 +66,49 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
       setYesButtonSize(prev => prev + 0.2);
       setYesClicks(prev => prev + 1);
     }
-  };
+  }, [isMobile, showCryingQuby]);
 
-  const handleYesClick = (e) => {
+  // Optimized Yes handler - batch state updates
+  const handleYesClick = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
-    requestAnimationFrame(() => {
-      if (!isMobile) {
-        setYesButtonSize(prev => prev + 0.2);
-        setYesClicks(prev => prev + 1);
-      }
-      setShowQuestion(false);
-      setShowGiftReveal(true);
-      setTimeout(() => {
-        setShowGiftReveal(false);
-        setShowMusicPrompt(true);
-      }, 3000);
-    });
-  };
+    
+    // Batch all state updates together
+    if (!isMobile) {
+      setYesButtonSize(prev => prev + 0.2);
+      setYesClicks(prev => prev + 1);
+    }
+    
+    setShowQuestion(false);
+    setShowGiftReveal(true);
+    
+    // Use ref for timeout to prevent memory leaks
+    if (giftRevealTimerRef.current) clearTimeout(giftRevealTimerRef.current);
+    giftRevealTimerRef.current = setTimeout(() => {
+      setShowGiftReveal(false);
+      setShowMusicPrompt(true);
+      giftRevealTimerRef.current = null;
+    }, 2500); // Reduced from 3000ms to 2500ms
+  }, [isMobile]);
 
-  const handleGoBackAndAccept = (e) => {
+  const handleGoBackAndAccept = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
     setShowCryingQuby(false);
     setYesButtonSize(prev => prev + 0.5);
     setYesClicks(prev => prev + 5);
-  };
+  }, []);
 
-  const handleMusicChoice = (choice) => {
+  const handleMusicChoice = useCallback((choice) => {
     onMusicChoice(choice);
     setShowMusicPrompt(false);
-    onBegin();
-  };
+    // Use requestAnimationFrame for smoother transition
+    requestAnimationFrame(() => {
+      onBegin();
+    });
+  }, [onMusicChoice, onBegin]);
 
-  const FloatingHearts = () => (
+  const FloatingHearts = useCallback(() => (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
       {floatingHearts.map((heart) => (
         <motion.div
@@ -126,7 +142,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
         </motion.div>
       ))}
     </div>
-  );
+  ), [floatingHearts]);
 
   // Question Screen
   if (showQuestion) {
@@ -137,7 +153,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           className="relative z-10 text-center max-w-2xl"
         >
           <div className="mb-6 animate-bounce">
@@ -145,6 +161,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
               src="/images/milk-and-mocha-bears.gif" 
               alt="Quby Dancing"
               className="w-40 h-40 md:w-48 md:h-48 object-contain mx-auto"
+              loading="eager"
             />
           </div>
 
@@ -161,26 +178,26 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           </h2>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative">
-            {/* Yes Button */}
+            {/* Yes Button - Optimized */}
             <button
               onClick={handleYesClick}
-              className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl hover:shadow-rose-glow transition-all duration-200 hover:scale-105 active:scale-95"
+              className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl hover:shadow-rose-glow transition-all duration-150 hover:scale-105 active:scale-95 will-change-transform"
               style={{
                 transform: `scale(${yesButtonSize})`,
-                transition: 'transform 0.2s ease',
+                transition: 'transform 0.15s ease',
               }}
             >
               Yes Please 💕
             </button>
 
-            {/* No Button - Immediate response */}
+            {/* No Button */}
             <button
               onClick={handleNoClick}
               onMouseEnter={!isMobile ? handleNoHover : undefined}
-              className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white/70 rounded-full font-medieval text-xl border border-white/20 hover:bg-white/20 active:bg-white/30 transition-all duration-200 touch-manipulation"
+              className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white/70 rounded-full font-medieval text-xl border border-white/20 hover:bg-white/20 active:bg-white/30 transition-all duration-150 touch-manipulation will-change-transform"
               style={{
                 transform: !isMobile ? `translate(${noButtonPosition.x}px, ${noButtonPosition.y}px)` : 'none',
-                transition: 'transform 0.15s ease',
+                transition: 'transform 0.12s ease',
                 cursor: isMobile ? 'pointer' : 'default',
                 touchAction: 'manipulation',
               }}
@@ -208,7 +225,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4 }}
           className="relative z-10 text-center max-w-2xl w-full"
         >
           <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20">
@@ -217,6 +234,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
                 src="/images/crying-quby.gif" 
                 alt="Crying Quby"
                 className="w-48 h-48 md:w-56 md:h-56 object-contain mx-auto"
+                loading="eager"
               />
             </div>
 
@@ -230,7 +248,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
 
             <button
               onClick={handleGoBackAndAccept}
-              className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl hover:shadow-rose-glow transition-all duration-200 hover:scale-105 active:scale-95"
+              className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl hover:shadow-rose-glow transition-all duration-150 hover:scale-105 active:scale-95 will-change-transform"
             >
               Go Back & Accept 💕
             </button>
@@ -253,7 +271,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, type: "spring" }}
+          transition={{ duration: 0.6, type: "spring", damping: 20 }}
           className="relative z-10 text-center"
         >
           <motion.h1
@@ -274,7 +292,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.4 }}
             className="text-9xl mt-8"
           >
             💐
@@ -293,6 +311,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
           className="relative z-10 max-w-2xl w-full text-center"
         >
           <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20">
@@ -306,13 +325,13 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => handleMusicChoice(true)}
-                className="px-8 py-3 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medium shadow-lg hover:shadow-rose-glow transition-all duration-200 hover:scale-105 active:scale-95"
+                className="px-8 py-3 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medium shadow-lg hover:shadow-rose-glow transition-all duration-150 hover:scale-105 active:scale-95 will-change-transform"
               >
                 🎵 Play with Music
               </button>
               <button
                 onClick={() => handleMusicChoice(false)}
-                className="px-8 py-3 bg-white/10 text-white rounded-full font-medium hover:bg-white/20 active:bg-white/30 transition-all duration-200 backdrop-blur-sm"
+                className="px-8 py-3 bg-white/10 text-white rounded-full font-medium hover:bg-white/20 active:bg-white/30 transition-all duration-150 backdrop-blur-sm"
               >
                 Continue without Music
               </button>
