@@ -104,6 +104,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     </div>
   );
 
+  // Question Screen
   if (showQuestion) {
     return (
       <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
@@ -115,19 +116,24 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           transition={{ duration: 0.8 }}
           className="relative z-10 text-center max-w-2xl"
         >
+          {/* QUBY DANCING GIF - REPLACE URL OR PATH */}
           <motion.div
             animate={{
-              y: [0, -25, 0],
-              rotate: [0, 8, -8, 0],
+              y: [0, -10, 0],
+              rotate: [0, 3, -3, 0],
             }}
             transition={{
-              duration: 3,
+              duration: 2,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: "easeInOut"
             }}
-            className="text-9xl mb-6"
+            className="mb-6"
           >
-            🥰
+            <img 
+              src="/images/milk-and-mocha-bears.gif" 
+              alt="Quby Dancing"
+              className="w-40 h-40 md:w-48 md:h-48 object-contain mx-auto"
+            />
           </motion.div>
 
           <h1 className="font-cursive text-5xl md:text-7xl text-white mb-4 drop-shadow-2xl">
@@ -174,6 +180,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     );
   }
 
+  // Gift Reveal Screen
   if (showGiftReveal) {
     return (
       <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
@@ -213,6 +220,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     );
   }
 
+  // Music Prompt Screen
   if (showMusicPrompt) {
     return (
       <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
