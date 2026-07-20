@@ -8,8 +8,25 @@ const nextConfig = {
   trailingSlash: true,
   output: 'standalone',
   swcMinify: true,
-  // Disable static optimization for pages with client-side only content
-  staticPageGenerationTimeout: 120,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  // Reduce bundle size
+  experimental: {
+    optimizeCss: true,
+  },
+  // Better performance
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      };
+    }
+    return config;
+  },
 }
 
 module.exports = nextConfig
