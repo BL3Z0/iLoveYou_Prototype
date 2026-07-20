@@ -1,5 +1,4 @@
-// Create placeholder - Copy full code from the guide 
-// components/AudioPlayer.js
+'use client';
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
@@ -57,36 +56,32 @@ export default function AudioPlayer({ src }) {
   };
 
   return (
-    <div className="bg-white rounded-xl p-4 shadow-md border border-rose-100">
+    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10">
       <audio ref={audioRef} src={src} />
       
       <div className="flex items-center gap-4">
         <button
           onClick={togglePlay}
-          className="w-10 h-10 rounded-full bg-rose-400 text-white flex items-center justify-center hover:bg-rose-500 transition-colors"
+          className="w-10 h-10 rounded-full bg-gradient-to-r from-rose-pink to-shiny-red text-white flex items-center justify-center hover:shadow-rose-glow transition-all duration-300 shadow-md"
         >
           {isPlaying ? '⏸' : '▶️'}
         </button>
 
         <div className="flex-1">
           <div
-            className="h-1.5 bg-gray-200 rounded-full cursor-pointer relative"
+            className="h-1.5 bg-white/20 rounded-full cursor-pointer relative"
             onClick={handleSeek}
           >
             <div
-              className="h-full bg-gradient-to-r from-rose-300 to-rose-500 rounded-full transition-all duration-100"
+              className="h-full bg-gradient-to-r from-rose-pink to-shiny-red rounded-full transition-all duration-100"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <div className="flex justify-between text-xs text-gray-400 mt-1">
+          <div className="flex justify-between text-xs text-white/40 mt-1">
             <span>{formatTime(audioRef.current?.currentTime)}</span>
             <span>{formatTime(duration)}</span>
           </div>
         </div>
-
-        <button className="text-gray-400 hover:text-rose-400 transition-colors text-sm">
-          🔄
-        </button>
       </div>
     </div>
   );
