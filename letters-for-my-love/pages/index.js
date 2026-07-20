@@ -140,9 +140,7 @@ export default function Home() {
             <div className="w-full max-w-4xl">
               <WelcomePage 
                 key="welcome"
-                onMusicChoice={handleMusicChoice}
                 onBegin={handleBeginJourney}
-                isMusicEnabled={isMusicEnabled}
               />
             </div>
           )}
