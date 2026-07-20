@@ -5,9 +5,27 @@ import { useEffect, useState } from 'react';
 export default function LoadingScreen() {
   const [progress, setProgress] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
+  const [hearts, setHearts] = useState([]);
 
   useEffect(() => {
     setIsMounted(true);
+    
+    // Generate hearts only on client side
+    if (typeof window !== 'undefined') {
+      const newHearts = [];
+      for (let i = 0; i < 15; i++) {
+        newHearts.push({
+          id: i,
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          scale: Math.random() * 0.5 + 0.3,
+          duration: Math.random() * 5 + 3,
+          delay: Math.random() * 3,
+        });
+      }
+      setHearts(newHearts);
+    }
+
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
@@ -20,42 +38,32 @@ export default function LoadingScreen() {
     return () => clearInterval(interval);
   }, []);
 
-  const getRandomPosition = () => {
-    if (typeof window === 'undefined') return { x: 0, y: 0 };
-    return {
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-    };
-  };
-
   return (
     <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex flex-col items-center justify-center z-50 overflow-hidden">
-      {isMounted && [...Array(30)].map((_, i) => {
-        const pos = getRandomPosition();
-        return (
-          <motion.div
-            key={i}
-            className="absolute text-shiny-red/30"
-            initial={{
-              x: pos.x,
-              y: pos.y,
-              scale: Math.random() * 0.5 + 0.5
-            }}
-            animate={{
-              y: [null, -100, -200],
-              opacity: [0.3, 0.6, 0]
-            }}
-            transition={{
-              duration: Math.random() * 5 + 3,
-              repeat: Infinity,
-              ease: "easeOut",
-              delay: Math.random() * 3
-            }}
-          >
-            ❤️
-          </motion.div>
-        );
-      })}
+      {/* Floating hearts - Only render on client */}
+      {isMounted && hearts.map((heart) => (
+        <motion.div
+          key={heart.id}
+          className="absolute text-shiny-red/30"
+          initial={{
+            x: heart.x,
+            y: heart.y,
+            scale: heart.scale,
+          }}
+          animate={{
+            y: [null, -100, -200],
+            opacity: [0.3, 0.6, 0]
+          }}
+          transition={{
+            duration: heart.duration,
+            repeat: Infinity,
+            ease: "easeOut",
+            delay: heart.delay
+          }}
+        >
+          ❤️
+        </motion.div>
+      ))}
 
       <div className="relative z-10 text-center">
         <motion.div
@@ -70,7 +78,7 @@ export default function LoadingScreen() {
             ease: "easeInOut"
           }}
         >
-          💝
+          🎁
         </motion.div>
 
         <h2 className="font-cursive text-3xl text-white mb-6">
