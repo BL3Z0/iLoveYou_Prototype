@@ -132,7 +132,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
             className="mb-6"
           >
             <img 
-              src="/images/quby-dance.gif" 
+              src="/images/milk-and-mocha-bears.gif" 
               alt="Quby Dancing"
               className="w-40 h-40 md:w-48 md:h-48 object-contain mx-auto"
             />
