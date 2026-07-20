@@ -18,14 +18,12 @@ const LetterJourney = dynamic(() => import('../components/LetterJourney'), {
   loading: () => <div className="text-white text-center py-20">Loading...</div>
 });
 
-// Force client-side only rendering
-export const getStaticProps = async () => {
+// Force server-side rendering, not static
+export async function getServerSideProps() {
   return {
     props: {},
-    // Revalidate every 60 seconds
-    revalidate: 60,
   };
-};
+}
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
