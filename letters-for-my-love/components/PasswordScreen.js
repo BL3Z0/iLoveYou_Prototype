@@ -20,7 +20,6 @@ export default function PasswordScreen({ onSuccess }) {
   // Auto-submit when 4 digits are entered
   useEffect(() => {
     if (password.length === 4) {
-      // Small delay to show the last dot before submitting
       const timer = setTimeout(() => {
         if (password === correctPassword) {
           onSuccess();
@@ -49,9 +48,9 @@ export default function PasswordScreen({ onSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex flex-col items-center justify-center px-4 overflow-hidden">
-      {/* Floating hearts background */}
-      {[...Array(25)].map((_, i) => (
+    <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
+      {/* Floating hearts background - Reduced count for performance */}
+      {[...Array(15)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute text-shiny-red/20"
@@ -75,16 +74,16 @@ export default function PasswordScreen({ onSuccess }) {
         </motion.div>
       ))}
 
-      {/* Main Content */}
+      {/* Main Content - More compact */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 max-w-md w-full text-center"
+        transition={{ duration: 0.6 }}
+        className="relative z-10 max-w-sm w-full text-center py-4"
       >
-        {/* Glowing Circle with Photo */}
+        {/* Glowing Circle with Photo - Smaller */}
         <motion.div
-          className="relative mx-auto mb-8"
+          className="relative mx-auto mb-4"
           animate={{
             scale: [1, 1.02, 1],
           }}
@@ -95,31 +94,26 @@ export default function PasswordScreen({ onSuccess }) {
           }}
         >
           <div 
-            className="w-40 h-40 rounded-full mx-auto relative overflow-hidden border-4"
+            className="w-28 h-28 rounded-full mx-auto relative overflow-hidden border-4"
             style={{
               borderColor: '#EC5598',
-              boxShadow: `0 0 ${40 * glowIntensity}px rgba(236, 85, 152, 0.4), 0 0 ${80 * glowIntensity}px rgba(236, 85, 152, 0.2)`,
+              boxShadow: `0 0 ${30 * glowIntensity}px rgba(236, 85, 152, 0.4), 0 0 ${60 * glowIntensity}px rgba(236, 85, 152, 0.2)`,
               transition: 'box-shadow 1.5s ease-in-out'
             }}
           >
-            {/* Placeholder image - Replace with your image */}
-            <div className="w-full h-full bg-gradient-to-br from-rose-pink/30 to-shiny-red/30 flex items-center justify-center text-7xl">
-              🥰
-            </div>
-            {/* Uncomment below and comment above to use actual image */}
-            {/* <Image
-              src="/images/profile.jpg"
-              alt="Profile"
-              fill
-              className="object-cover"
-            /> */}
+            <Image
+             src="/images/profile.jpg"
+             alt="Profile"
+             fill
+             className="object-cover"
+            />
           </div>
           
-          {/* Decorative rings */}
+          {/* Decorative rings - Smaller */}
           <motion.div
             className="absolute inset-0 rounded-full -z-10"
             animate={{
-              scale: [1, 1.3, 1],
+              scale: [1, 1.2, 1],
               opacity: [0.3, 0.1, 0.3]
             }}
             transition={{
@@ -134,7 +128,7 @@ export default function PasswordScreen({ onSuccess }) {
           <motion.div
             className="absolute inset-0 rounded-full -z-20"
             animate={{
-              scale: [1, 1.6, 1],
+              scale: [1, 1.4, 1],
               opacity: [0.2, 0.05, 0.2]
             }}
             transition={{
@@ -148,9 +142,9 @@ export default function PasswordScreen({ onSuccess }) {
           />
         </motion.div>
 
-        {/* Locked Text */}
+        {/* Locked Text - Smaller */}
         <motion.h2
-          className="font-cursive text-3xl text-white mb-2"
+          className="font-cursive text-2xl text-white mb-1"
           animate={{
             opacity: [0.6, 1, 0.6]
           }}
@@ -162,19 +156,19 @@ export default function PasswordScreen({ onSuccess }) {
         >
           🔒 Locked
         </motion.h2>
-        <p className="text-white/40 text-sm mb-6 font-light">
-          Enter the 4-digit password to unlock your surprise
+        <p className="text-white/40 text-xs mb-4 font-light">
+          Enter the 4-digit password
         </p>
 
-        {/* Password Dots - 4 dots instead of boxes */}
-        <div className="flex justify-center gap-4 mb-8">
+        {/* Password Dots - 4 dots */}
+        <div className="flex justify-center gap-3 mb-5">
           {[...Array(4)].map((_, i) => (
             <motion.div
               key={i}
-              className="w-5 h-5 rounded-full"
+              className="w-4 h-4 rounded-full"
               style={{
                 backgroundColor: password[i] ? '#EC5598' : 'rgba(255,255,255,0.2)',
-                boxShadow: password[i] ? '0 0 20px rgba(236, 85, 152, 0.4)' : 'none',
+                boxShadow: password[i] ? '0 0 15px rgba(236, 85, 152, 0.4)' : 'none',
                 transition: 'all 0.3s ease'
               }}
               animate={error ? { scale: [1, 1.3, 1] } : {}}
@@ -186,36 +180,36 @@ export default function PasswordScreen({ onSuccess }) {
         {/* Error Message */}
         {error && (
           <motion.p
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-shiny-red text-sm mb-4 font-medieval"
+            className="text-shiny-red text-xs mb-3 font-medieval"
           >
-            ❌ Incorrect password. Try again!
+            ❌ Incorrect. Try again!
           </motion.p>
         )}
 
-        {/* Number Keypad */}
-        <div className="grid grid-cols-3 gap-3 max-w-xs mx-auto">
+        {/* Number Keypad - Smaller buttons */}
+        <div className="grid grid-cols-3 gap-2 max-w-[260px] mx-auto">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
             <motion.button
               key={num}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleNumberClick(num.toString())}
-              className="w-full aspect-square rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-white text-2xl font-medieval hover:bg-white/20 transition-all duration-200 hover:border-rose-pink/30"
+              className="w-full aspect-square rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-white text-xl font-medieval hover:bg-white/20 transition-all duration-200 hover:border-rose-pink/30"
             >
               {num}
             </motion.button>
           ))}
           
-          {/* Empty space for alignment */}
+          {/* Empty space */}
           <div />
           
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => handleNumberClick('0')}
-            className="w-full aspect-square rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-white text-2xl font-medieval hover:bg-white/20 transition-all duration-200 hover:border-rose-pink/30"
+            className="w-full aspect-square rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-white text-xl font-medieval hover:bg-white/20 transition-all duration-200 hover:border-rose-pink/30"
           >
             0
           </motion.button>
@@ -225,14 +219,14 @@ export default function PasswordScreen({ onSuccess }) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleDelete}
-            className="w-full aspect-square rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-white/60 text-xl font-medieval hover:bg-white/10 transition-all duration-200 hover:text-white"
+            className="w-full aspect-square rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-white/60 text-lg font-medieval hover:bg-white/10 transition-all duration-200 hover:text-white"
           >
             ⌫
           </motion.button>
         </div>
 
         {/* Hint */}
-        <p className="text-white/20 text-xs mt-4 font-light">
+        <p className="text-white/20 text-[10px] mt-3 font-light">
           Hint: The year of birth
         </p>
       </motion.div>
