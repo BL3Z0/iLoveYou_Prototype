@@ -59,7 +59,7 @@ export default function Home() {
       {/* Background Music */}
       <audio 
         ref={audioRef}
-        src="/audio/Pretty_Girl.mp3"
+        src="/audio/Shine_Bright_Like_A_Diamond.mp3"
         loop
         preload="auto"
       />
