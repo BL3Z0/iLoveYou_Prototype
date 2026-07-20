@@ -6,7 +6,7 @@ const nextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
-  // Disable static generation for all pages
+  // Use server-side rendering instead of static
   output: 'standalone',
   swcMinify: true,
   compiler: {
@@ -14,15 +14,11 @@ const nextConfig = {
   },
   // Disable static optimization
   staticPageGenerationTimeout: 120,
+  // Ensure all pages are server-side rendered
+  pageExtensions: ['jsx', 'js'],
   // Disable automatic static optimization
   generateBuildId: async () => {
     return 'build-' + Date.now();
-  },
-  // Ensure all pages are server-side rendered
-  pageExtensions: ['jsx', 'js'],
-  // Avoid static generation
-  experimental: {
-    optimizeCss: true,
   },
 }
 
