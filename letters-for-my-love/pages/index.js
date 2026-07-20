@@ -13,6 +13,7 @@ const MemoryBox = dynamic(() => import('../components/MemoryBox'), { ssr: false 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLocked, setIsLocked] = useState(true);
+  const [isRipping, setIsRipping] = useState(false);
   const [currentPage, setCurrentPage] = useState('welcome');
   const [lettersCompleted, setLettersCompleted] = useState(0);
   const [isMusicEnabled, setIsMusicEnabled] = useState(false);
@@ -47,15 +48,16 @@ export default function Home() {
   };
 
   const handlePasswordSuccess = () => {
-    setIsLocked(false);
+    setIsRipping(true);
+    // Wait for rip animation to complete before showing welcome page
+    setTimeout(() => {
+      setIsLocked(false);
+      setIsRipping(false);
+    }, 1200);
   };
 
   if (isLoading) {
     return <LoadingScreen />;
-  }
-
-  if (isLocked) {
-    return <PasswordScreen onSuccess={handlePasswordSuccess} />;
   }
 
   return (
@@ -69,15 +71,27 @@ export default function Home() {
       {/* Background Music */}
       <audio 
         ref={audioRef}
-        src="/audio/Shine_Bright_Like_A_Diamond.mp3"
+        src="/audio/Pretty_Girl.mp3"
         loop
         preload="auto"
       />
 
       {/* Main Content */}
-      <div className="relative min-h-screen flex items-center justify-center px-4 py-8">
+      <div className="relative min-h-screen flex items-center justify-center px-4 py-8 overflow-hidden">
         <AnimatePresence mode="wait">
-          {currentPage === 'welcome' && (
+          {/* Password Screen with Rip Effect */}
+          {isLocked && (
+            <div className="w-full max-w-4xl relative">
+              <PasswordScreen 
+                key="password"
+                onSuccess={handlePasswordSuccess}
+                isRipping={isRipping}
+              />
+            </div>
+          )}
+
+          {/* Welcome Page - Appears after rip */}
+          {!isLocked && currentPage === 'welcome' && (
             <div className="w-full max-w-4xl">
               <WelcomePage 
                 key="welcome"
@@ -87,6 +101,7 @@ export default function Home() {
               />
             </div>
           )}
+
           {currentPage === 'letters' && (
             <div className="w-full max-w-4xl">
               <LetterJourney 
