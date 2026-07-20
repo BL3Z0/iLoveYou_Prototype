@@ -72,7 +72,6 @@ export default function Home() {
       <audio 
         ref={audioRef}
         src="/audio/Shine_Bright_Like_A_Diamond.mp3"
-        loop
         preload="auto"
       />
 
