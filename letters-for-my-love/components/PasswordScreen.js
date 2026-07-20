@@ -7,7 +7,7 @@ export default function PasswordScreen({ onSuccess }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
   const [glowIntensity, setGlowIntensity] = useState(1);
-  const correctPassword = '202426'; // Change this to your desired password
+  const correctPassword = '2024'; // Change this to your desired password (4 digits)
 
   // Animated glow effect
   useEffect(() => {
@@ -17,8 +17,27 @@ export default function PasswordScreen({ onSuccess }) {
     return () => clearInterval(interval);
   }, []);
 
+  // Auto-submit when 4 digits are entered
+  useEffect(() => {
+    if (password.length === 4) {
+      // Small delay to show the last dot before submitting
+      const timer = setTimeout(() => {
+        if (password === correctPassword) {
+          onSuccess();
+        } else {
+          setError(true);
+          setTimeout(() => {
+            setPassword('');
+            setError(false);
+          }, 800);
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [password, correctPassword, onSuccess]);
+
   const handleNumberClick = (num) => {
-    if (password.length < 6) {
+    if (password.length < 4) {
       setPassword(prev => prev + num);
       setError(false);
     }
@@ -27,18 +46,6 @@ export default function PasswordScreen({ onSuccess }) {
   const handleDelete = () => {
     setPassword(prev => prev.slice(0, -1));
     setError(false);
-  };
-
-  const handleSubmit = () => {
-    if (password === correctPassword) {
-      onSuccess();
-    } else {
-      setError(true);
-      setTimeout(() => {
-        setPassword('');
-        setError(false);
-      }, 1000);
-    }
   };
 
   return (
@@ -95,12 +102,10 @@ export default function PasswordScreen({ onSuccess }) {
               transition: 'box-shadow 1.5s ease-in-out'
             }}
           >
-            <Image
-              src="/images/profile.jpg"
-              alt="Profile"
-              fill
-              className="object-cover"
-            />
+            {/* Placeholder image - Replace with your image */}
+            <div className="w-full h-full bg-gradient-to-br from-rose-pink/30 to-shiny-red/30 flex items-center justify-center text-7xl">
+              🥰
+            </div>
             {/* Uncomment below and comment above to use actual image */}
             {/* <Image
               src="/images/profile.jpg"
@@ -158,24 +163,23 @@ export default function PasswordScreen({ onSuccess }) {
           🔒 Locked
         </motion.h2>
         <p className="text-white/40 text-sm mb-6 font-light">
-          Enter the password to unlock your surprise
+          Enter the 4-digit password to unlock your surprise
         </p>
 
-        {/* Password Display */}
-        <div className="flex justify-center gap-3 mb-8">
-          {[...Array(6)].map((_, i) => (
+        {/* Password Dots - 4 dots instead of boxes */}
+        <div className="flex justify-center gap-4 mb-8">
+          {[...Array(4)].map((_, i) => (
             <motion.div
               key={i}
-              className="w-10 h-12 rounded-lg border-2 bg-white/5 flex items-center justify-center text-white font-medieval text-xl"
+              className="w-5 h-5 rounded-full"
               style={{
-                borderColor: error ? '#CC0000' : (password[i] ? '#EC5598' : 'rgba(255,255,255,0.2)'),
-                boxShadow: error ? '0 0 20px rgba(204, 0, 0, 0.3)' : (password[i] ? '0 0 20px rgba(236, 85, 152, 0.2)' : 'none'),
+                backgroundColor: password[i] ? '#EC5598' : 'rgba(255,255,255,0.2)',
+                boxShadow: password[i] ? '0 0 20px rgba(236, 85, 152, 0.4)' : 'none',
+                transition: 'all 0.3s ease'
               }}
-              animate={error ? { x: [-10, 10, -10, 10, 0] } : {}}
+              animate={error ? { scale: [1, 1.3, 1] } : {}}
               transition={{ duration: 0.3 }}
-            >
-              {password[i] || ''}
-            </motion.div>
+            />
           ))}
         </div>
 
@@ -226,21 +230,6 @@ export default function PasswordScreen({ onSuccess }) {
             ⌫
           </motion.button>
         </div>
-
-        {/* Submit Button */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleSubmit}
-          className={`mt-6 px-8 py-3 rounded-full font-medieval text-white transition-all duration-300 ${
-            password.length === 6
-              ? 'bg-gradient-to-r from-rose-pink to-shiny-red shadow-lg hover:shadow-rose-glow'
-              : 'bg-white/10 text-white/40 cursor-not-allowed'
-          }`}
-          disabled={password.length !== 6}
-        >
-          Unlock 💫
-        </motion.button>
 
         {/* Hint */}
         <p className="text-white/20 text-xs mt-4 font-light">
