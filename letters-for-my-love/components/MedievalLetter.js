@@ -1,15 +1,12 @@
+'use client';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 export default function MedievalLetter({ letter, letterNumber, totalLetters, onContinue, isFinal }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isReading, setIsReading] = useState(false);
 
   const handleOpen = () => {
     setIsOpen(true);
-    setTimeout(() => {
-      setIsReading(true);
-    }, 800);
   };
 
   return (
@@ -20,14 +17,12 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
       className="w-full max-w-3xl mx-auto"
     >
       {!isOpen ? (
-        // Envelope - Medieval style
         <motion.div
           className="relative cursor-pointer mx-auto"
           style={{ width: '340px', height: '240px' }}
           onClick={handleOpen}
           whileHover={{ scale: 1.02 }}
         >
-          {/* Envelope Body - Aged parchment look */}
           <div className="absolute inset-0 rounded-lg shadow-2xl" style={{
             background: 'linear-gradient(145deg, #D4C4A8, #C4B49A, #B4A48A)',
             border: '2px solid #8B7355',
@@ -67,7 +62,7 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
               <p className="font-cursive text-sm text-rose-pink">A Love Letter</p>
             </div>
 
-            {/* Sparkle overlay */}
+            {/* Sparkles */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
               {[...Array(12)].map((_, i) => (
                 <motion.div
@@ -102,31 +97,29 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
           </div>
         </motion.div>
       ) : (
-        // Letter Paper - Aged parchment with burnt edges
         <motion.div
           initial={{ opacity: 0, y: 50, rotateX: 10 }}
           animate={{ opacity: 1, y: 0, rotateX: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="relative rounded-lg shadow-2xl overflow-hidden"
           style={{
-            background: 'linear-gradient(145deg, #F5E6C8, #E8D5B5, #D4C4A8)',
+            backgroundImage: 'url("/images/paper-texture.jpg")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
             border: '2px solid #8B7355',
             boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 0 60px rgba(139, 115, 85, 0.2)',
           }}
         >
-          {/* Burnt edges effect */}
           <div className="absolute inset-0 pointer-events-none" style={{
-            background: 'radial-gradient(ellipse at 30% 20%, transparent 60%, rgba(139, 115, 85, 0.1) 80%, rgba(139, 115, 85, 0.2) 100%)',
+            background: 'radial-gradient(ellipse at 50% 50%, transparent 60%, rgba(139, 115, 85, 0.15) 80%, rgba(139, 115, 85, 0.3) 100%)',
           }} />
           
-          {/* Aged paper texture */}
           <div className="absolute inset-0 pointer-events-none opacity-10" style={{
             backgroundImage: 'radial-gradient(circle at 20% 30%, #8B7355 1px, transparent 1px)',
             backgroundSize: '20px 20px',
           }} />
 
           <div className="relative p-8 md:p-12">
-            {/* Decorative header */}
             <div className="text-center mb-6">
               <div className="flex justify-center items-center gap-4">
                 <div className="h-px w-12 bg-gradient-to-r from-transparent to-rose-pink" />
@@ -138,13 +131,11 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
               </p>
             </div>
 
-            {/* Sender info */}
             <div className="text-center mb-6">
               <p className="font-cursive text-2xl text-rose-pink">From: {letter.from}</p>
               <p className="font-medieval text-xs text-dark-charcoal/40">{letter.relationship}</p>
             </div>
 
-            {/* Letter content */}
             <div className="font-playfair text-dark-charcoal/80 leading-relaxed space-y-4 max-h-[400px] overflow-y-auto">
               {letter.content.split('\n').map((paragraph, index) => (
                 <p key={index} className="text-sm md:text-base first:indent-8">
@@ -153,7 +144,6 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
               ))}
             </div>
 
-            {/* Photos (if any) */}
             {letter.photos && letter.photos.length > 0 && (
               <div className="mt-6">
                 <h4 className="font-medieval text-xs text-rose-pink mb-2">📜 Memories</h4>
@@ -167,7 +157,6 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
               </div>
             )}
 
-            {/* Voice message - ONLY for Letter 5 */}
             {letter.voiceMessage && letterNumber === 5 && (
               <div className="mt-6 p-4 bg-white/30 rounded-lg border border-rose-pink/20">
                 <h4 className="font-medieval text-xs text-rose-pink mb-2">🎙️ Listen to Their Voice</h4>
@@ -178,7 +167,6 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
               </div>
             )}
 
-            {/* Video message - ONLY for Letter 5 */}
             {letter.videoMessage && letterNumber === 5 && (
               <div className="mt-6 p-4 bg-white/30 rounded-lg border border-rose-pink/20">
                 <h4 className="font-medieval text-xs text-rose-pink mb-2">🎥 Watch Birthday Message</h4>
@@ -189,7 +177,6 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
               </div>
             )}
 
-            {/* Continue button */}
             <div className="mt-8 text-center">
               <button
                 onClick={onContinue}
@@ -203,4 +190,4 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
       )}
     </motion.div>
   );
-        }
+}
