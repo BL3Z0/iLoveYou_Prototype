@@ -4,10 +4,28 @@ import dynamic from 'next/dynamic';
 import LoadingScreen from '../components/LoadingScreen';
 import { AnimatePresence } from 'framer-motion';
 
-// Dynamically import components that use browser features
-const PasswordScreen = dynamic(() => import('../components/PasswordScreen'), { ssr: false });
-const WelcomePage = dynamic(() => import('../components/WelcomePage'), { ssr: false });
-const LetterJourney = dynamic(() => import('../components/LetterJourney'), { ssr: false });
+// Dynamically import ALL components with ssr: false
+const PasswordScreen = dynamic(() => import('../components/PasswordScreen'), { 
+  ssr: false,
+  loading: () => <div className="text-white text-center py-20">Loading...</div>
+});
+const WelcomePage = dynamic(() => import('../components/WelcomePage'), { 
+  ssr: false,
+  loading: () => <div className="text-white text-center py-20">Loading...</div>
+});
+const LetterJourney = dynamic(() => import('../components/LetterJourney'), { 
+  ssr: false,
+  loading: () => <div className="text-white text-center py-20">Loading...</div>
+});
+
+// Force client-side only rendering
+export const getStaticProps = async () => {
+  return {
+    props: {},
+    // Revalidate every 60 seconds
+    revalidate: 60,
+  };
+};
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,9 +33,11 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState('welcome');
   const [lettersCompleted, setLettersCompleted] = useState(0);
   const [isMusicEnabled, setIsMusicEnabled] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const audioRef = useRef(null);
 
   useEffect(() => {
+    setIsClient(true);
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3000);
@@ -25,13 +45,13 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (isMusicEnabled && audioRef.current) {
+    if (isMusicEnabled && audioRef.current && isClient) {
       audioRef.current.volume = 0.5;
       audioRef.current.play().catch(err => {
         console.log('Audio play failed:', err);
       });
     }
-  }, [isMusicEnabled]);
+  }, [isMusicEnabled, isClient]);
 
   const handleMusicChoice = (choice) => {
     setIsMusicEnabled(choice);
@@ -53,6 +73,18 @@ export default function Home() {
     return <LoadingScreen />;
   }
 
+  // Only render client-side content after mount
+  if (!isClient) {
+    return (
+      <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center">
+        <div className="text-white text-center">
+          <div className="text-6xl mb-4">💝</div>
+          <p className="font-cursive text-xl">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <Head>
@@ -68,7 +100,7 @@ export default function Home() {
         preload="auto"
       />
 
-      {/* Solid Red Background with gradient and shadows */}
+      {/* Solid Red Background */}
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red">
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/30" />
