@@ -1,3 +1,4 @@
+'use client';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MedievalLetter from './MedievalLetter';
@@ -72,7 +73,7 @@ export default function LetterJourney({ onLetterComplete, lettersCompleted }) {
   const isFinalLetter = currentLetterIndex === totalLetters - 1;
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-transparent flex items-center justify-center px-4 py-16">
+    <div ref={containerRef} className="min-h-screen bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 py-16">
       {/* Progress */}
       <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md px-4">
         <div className="backdrop-blur-xl bg-white/10 rounded-full px-6 py-3 shadow-lg border border-white/10">
@@ -115,4 +116,4 @@ export default function LetterJourney({ onLetterComplete, lettersCompleted }) {
       </div>
     </div>
   );
-    }
+}
