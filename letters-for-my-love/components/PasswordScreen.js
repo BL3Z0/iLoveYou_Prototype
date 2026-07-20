@@ -7,7 +7,7 @@ export default function PasswordScreen({ onSuccess }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
   const [glowIntensity, setGlowIntensity] = useState(1);
-  const correctPassword = '2024'; // Change this to your desired password
+  const correctPassword = '202426'; // Change this to your desired password
 
   // Animated glow effect
   useEffect(() => {
