@@ -12,7 +12,6 @@ const LetterJourney = dynamic(() => import('../components/LetterJourney'), { ssr
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLocked, setIsLocked] = useState(true);
-  const [isRipping, setIsRipping] = useState(false);
   const [currentPage, setCurrentPage] = useState('welcome');
   const [lettersCompleted, setLettersCompleted] = useState(0);
   const [isMusicEnabled, setIsMusicEnabled] = useState(false);
@@ -47,11 +46,7 @@ export default function Home() {
   };
 
   const handlePasswordSuccess = () => {
-    setIsRipping(true);
-    setTimeout(() => {
-      setIsLocked(false);
-      setIsRipping(false);
-    }, 1200);
+    setIsLocked(false);
   };
 
   if (isLoading) {
@@ -91,7 +86,6 @@ export default function Home() {
               <PasswordScreen 
                 key="password"
                 onSuccess={handlePasswordSuccess}
-                isRipping={isRipping}
               />
             </div>
           )}
