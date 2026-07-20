@@ -10,13 +10,13 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
   const [yesButtonSize, setYesButtonSize] = useState(1);
   const [yesClicks, setYesClicks] = useState(0);
-  const [noClicks, setNoClicks] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [floatingHearts, setFloatingHearts] = useState([]);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
+  // Only run on client
   useEffect(() => {
-    setIsMounted(true);
+    setIsClient(true);
     
     if (typeof window !== 'undefined') {
       const checkMobile = () => {
@@ -26,7 +26,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
       window.addEventListener('resize', checkMobile);
       
       const hearts = [];
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 20; i++) {
         hearts.push({
           id: i,
           x: Math.random() * 100,
@@ -44,15 +44,12 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   }, []);
 
   const handleNoClick = () => {
-    // On mobile, tapping "No" triggers the crying Quby
     if (isMobile) {
       setShowCryingQuby(true);
-      setNoClicks(prev => prev + 1);
     }
   };
 
   const handleNoHover = () => {
-    // On desktop, the button runs away
     if (!isMobile && !showCryingQuby) {
       const newX = (Math.random() - 0.5) * 250;
       const newY = (Math.random() - 0.5) * 250;
@@ -79,7 +76,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
 
   const handleGoBackAndAccept = () => {
     setShowCryingQuby(false);
-    // Make the Yes button bigger to encourage clicking it
     setYesButtonSize(prev => prev + 0.5);
     setYesClicks(prev => prev + 5);
   };
@@ -138,7 +134,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           transition={{ duration: 0.8 }}
           className="relative z-10 text-center max-w-2xl"
         >
-          {/* QUBY DANCING GIF */}
           <div className="mb-6 animate-bounce">
             <img 
               src="/images/milk-and-mocha-bears.gif" 
@@ -160,7 +155,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           </h2>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative">
-            {/* Yes Button */}
             <button
               onClick={handleYesClick}
               className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl hover:shadow-rose-glow transition-all duration-200 hover:scale-105 active:scale-95"
@@ -172,9 +166,8 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
               Yes Please 💕
             </button>
 
-            {/* No Button - Desktop: runs away, Mobile: shows crying Quby */}
             <button
-              onClick={isMobile ? handleNoClick : undefined}
+              onClick={isClient && isMobile ? handleNoClick : undefined}
               onMouseEnter={!isMobile ? handleNoHover : undefined}
               className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white/70 rounded-full font-medieval text-xl border border-white/20 hover:bg-white/20 active:bg-white/30 transition-all duration-200"
               style={{
@@ -197,7 +190,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     );
   }
 
-  // Crying Quby Popup - On mobile when "No" is tapped
+  // Crying Quby Popup
   if (showCryingQuby) {
     return (
       <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
@@ -210,7 +203,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           className="relative z-10 text-center max-w-2xl w-full"
         >
           <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20">
-            {/* Crying Quby */}
             <div className="mb-6">
               <img 
                 src="/images/crying-quby.gif" 
