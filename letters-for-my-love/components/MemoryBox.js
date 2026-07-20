@@ -1,3 +1,4 @@
+'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -28,7 +29,6 @@ export default function MemoryBox({ onBack }) {
   return (
     <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red overflow-y-auto py-8 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -51,7 +51,6 @@ export default function MemoryBox({ onBack }) {
           </p>
         </motion.div>
 
-        {/* Tabs */}
         <div className="flex justify-center gap-2 mb-8 flex-wrap">
           {['letters', 'photos', 'audio', 'videos'].map((tab) => (
             <button
@@ -71,7 +70,6 @@ export default function MemoryBox({ onBack }) {
           ))}
         </div>
 
-        {/* Content */}
         <AnimatePresence mode="wait">
           {activeTab === 'letters' && (
             <motion.div
@@ -217,7 +215,6 @@ export default function MemoryBox({ onBack }) {
         </AnimatePresence>
       </div>
 
-      {/* Letter Detail Modal */}
       <AnimatePresence>
         {selectedLetter && (
           <div
@@ -283,4 +280,4 @@ export default function MemoryBox({ onBack }) {
       </AnimatePresence>
     </div>
   );
-                }
+}
