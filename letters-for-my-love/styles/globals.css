@@ -8,7 +8,9 @@
   }
   
   body {
-    @apply bg-cream text-dark-charcoal antialiased;
+    @apply bg-dark-red text-white antialiased;
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -22,23 +24,23 @@
   }
 }
 
-/* Custom scrollbar - Purple theme */
+/* Custom scrollbar - Red theme */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-cream;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #6C2BD9;
+  background: #EC5598;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9B5DE5;
+  background: #CC0000;
 }
 
 /* Animations */
@@ -64,48 +66,9 @@
 
 @keyframes pulseGlow {
   0%, 100% {
-    box-shadow: 0 0 60px rgba(108, 43, 217, 0.4);
+    box-shadow: 0 0 60px rgba(204, 0, 0, 0.4);
   }
   50% {
-    box-shadow: 0 0 100px rgba(108, 43, 217, 0.7);
-  }
-}
-
-@layer utilities {
-  .bg-cream {
-    background-color: #FFF8F0;
-  }
-  .bg-warm-white {
-    background-color: #FFFAF7;
-  }
-  .bg-royal-purple {
-    background-color: #6C2BD9;
-  }
-  .bg-deep-purple {
-    background-color: #3B1A6B;
-  }
-  .bg-dark-purple {
-    background-color: #1A0A33;
-  }
-  .bg-light-purple {
-    background-color: #B49BDF;
-  }
-  .bg-lavender {
-    background-color: #E8D9F5;
-  }
-  .bg-amethyst {
-    background-color: #9B5DE5;
-  }
-  .text-royal-purple {
-    color: #6C2BD9;
-  }
-  .text-deep-purple {
-    color: #3B1A6B;
-  }
-  .text-light-purple {
-    color: #B49BDF;
-  }
-  .text-amethyst {
-    color: #9B5DE5;
+    box-shadow: 0 0 100px rgba(204, 0, 0, 0.7);
   }
 }
