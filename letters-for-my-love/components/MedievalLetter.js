@@ -22,8 +22,7 @@ export default function MedievalLetter({ letter, letterNumber, totalLetters, onC
         // ENVELOPE - Medieval Style
         // ============================================
         <motion.div
-          className="relative cursor-pointer mx-auto"
-          style={{ width: '340px', height: '240px' }}
+          className="relative cursor-pointer mx-auto w-full max-w-[340px] aspect-[340/240]"
           onClick={handleOpen}
           whileHover={{ scale: 1.02 }}
         >
