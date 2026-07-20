@@ -1,47 +1,59 @@
 'use client';
-import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) {
   const [showQuestion, setShowQuestion] = useState(true);
   const [showGiftReveal, setShowGiftReveal] = useState(false);
   const [showMusicPrompt, setShowMusicPrompt] = useState(false);
+  const [showCryingQuby, setShowCryingQuby] = useState(false);
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
   const [yesButtonSize, setYesButtonSize] = useState(1);
   const [yesClicks, setYesClicks] = useState(0);
+  const [noClicks, setNoClicks] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [floatingHearts, setFloatingHearts] = useState([]);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+    
     if (typeof window !== 'undefined') {
       const checkMobile = () => {
         setIsMobile(window.innerWidth < 768);
       };
       checkMobile();
       window.addEventListener('resize', checkMobile);
+      
+      const hearts = [];
+      for (let i = 0; i < 30; i++) {
+        hearts.push({
+          id: i,
+          x: Math.random() * 100,
+          delay: Math.random() * 5,
+          duration: Math.random() * 10 + 6,
+          size: Math.random() * 45 + 15,
+          opacity: Math.random() * 0.5 + 0.2,
+          rotation: Math.random() * 360,
+        });
+      }
+      setFloatingHearts(hearts);
+      
       return () => window.removeEventListener('resize', checkMobile);
     }
   }, []);
 
-  useEffect(() => {
-    const hearts = [];
-    // Reduced hearts for better performance
-    for (let i = 0; i < 30; i++) {
-      hearts.push({
-        id: i,
-        x: Math.random() * 100,
-        delay: Math.random() * 5,
-        duration: Math.random() * 10 + 6,
-        size: Math.random() * 45 + 15,
-        opacity: Math.random() * 0.5 + 0.2,
-        rotation: Math.random() * 360,
-      });
+  const handleNoClick = () => {
+    // On mobile, tapping "No" triggers the crying Quby
+    if (isMobile) {
+      setShowCryingQuby(true);
+      setNoClicks(prev => prev + 1);
     }
-    setFloatingHearts(hearts);
-  }, []);
+  };
 
   const handleNoHover = () => {
-    if (!isMobile) {
+    // On desktop, the button runs away
+    if (!isMobile && !showCryingQuby) {
       const newX = (Math.random() - 0.5) * 250;
       const newY = (Math.random() - 0.5) * 250;
       setNoButtonPosition({ x: newX, y: newY });
@@ -63,6 +75,13 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
         setShowMusicPrompt(true);
       }, 3000);
     });
+  };
+
+  const handleGoBackAndAccept = () => {
+    setShowCryingQuby(false);
+    // Make the Yes button bigger to encourage clicking it
+    setYesButtonSize(prev => prev + 0.5);
+    setYesClicks(prev => prev + 5);
   };
 
   const handleMusicChoice = (choice) => {
@@ -120,12 +139,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           className="relative z-10 text-center max-w-2xl"
         >
           {/* QUBY DANCING GIF */}
-          <div
-            className="mb-6"
-            style={{
-              animation: 'bounce 2s ease-in-out infinite',
-            }}
-          >
+          <div className="mb-6 animate-bounce">
             <img 
               src="/images/milk-and-mocha-bears.gif" 
               alt="Quby Dancing"
@@ -146,7 +160,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           </h2>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative">
-            {/* Yes Button - CSS only, NO motion.button */}
+            {/* Yes Button */}
             <button
               onClick={handleYesClick}
               className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl hover:shadow-rose-glow transition-all duration-200 hover:scale-105 active:scale-95"
@@ -158,9 +172,9 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
               Yes Please 💕
             </button>
 
-            {/* No Button - CSS only, NO motion.button */}
+            {/* No Button - Desktop: runs away, Mobile: shows crying Quby */}
             <button
-              onClick={isMobile ? handleYesClick : undefined}
+              onClick={isMobile ? handleNoClick : undefined}
               onMouseEnter={!isMobile ? handleNoHover : undefined}
               className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white/70 rounded-full font-medieval text-xl border border-white/20 hover:bg-white/20 active:bg-white/30 transition-all duration-200"
               style={{
@@ -178,6 +192,52 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
               You've chased the button {yesClicks} times! 😄
             </p>
           )}
+        </motion.div>
+      </div>
+    );
+  }
+
+  // Crying Quby Popup - On mobile when "No" is tapped
+  if (showCryingQuby) {
+    return (
+      <div className="fixed inset-0 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red flex items-center justify-center px-4 overflow-hidden">
+        <FloatingHearts />
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="relative z-10 text-center max-w-2xl w-full"
+        >
+          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20">
+            {/* Crying Quby */}
+            <div className="mb-6">
+              <img 
+                src="/images/crying-quby.gif" 
+                alt="Crying Quby"
+                className="w-48 h-48 md:w-56 md:h-56 object-contain mx-auto"
+              />
+            </div>
+
+            <h2 className="font-cursive text-3xl text-white mb-4">
+              😢 Aww, don't say no!
+            </h2>
+            
+            <p className="text-white/70 text-lg mb-8 font-light">
+              Quby is sad... Please accept the gift! 💝
+            </p>
+
+            <button
+              onClick={handleGoBackAndAccept}
+              className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl hover:shadow-rose-glow transition-all duration-200 hover:scale-105 active:scale-95"
+            >
+              Go Back & Accept 💕
+            </button>
+
+            <p className="text-white/30 text-xs mt-4 font-light">
+              (Don't make Quby cry again! 😅)
+            </p>
+          </div>
         </motion.div>
       </div>
     );
