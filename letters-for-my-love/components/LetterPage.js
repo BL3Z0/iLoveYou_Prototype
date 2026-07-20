@@ -14,7 +14,7 @@ export default function LetterPage({ letter, letterNumber, totalLetters, onConti
       transition={{ duration: 0.4 }}
       className="w-full max-w-3xl mx-auto px-3 md:px-0"
     >
-      <div className="backdrop-blur-xl bg-white/10 rounded-2xl md:rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
+      <div className="backdrop-blur-xl bg-white/10 rounded-2xl md:rounded-3xl border border-white/20 shadow-2xl overflow-hidden relative">
         {/* Glass shimmer overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5 pointer-events-none" />
         
