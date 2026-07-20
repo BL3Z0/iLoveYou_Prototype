@@ -2,11 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost'],
-    unoptimized: true // This helps with Vercel deployment
+    domains: ['localhost', 'images.unsplash.com'],
+    unoptimized: true,
   },
   trailingSlash: true,
-  output: 'standalone', // Better for Vercel
+  output: 'standalone',
 }
 
 module.exports = nextConfig
