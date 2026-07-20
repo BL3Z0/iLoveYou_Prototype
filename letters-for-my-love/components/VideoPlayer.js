@@ -1,24 +1,20 @@
-// Create placeholder - Copy full code from the guide 
-// components/VideoPlayer.js
+'use client';
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function VideoPlayer({ src }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
 
   const openModal = () => {
     setIsOpen(true);
     setTimeout(() => {
       videoRef.current?.play();
-      setIsPlaying(true);
     }, 300);
   };
 
   const closeModal = () => {
     videoRef.current?.pause();
-    setIsPlaying(false);
     setIsOpen(false);
   };
 
@@ -26,11 +22,11 @@ export default function VideoPlayer({ src }) {
     <>
       <button
         onClick={openModal}
-        className="w-full aspect-video bg-gradient-to-br from-rose-100 to-rose-200 rounded-xl flex items-center justify-center hover:shadow-lg transition-shadow"
+        className="w-full aspect-video bg-gradient-to-br from-rose-pink/20 to-shiny-red/20 rounded-xl flex items-center justify-center hover:shadow-lg transition-shadow border border-white/10"
       >
         <div className="text-center">
           <div className="text-5xl mb-2">▶️</div>
-          <p className="text-rose-600 font-medium">Click to watch</p>
+          <p className="text-rose-pink font-medium">Click to watch</p>
         </div>
       </button>
 
@@ -59,7 +55,7 @@ export default function VideoPlayer({ src }) {
               />
               <button
                 onClick={closeModal}
-                className="absolute -top-10 right-0 text-white hover:text-rose-300 transition-colors"
+                className="absolute -top-10 right-0 text-white hover:text-rose-pink transition-colors"
               >
                 ✕ Close
               </button>
