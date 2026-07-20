@@ -14,7 +14,6 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
   const [floatingHearts, setFloatingHearts] = useState([]);
   const [isClient, setIsClient] = useState(false);
 
-  // Only run on client
   useEffect(() => {
     setIsClient(true);
     
@@ -43,7 +42,10 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     }
   }, []);
 
-  const handleNoClick = () => {
+  // Immediate response for No button on mobile
+  const handleNoClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (isMobile) {
       setShowCryingQuby(true);
     }
@@ -59,7 +61,9 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     }
   };
 
-  const handleYesClick = () => {
+  const handleYesClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     requestAnimationFrame(() => {
       if (!isMobile) {
         setYesButtonSize(prev => prev + 0.2);
@@ -74,7 +78,9 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
     });
   };
 
-  const handleGoBackAndAccept = () => {
+  const handleGoBackAndAccept = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     setShowCryingQuby(false);
     setYesButtonSize(prev => prev + 0.5);
     setYesClicks(prev => prev + 5);
@@ -155,6 +161,7 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
           </h2>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative">
+            {/* Yes Button */}
             <button
               onClick={handleYesClick}
               className="px-10 py-4 bg-gradient-to-r from-rose-pink to-shiny-red text-white rounded-full font-medieval text-xl shadow-2xl hover:shadow-rose-glow transition-all duration-200 hover:scale-105 active:scale-95"
@@ -166,14 +173,16 @@ export default function WelcomePage({ onMusicChoice, onBegin, isMusicEnabled }) 
               Yes Please 💕
             </button>
 
+            {/* No Button - Immediate response */}
             <button
-              onClick={isClient && isMobile ? handleNoClick : undefined}
+              onClick={handleNoClick}
               onMouseEnter={!isMobile ? handleNoHover : undefined}
-              className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white/70 rounded-full font-medieval text-xl border border-white/20 hover:bg-white/20 active:bg-white/30 transition-all duration-200"
+              className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white/70 rounded-full font-medieval text-xl border border-white/20 hover:bg-white/20 active:bg-white/30 transition-all duration-200 touch-manipulation"
               style={{
                 transform: !isMobile ? `translate(${noButtonPosition.x}px, ${noButtonPosition.y}px)` : 'none',
                 transition: 'transform 0.15s ease',
                 cursor: isMobile ? 'pointer' : 'default',
+                touchAction: 'manipulation',
               }}
             >
               No Thanks 😅
