@@ -2,13 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import LoadingScreen from '../components/LoadingScreen';
-import PasswordScreen from '../components/PasswordScreen';
 import { AnimatePresence } from 'framer-motion';
 
 // Dynamically import components that use browser features
+const PasswordScreen = dynamic(() => import('../components/PasswordScreen'), { ssr: false });
 const WelcomePage = dynamic(() => import('../components/WelcomePage'), { ssr: false });
 const LetterJourney = dynamic(() => import('../components/LetterJourney'), { ssr: false });
-const MemoryBox = dynamic(() => import('../components/MemoryBox'), { ssr: false });
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -67,7 +66,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Background Music - No loop */}
+      {/* Background Music */}
       <audio 
         ref={audioRef}
         src="/audio/Shine_Bright_Like_A_Diamond.mp3"
@@ -76,13 +75,8 @@ export default function Home() {
 
       {/* Solid Red Background with gradient and shadows */}
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-dark-red via-deep-red to-shiny-red">
-        {/* Subtle shadow overlay for depth */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
-        
-        {/* Subtle vignette effect */}
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/30" />
-        
-        {/* Subtle texture overlay - optional */}
         <div className="absolute inset-0 opacity-5" style={{
           backgroundImage: 'radial-gradient(circle at 20% 30%, white 1px, transparent 1px)',
           backgroundSize: '40px 40px',
